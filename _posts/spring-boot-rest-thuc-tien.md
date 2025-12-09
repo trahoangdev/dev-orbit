@@ -1,6 +1,6 @@
 ---
-title: "Spring Boot REST API: Những sai lầm 'chí mạng' của Newbie"
-excerpt: "Đừng chỉ trả về 200 OK cho mọi thứ. Học cách xây dựng REST API chuẩn mực với DTO Pattern, Global Exception Handler và Response Wrapping."
+title: "Spring Boot REST API: Những sai lầm 'kém sang' cần loại bỏ ngay"
+excerpt: "Đừng chỉ trả về 200 OK cho mọi thứ. Học cách thiết kế REST API chuẩn mực với DTO, Global Exception Handler, N+1 Prevention và Response Wrapper."
 coverImage: "/assets/blog/preview/spring-boot-rest-thuc-tien.png"
 date: "2025-12-07"
 author:
@@ -8,120 +8,125 @@ author:
   picture: "/assets/blog/authors/tra.png"
 ogImage:
   url: "/assets/blog/preview/spring-boot-rest-thuc-tien.png"
-tags: ["java", "spring-boot", "backend", "api"]
+tags: ["java", "spring-boot", "backend", "api", "best-practices"]
 ---
 
-Khi mới học Spring Boot, chúng ta thường viết Controller kiểu "mì ăn liền": Gọi Repository, lấy Entity, trả về `ResponseEntity.ok(entity)`. Chạy ngon lành!
+Khi mới học Spring Boot, chúng ta thường viết Controller kiểu "mì ăn liền": Gọi Repository, lấy Entity, rồi `return` thẳng cái Entity đó ra ngoài. Client nhận được JSON, mọi thứ chạy ngon lành.
 
-Nhưng trong dự án thực tế, cách làm này chứa đựng vô số rủi ro. Hãy cùng xem các sai lầm phổ biến và các Best Practices (RESTful Design) mà mọi Backend Dev cần biết.
+Nhưng trong môi trường Production, cách làm này chứa đựng những quả bom nổ chậm. Hãy cùng điểm mặt những sai lầm phổ biến và cách khắc phục để code "sang" và chuyên nghiệp hơn.
 
-## 1. Anti-Pattern: Expose Entity trực tiếp ra API
-**Sai lầm:** Trả về trực tiếp `@Entity` (JPA Entity) cho Client.
+## 1. Anti-Pattern: Trả Entity trực tiếp ra API
+
+❌ **Sai lầm:**
 ```java
 @GetMapping("/{id}")
 public User getUser(@PathVariable Long id) {
-    return userRepository.findById(id).get(); // Rủi ro NoSuchElementException
+    return userRepository.findById(id).get();
 }
 ```
 
-**Hậu quả:**
-*   **Leak Security Info:** Mật khẩu hash, lương, thông tin audit (`created_by`, `modified_date`) bị lộ.
-*   **Infinite Recursion:** Nếu Entity có quan hệ 2 chiều (`User <-> Order`), Jackson sẽ serialize vòng tròn -> StackOverflowError.
-*   **Tight Coupling:** Nếu bạn đổi tên cột trong DB, API response đổi theo -> vỡ Client App (Frontend/Mobile).
+**Tại sao sai?**
+1.  **Lộ thông tin nhạy cảm**: Entity thường chứa `passwordHash`, `salary`, `audit_logs`. Trả cả cục Entity là bạn đang "mời gọi" hacker.
+2.  **Infinite Recursion (Vòng lặp vô tận)**: Nếu User có list `Orders`, và Order lại trỏ ngược về `User`. Jackson (thư viện JSON) sẽ chạy vòng tròn đến khi tràn bộ nhớ (StackOverflowError).
+3.  **Tight Coupling**: API bị dính chặt vào cấu trúc Database. Sửa tên cột trong DB -> API đổi key -> Frontend/Mobile App crash.
 
-**Giải pháp: DTO (Data Transfer Object)**
-Luôn luôn map Entity sang DTO. DTO là POJO thuần túy, chỉ chứa field cần thiết.
+✅ **Giải pháp: DTO (Data Transfer Object)**
+Luôn dùng DTO - một POJO thuần túy, chỉ chứa những gì Client cần.
 ```java
-public class UserDTO {
+public class UserResponseDTO {
     private String username;
     private String email;
-    // Không bao gồm password
+    // Tuyệt đối không có password
 }
-// Dùng MapStruct hoặc ModelMapper để convert tự động
+// Dùng MapStruct để convert Entity -> DTO tự động 1 nốt nhạc
 ```
 
-## 2. N+1 Query Problem: Sát thủ hiệu năng
-Đây là vấn đề kinh điển của ORM (Hibernate).
-Khi bạn lấy list 10 `Orders`, mặc định `Customer` bên trong là Lazy Loading.
-Khi vòng lặp chạy và gọi `order.getCustomer().getName()`:
-*   1 câu SQL lấy 10 Orders.
-*   10 câu SQL (N) để lấy Customer cho TỪNG Order.
-=> Tổng cộng 11 query. Nếu list 1.000 dòng -> 1.001 query -> Database "ngất".
+## 2. N+1 Query Problem: Sát thủ hiệu năng thầm lặng
 
-**Giải pháp:**
-Dùng `JOIN FETCH` trong JPQL hoặc `@EntityGraph` để lấy dữ liệu trong **1 query duy nhất**.
+Dùng Hibernate/JPA rất sướng, nhưng coi chừng.
+Giả sử bạn lấy danh sách 10 `Orders`. Mỗi Order có 1 `createBy` (User). Mặc định là Lazy Loading.
+Khi vòng lặp chạy biến đổi sang JSON:
+*   1 Query lấy List Order.
+*   Với mỗi Order, Hibernate lén chạy thêm 1 Query lấy User.
+-> Tổng: 1 + 10 = 11 queries.
+Nếu List có 1000 item -> **1001 queries**. Database quá tải ngay lập tức.
+
+✅ **Giải pháp:**
+Sử dụng `JOIN FETCH` trong câu JPQL để lấy tất cả trong **1 query duy nhất**.
 ```java
-@Query("SELECT o FROM Order o JOIN FETCH o.customer")
-List<Order> findAllWithCustomer();
+@Query("SELECT o FROM Order o JOIN FETCH o.createBy")
+List<Order> findAllWithUser();
 ```
 
-## 3. Validation: Đừng tin tưởng Client
-Đừng bao giờ check `if (user.getEmail() == null)` thủ công. Hãy dùng **Bean Validation (Hibernate Validator)**.
+## 3. Validation: Đừng check null thủ công
 
+Đừng viết những dòng code dài dòng dở hơi này:
+```java
+if (req.getUsername() == null || req.getUsername().isEmpty()) {
+    return ResponseEntity.badRequest().body("Username thieu");
+}
+```
+
+✅ **Giải pháp: Bean Validation (Hibernate Validator)**
+Khai báo luật ngay trên DTO:
 ```java
 public class CreateUserReq {
-    @NotNull(message = "Username cannot be null")
-    @Size(min = 3, max = 50)
+    @NotBlank(message = "Username không được để trống")
+    @Size(min = 6, message = "Tối thiểu 6 ký tự")
     private String username;
 
-    @Email(message = "Email invalid")
+    @Email
     private String email;
 }
 
 // Controller
-public ResponseEntity<?> create(@Valid @RequestBody CreateUserReq req) { ... }
+public void create(@Valid @RequestBody CreateUserReq req) { ... }
 ```
-Nếu dữ liệu sai, Spring sẽ ném `MethodArgumentNotValidException` tự động.
+Spring tự động validate, nếu sai sẽ ném Exception. Code logic sạch bong!
 
-## 4. HTTP Status Code: Đừng trả về 200 cho mọi thứ
-Nhiều hệ thống cũ trả về `{ "code": 500, "message": "error" }` nhưng HTTP Header vẫn là **200 OK**. Điều này sai chuẩn REST và gây khó khăn cho monitoring tools.
+## 4. HTTP Status Code: Đừng trả 200 cho lỗi
 
-Hãy dùng đúng code:
-*   **200 OK**: Thành công (GET, PUT).
-*   **201 Created**: Tạo mới thành công (POST).
-*   **204 No Content**: Xóa thành công (DELETE).
-*   **400 Bad Request**: Input sai (Validation error).
-*   **401 Unauthorized**: Chưa login.
-*   **403 Forbidden**: Login rồi nhưng không có quyền.
-*   **404 Not Found**: ID không tồn tại.
-*   **500 Internal Server Error**: Bug server.
+Rất nhiều hệ thống (đặc biệt là dân tay ngang) thích trả về `{ "code": 500, "mess": "Lỗi rồi" }` nhưng HTTP Header vẫn để là **200 OK**.
+Điều này làm hỏng ý nghĩa của REST và gây khó khăn cho monitoring tools.
 
-## 5. Global Exception Handling
-Thay vì `try-catch` trong mọi Controller, hãy dùng `@RestControllerAdvice`. Đây là AOP (Aspect Oriented Programming) giúp tách biệt code xử lý lỗi ra khỏi logic nghiệp vụ.
+✅ **Hãy dùng đúng semantic:**
+*   **200 OK**: Thành công.
+*   **201 Created**: Tạo mới (POST) ok.
+*   **204 No Content**: Xóa (DELETE) ok, không có gì trả về.
+*   **400 Bad Request**: Validation lỗi, Input sai.
+*   **401 Unauthorized**: Chưa login / Token hết hạn.
+*   **403 Forbidden**: Login rồi nhưng không đủ quyền (User đòi vào trang Admin).
+*   **404 Not Found**: Tìm ID không thấy.
+*   **500 Internal Server Error**: Code server bị bug (NullPointer...).
+
+## 5. Global Exception Handler: Gom lỗi về một mối
+
+Thay vì try-catch chi chít trong từng Controller, hãy sử dụng `@RestControllerAdvice`.
 
 ```java
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
+    // Bắt lỗi không tìm thấy
     @ExceptionHandler(ResourceNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ErrorResponse handleNotFound(ResourceNotFoundException ex) {
+    public ErrorResponse handleNotFound(Exception ex) {
         return new ErrorResponse(404, ex.getMessage());
     }
-    
-    // Bắt lỗi Validation
+
+    // Bắt lỗi Validation (400)
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public Map<String, String> handleValidation(MethodArgumentNotValidException ex) {
-        Map<String, String> errors = new HashMap<>();
-        ex.getBindingResult().getFieldErrors().forEach(error -> 
-            errors.put(error.getField(), error.getDefaultMessage()));
-        return errors;
+        // Map field lỗi -> message lỗi
+        return ex.getBindingResult().getFieldErrors().stream()
+                 .collect(Collectors.toMap(FieldError::getField, FieldError::getDefaultMessage));
     }
 }
 ```
-
-## 6. Pagination & Filtering
-Đừng bao giờ trả về `List<User>` (findAll) nếu bảng có > 100 dòng. Hãy luôn dùng `Pageable`.
-
-```java
-// Controller
-public Page<UserDTO> getAll(Pageable pageable) {
-    return userService.findAll(pageable);
-}
-// Client gọi: /api/users?page=0&size=10&sort=name,desc
-```
-Spring Data JPA hỗ trợ việc này tận răng, bạn không cần viết SQL `LIMIT OFFSET`.
+Giờ đây Controller của bạn chỉ tập trung vào Happy Path, còn lỗi lầm cứ ném exception ra, có người lo hết.
 
 ## Tổng kết
-Viết API thì dễ (AI viết hộ cũng được), nhưng thiết kế API **Robust (Bền vững)**, an toàn và dễ bảo trì là câu chuyện khác. Hãy áp dụng các quy tắc trên ngay từ hôm nay để nâng tầm Project của bạn!
+
+REST API không chỉ là URL. Nó là hợp đồng (Contract) giữa Frontend và Backend. Một API tốt phải **Predictable** (dễ đoán), **Secure** (An toàn) và **Efficient** (Hiệu quả).
+Áp dụng những tips trên sẽ giúp bạn thoát kiếp "Newbie" và tiến gần hơn tới chuẩn Enterprise.

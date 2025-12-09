@@ -1,6 +1,6 @@
 ---
-title: "TypeScript cho JS Dev: Từ 'Any' đến 'Type Hero'"
-excerpt: "Đừng dùng TypeScript như 'JavaScript có chú thích'. Tìm hiểu về Generics, Utility Types (Partial, Pick) và tại sao 'any' là kẻ thù của dự án."
+title: "TypeScript cho JS Dev: Từ 'AnyScript' đến 'Type Hero'"
+excerpt: "Đừng biến TypeScript thành 'AnyScript'. Hướng dẫn toàn diện về Generics, Utility Types (Pick, Omit), kỹ thuật Type Narrowing và tại sao bạn cần bỏ ngay thói quen dùng 'as'."
 coverImage: "/assets/blog/preview/js-to-ts.png"
 date: "2025-12-08"
 author:
@@ -8,112 +8,94 @@ author:
   picture: "/assets/blog/authors/tra.png"
 ogImage:
   url: "/assets/blog/preview/js-to-ts.png"
-tags: ["typescript", "javascript", "frontend"]
+tags: ["typescript", "javascript", "frontend", "tips"]
 ---
 
-Nhiều bạn chuyển từ JS sang TS và code như sau:
-```typescript
-function processData(data: any): any { ... }
-```
-Đây gọi là **"AnyScript"**, không phải TypeScript. Dùng `any` đồng nghĩa với việc bạn tắt bỏ bộ kiểm tra của TS, và chấp nhận rủi ro runtime error quay trở lại.
+Rất nhiều bạn (trong đó có mình ngày xưa) khi chuyển từ JS sang TS thường code kiểu đối phó: Gặp lỗi đỏ -> thêm `: any` -> hết lỗi -> deploy.
+Chúc mừng, bạn vừa viết ra **"AnyScript"**, một ngôn ngữ vừa dài dòng vừa vô dụng, không tận dụng được chút sức mạnh nào của TypeScript cả.
 
-Hãy cùng nâng trình TypeScript lên level tiếp theo.
+Bài viết này sẽ giúp bạn nâng trình TS, viết code type-safe thực thụ.
 
-## 1. Interface vs Type Alias: Cuộc chiến không hồi kết
+## 1. Interface vs Type: Khác gì nhau?
 
-Về cơ bản chúng giống nhau 90%, nhưng có sự khác biệt tinh tế:
+Đây là câu hỏi phỏng vấn kinh điển.
 *   **Interface**:
-    *   Tốt cho **OOP**: `class UserImpl implements IUser`.
-    *   **Declaration Merging**: Nếu khai báo 2 interface cùng tên, TS sẽ tự gộp lại. (Cực hữu ích khi viết thư viện hoặc mở rộng `Window` object).
-*   **Type**:
-    *   Linh hoạt hơn (Powerful).
-    *   Hỗ trợ **Union Types** (`string | number`), **Primitive Types**, **Tuple**.
-    *   Không thể merge.
+    *   Thiên về OOP (`class A implements B`).
+    *   Có khả năng **Declaration Merging** (Gộp định nghĩa). Nếu bạn khai báo `interface User` 2 lần, TS sẽ tự gộp các field lại làm 1. Điều này cực quan trọng khi viết Library.
+*   **Type Alias**:
+    *   Linh hoạt hơn.
+    *   Định nghĩa được **Union Type** (`type Status = 'active' | 'inactive'`).
+    *   Định nghĩa **Primitive** (`type ID = string | number`).
+    *   Định nghĩa **Tuple** (`type Point = [x: number, y: number]`).
 
-> **Lời khuyên:** Dùng `interface` cho Object/Class definition (public API). Dùng `type` cho Function signature, Union, và các logic biến đổi type phức tạp.
+> **Tip:** Dùng `interface` cho Object/Class public. Dùng `type` cho Function, Union và các biến thể phức tạp.
 
-## 2. Generics: Viết code tái sử dụng đỉnh cao
+## 2. Generics: Siêu nhân tái sử dụng
 
-Generics cho phép bạn viết 1 hàm/class xử lý được nhiều kiểu dữ liệu khác nhau mà vẫn giữ được Type Safety. Nó giống như "tham số" cho kiểu dữ liệu.
+Generics giống như "tham số" dành cho kiểu dữ liệu. Nó giúp function hoạt động với nhiều kiểu dữ liệu khác nhau mà vẫn giữ type chặt chẽ.
 
 ```typescript
-// T là một biến kiểu dữ liệu (Type variable)
-function wrapInArray<T>(item: T): T[] {
-    return [item];
+// T là một biến type (Type variable)
+function wrapResponse<T>(data: T) {
+    return {
+        code: 200,
+        message: 'Success',
+        result: data
+    };
 }
 
-const strArr = wrapInArray("Hello"); // TS tự hiểu T là string -> trả về string[]
-const numArr = wrapInArray(123);     // TS tự hiểu T là number -> trả về number[]
+const userRes = wrapResponse<User>(userData); // result sẽ là User
+const listRes = wrapResponse<Post[]>(postData); // result sẽ là Post[]
 ```
-**Ứng dụng thực tế:** API Response Wrapper.
-```typescript
-interface ApiResponse<T> {
-    status: number;
-    message: string;
-    data: T;
-}
+Nếu không dùng Generics, bạn sẽ phải viết `wrapResponseUser`, `wrapResponsePost`... hoặc dùng `any` (tệ hại).
 
-// Khi dùng:
-const userRes: ApiResponse<User> = ...;
-const postRes: ApiResponse<Post[]> = ...;
-```
+## 3. Utility Types: Vũ khí bí mật
 
-## 3. Utility Types: "Vũ khí" có sẵn
+TS cung cấp một kho vũ khí hạng nặng để biến đổi type (Type Transformation). Đừng bao giờ định nghĩa lại từ đầu.
 
-TypeScript cung cấp sẵn nhiều Utility Types cực mạnh để biến đổi type mà không cần viết lại từ đầu:
+*   `Partial<T>`: Biến tất cả field thành optional `?`. (Dùng cho hàm update 1 phần dữ liệu).
+*   `Required<T>`: Ngược lại, bắt buộc tất cả.
+*   `Pick<T, 'key1' | 'key2'>`: Chọn vài field để tạo type mới. (Tạo DTO từ Entity).
+*   `Omit<T, 'password'>`: Loại bỏ field password. (Cực hay dùng).
+*   `Record<Key, Value>`: Định nghĩa Map/Dictionary Object. Thay vì viết `object` chung chung, hãy viết `Record<string, number>` (Map key string -> value number).
 
-*   **Partial<T>**: Biến mọi field thành optional (`?`). (Dùng cho hàm update).
-*   **Required<T>**: Ngược lại với Partial, bắt buộc mọi field.
-*   **Pick<T, K>**: Chỉ lấy vài field K từ T. (Tạo DTO).
-*   **Omit<T, K>**: Bỏ đi vài field K từ T. (Ví dụ bỏ `password` khỏi object `User`).
-*   **Record<K, T>**: Định nghĩa object map. `Record<string, number>` tương đương `{ [key: string]: number }`. (Rất hay dùng thay cho `object`). (Ví dụ: config map, cache).
+## 4. Discriminated Unions (Type Narrowing)
 
-## 4. Union Types & Type Narrowing (Discriminated Unions)
-
-Sức mạnh thực sự của TS nằm ở việc xử lý logic rẽ nhánh.
+Đây là pattern mạnh nhất của TS xử lý logic rẽ nhánh, thay thế hoàn toàn cờ hiệu `boolean`.
 
 ```typescript
 type Response = 
-  | { status: 'SUCCESS'; data: User } 
-  | { status: 'ERROR'; error: string };
+  | { state: 'LOADING' } 
+  | { state: 'SUCCESS'; data: User } 
+  | { state: 'ERROR'; error: string };
 
-function handleResponse(res: Response) {
-    if (res.status === 'SUCCESS') {
-        // TS biết chắc chắn res.data tồn tại ở đây
-        console.log(res.data.name); 
+function render(res: Response) {
+    if (res.state === 'LOADING') {
+        // Ở đây TS biết chắc chắn không có data hay error
+        showLoader();
+    } else if (res.state === 'SUCCESS') {
+        // TS biết chắc chắn có res.data. Tuyệt vời!
+        showUser(res.data); 
     } else {
-        // TS biết chắc chắn res.error tồn tại ở đây
-        console.error(res.error); 
+        // TS biết chắc chắn có res.error
+        showError(res.error);
     }
 }
 ```
-Pattern này gọi là **Discriminated Unions** (dựa vào 1 trường chung `status` để phân biệt). Cực kỳ an toàn và Clean code thay vì check null lung tung.
+Pattern này giúp code cực kỳ an toàn, không bao giờ truy cập nhầm biến (ví dụ access `data` khi đang `error`).
 
-## 5. Đừng bao giờ dùng `as` (Type Assertion) bừa bãi
+## 5. Đừng lạm dụng `as` (Type Assertion)
 
-`const user = {} as User;`
-
-Đây là lời nói dối với compiler: "Tao thề cái object rỗng này là User đấy, tin tao đi (trust me bro)".
-TS sẽ im lặng, nhưng khi chạy code: `user.name.toUpperCase()` sẽ crash runtime vì `name` là `undefined`.
-
-**Giải pháp:**
-*   Khai báo đúng ngay từ đầu: `const user: User = { name: '...', age: ... };`
-*   Nếu chưa có data, cho phép null: `const user: User | null = null;`
-
-## 6. Advanced: `keyof` và `typeof`
-
-*   `typeof`: Lấy type của một biến giá trị JS.
-    ```typescript
-    const config = { theme: 'dark', version: 1 };
-    type Config = typeof config; // { theme: string; version: number; }
-    ```
-*   `keyof`: Lấy danh sách key của type (thành Union string).
-    ```typescript
-    type ConfigKeys = keyof Config; // "theme" | "version"
-    ```
+```typescript
+const user = {} as User; // Cú lừa!
+user.name.toUpperCase(); // Runtime Error: undefined is not an object
+```
+`as` là cách bạn nói với Compiler: "Tao biết tao đang làm gì, im đi và tin tao". Nếu bạn sai, App nổ tung.
+**Tránh dùng `as` tối đa.** Hãy define type đúng ngay từ đầu hoặc dùng Type Guard.
 
 ## Tổng kết
 
-TypeScript không chỉ là công cụ bắt lỗi (Linter), nó là công cụ thiết kế (Design Tool). Viết Type tốt giúp bạn tư duy rõ ràng về **Data Flow** trước khi viết logic. Và quan trọng nhất: Nó là tài liệu sống (Documentation) tuyệt vời nhất cho team của bạn.
+TypeScript không chỉ là công cụ bắt lỗi chính tả. Nó là công cụ **Thiết kế (Design)**.
+Viết Type tốt giúp bạn tư duy rõ ràng về luồng dữ liệu (Data Flow) trước cả khi viết logic. Và quan trọng nhất: Type chính là tài liệu sống (Documentation) xịn nhất, không bao giờ lỗi thời.
 
-Loại bỏ `any`, ngủ ngon hơn! 😴
+Bỏ `any`, học generics, dùng utility types, và bạn sẽ thấy yêu TypeScript hơn bao giờ hết. Happy Coding! 🚀

@@ -1,6 +1,6 @@
 ---
-title: "Java Core: Clean Code & SOLID Principles thực chiến"
-excerpt: "Viết code chạy được là chưa đủ. Code phải 'sạch', dễ bảo trì và mở rộng. Cùng tìm hiểu SOLID, DRY, KISS và những nguyên tắc thiết kế OOP quan trọng."
+title: "Java Core: Clean Code & SOLID Principles - Code có Tâm và Tầm"
+excerpt: "Viết code chạy được là chưa đủ. Học cách áp dụng SOLID, DRY, KISS và Strategy Pattern để biến mớ code 'Spaghetti' thành kiến trúc nghệ thuật."
 coverImage: "/assets/blog/preview/java-core-oop.png"
 date: "2025-12-03"
 author:
@@ -8,119 +8,118 @@ author:
   picture: "/assets/blog/authors/tra.png"
 ogImage:
   url: "/assets/blog/preview/java-core-oop.png"
-tags: ["java", "oop", "clean-code"]
+tags: ["java", "oop", "clean-code", "architecture"]
 ---
 
-"Code thối" (Code smells) là thuật ngữ chỉ những đoạn code khó đọc, khó sửa, và dễ sinh bug. Để tránh trở thành "tác giả" của những đống code thối đó, lập trình viên Java cần nằm lòng các nguyên tắc thiết kế hướng đối tượng (OOP Design Principles).
+"Code thối" (Code smells) là cụm từ ám chỉ những đoạn mã rối rắm, khó đọc, khó bảo trì và là mầm mống của mọi con bug. Sự khác biệt giữa một Junior Dev "thợ code" và một Senior Engineer "nghệ nhân" không nằm ở việc ai gõ phím nhanh hơn, mà là ai thiết kế hệ thống **Bền vững (Maintainable)** hơn.
 
-Hôm nay, chúng ta không học lý thuyết suông. Chúng ta sẽ xem cách áp dụng vào thực tế với những ví dụ đau thương.
+Hôm nay, chúng ta sẽ "dọn dẹp" những thói quen xấu và áp dụng tư duy SOLID vào thực tế.
 
-## 1. Đa hình (Polymorphism) vs Câu lệnh IF/ELSE
+## 1. Đa hình (Polymorphism) thay thế IF/ELSE
 
-Nhiều bạn nghĩ Đa hình chỉ là học thuật. Nhưng sức mạnh thực sự của nó là giúp loại bỏ **Switch Case** hoặc chuỗi **If/Else** dài ngoằng.
+Đây là bài học vỡ lòng quan trọng nhất. Switch-Case hay If-Else dài dằng dặc là kẻ thù của sự mở rộng.
 
-**Bài toán:** Tính phí vận chuyển.
+**Bài toán:** Tính phí vận chuyển (Shipping Fee).
 
+### ❌ Cách làm thủ công (Procedural)
 ```java
-// ❌ Cách làm thủ công (Procedural)
 public class ShippingService {
-    public double calculateFee(String type) {
+    public double calculate(String type) {
         if (type.equals("STANDARD")) return 30000;
         else if (type.equals("EXPRESS")) return 50000;
-        else if (type.equals("GRAB")) return 70000;
-        // Mỗi lần thêm 1 loại ship mới, phải sửa class này -> Rủi ro bug
+        else if (type.equals("GRAB_BIKE")) return 15000; // Mới thêm
+        else if (type.equals("AHA_MOVE")) return 20000;  // Mới thêm
+        // ... Càng ngày càng dài, sửa ở đây rất dễ break logic cũ
         return 0;
     }
 }
 ```
+**Vấn đề**: Vi phạm nguyên tắc Open/Closed. Mỗi lần có đối tác mới, bạn phải sửa class cũ.
 
-**✅ Cách làm chuẩn OOP (Strategy Pattern):**
-
+### ✅ Cách làm chuẩn OOP (Strategy Pattern)
 ```java
+// 1. Định nghĩa Interface (Hợp đồng)
 public interface ShippingStrategy {
-    double calculate();
+    double calculate(double weight);
 }
 
+// 2. Chia nhỏ logic ra các class riêng biệt
 public class StandardShipping implements ShippingStrategy {
-    public double calculate() { return 30000; }
+    public double calculate(double weight) { return 30000; }
 }
 
 public class ExpressShipping implements ShippingStrategy {
-    public double calculate() { return 50000; }
+    public double calculate(double weight) { return 50000 + weight * 10; }
 }
 
-// Service cực kỳ sạch và tuân thủ Open/Closed
-public class ShippingService {
-    public double process(ShippingStrategy strategy) {
-        return strategy.calculate();
+// 3. Sử dụng (Dependency Injection)
+public class OrderService {
+    public double processOrder(Order order, ShippingStrategy shipping) {
+        // Class này KHÔNG CẦN BIẾT logic tính toán cụ thể bên trong
+        // Nó chỉ biết: "Ê strategy, tính tiền cho tao!"
+        return shipping.calculate(order.getWeight());
     }
 }
 ```
-Muốn thêm loại ship mới? Chỉ cần tạo class mới implement interface. Code cũ không cần đụng vào!
+-> Muốn thêm `GrabExpress`? Chỉ cần tạo class mới implement interface. Code cũ giữ nguyên 100%. An toàn tuyệt đối!
 
-## 2. SOLID: Kim chỉ nam cho mọi kiến trúc
+## 2. SOLID: 5 Nguyên tắc vàng
 
-### S - Single Responsibility Principle (Đơn nhiệm)
-Một class chỉ nên có **một lý do duy nhất để thay đổi**.
-*   **Sai:** Class `Order` chứa logic tính giá, lưu DB, gửi email, in hóa đơn.
-*   **Đúng:**
-    *   `Order`: Chỉ chứa dữ liệu (Entity).
-    *   `OrderRepository`: Lưu DB.
-    *   `OrderService`: Logic nghiệp vụ.
-    *   `EmailNotification`: Gửi mail.
+### S - Single Responsibility (Đơn nhiệm)
+Một class chỉ nên có **MỘT lý do duy nhất để thay đổi**.
+*   Đừng để class `User` vừa chứa thông tin User, vừa có hàm `saveToDatabase()`, vừa có hàm `sendEmail()`.
+*   Hãy tách ra: `User` (Entity), `UserRepository` (DB), `EmailService` (Mail).
 
-### O - Open/Closed Principle (Đóng/Mở)
-Mở rộng dễ dàng (Open for extension), nhưng hạn chế sửa đổi code cũ (Closed for modification). Ví dụ Strategy Pattern ở trên là minh chứng rõ nhất.
+### O - Open/Closed (Đóng/Mở)
+Open for Extension, Closed for Modification. (Ví dụ Strategy Pattern ở trên là minh chứng rõ nhất).
 
-### L - Liskov Substitution Principle (LSP)
-Class con phải thay thế được class cha mà không làm hỏng chương trình.
-**Ví dụ kinh điển:** Hình Vuông là con Hình Chữ Nhật?
-Trong toán học: Đúng.
-Trong OOP: **Sai!**
-```java
-// Nếu Square extends Rectangle
-Rectangle r = new Square();
-r.setWidth(5);
-r.setHeight(10); // Với Square, setHeight(10) sẽ đổi luôn width thành 10
-// -> r.area() trả về 100 thay vì 50. Logic sai hoàn toàn!
-```
-**Bài học:** Kế thừa phải dựa trên hành vi (behavior), không phải chỉ là cấu trúc,
+### L - Liskov Substitution (LSP)
+Class con phải thay thế hoàn toàn được class cha mà không làm hỏng chương trình.
+*   **Ví dụ sai:** `Square` extends `Rectangle`. Vì `setWidth` của hình vuông sẽ đổi luôn chiều cao -> Phá vỡ logic hình chữ nhật (chiều dài độc lập chiều rộng).
+*   **Bài học:** Kế thừa phải dựa trên **Hành vi (Behavior)** chứ không phải cấu trúc dữ liệu.
 
-### I - Interface Segregation Principle
-Đừng ép client implement những hàm mà họ không dùng.
-Thà có 3 interfaces nhỏ (`Readable`, `Writable`, `Executable`) còn hơn 1 interface khổng lồ (`GodInterface`).
+### I - Interface Segregation (Phân tách Interface)
+Đừng bắt cá leo cây. Đừng ép Client implement những hàm họ không dùng.
+*   ❌ `interface Animal { fly(); swim(); run(); }` -> Con Chó implement cái này thì phải implement `fly()` rỗng à?
+*   ✅ Tách nhỏ: `Flyable`, `Swimmable`, `Runnable`. Chó chỉ gán `Runnable`.
 
-### D - Dependency Inversion Principle
-Module cấp cao không nên phụ thuộc module cấp thấp. Cả hai nên phụ thuộc vào abstraction (Interface).
-*   **High-level:** `CustomerService` (Nghiệp vụ quan trọng).
-*   **Low-level:** `MySQLDriver`, `FileLogger` (Chi tiết kỹ thuật).
-*   **Abstraction:** `DatabaseConnection`, `Logger`.
-
-Nhờ nguyên lý này, ta mới có Spring Framework và cơ chế **Dependency Injection (DI)** thần thánh.
+### D - Dependency Inversion (Đảo ngược phụ thuộc)
+Module cấp cao không nên phụ thuộc module cấp thấp. Cả hai nên phụ thuộc vào **Abstraction (Interface)**.
+*   Service không nên gọi trực tiếp `MySQLDriver`.
+*   Service nên gọi `DatabaseConnection` interface. Sau này đổi sang `PostgreSQL` hay `MongoDB` thì Service không cần sửa 1 dòng code. -> Đây là cốt lõi của **Spring Framework (DI Container)**.
 
 ## 3. Composition over Inheritance (Ưu tiên Sắp xếp hơn Kế thừa)
 
-Kế thừa (`extends`) là con dao hai lưỡi. Nó tạo ra liên kết chặt chẽ (is-a relationship). Nếu class Cha thay đổi, toàn bộ cây gia phả bị ảnh hưởng (Fragile Base Class problem).
-Hơn nữa, Java chỉ hỗ trợ đơn kế thừa. Bạn đã extends `BaseController` thì không thể extends `BaseEntity` nữa.
+`extends` tạo ra sự kết dính chết người (Tight Coupling). Con phụ thuộc chặt vào Cha. Thay đổi ở Cha có thể làm chết Con (Fragile Base Class).
+Và Java chỉ cho đơn kế thừa. Nếu `User` extends `BaseEntity` rồi thì không thể extends `SystemUser` được nữa.
 
-Hầu hết các trường hợp, hãy dùng **Composition** (has-a relationship).
-*   Thay vì `class Customer extends Loggable`, hãy dùng `class Customer` chứa một field `private Logger logger`. 
-*   Linh hoạt thay đổi hành vi lúc runtime (Dependency Injection).
+**Giải pháp: Composition (Chứa đựng)**
+Thay vì "Là một" (Is-A), hãy dùng "Có một" (Has-A).
+```java
+// Thay vì class User extends Logger (Sai)
+class User {
+    private final Logger logger; // Composition (Đúng)
+    // Dễ dàng thay thế Logger này bằng FileLogger, ConsoleLogger lúc runtime
+}
+```
 
-## 4. DRY & KISS
+## 4. DRY & KISS: Đơn giản là vĩ đại
 
-*   **DRY (Don't Repeat Yourself):** Đừng copy-paste code. Nếu logic lặp lại > 2 lần, hãy tách hàm. Nhưng đừng DRY một cách mù quáng (Over-engineering), đôi khi trùng lặp một chút để dễ đọc còn hơn là gom nhóm quá mức trừu tượng.
-*   **KISS (Keep It Simple, Stupid):** Code đơn giản nhất có thể. Code phức tạp thể hiện cái tôi, code đơn giản thể hiện trình độ.
+*   **DRY (Don't Repeat Yourself)**: Code lặp lại > 2 lần? Refactor ra hàm chung. Code trùng lặp là nơi trú ẩn của bug (sửa chỗ này quên chỗ kia).
+*   **KISS (Keep It Simple, Stupid)**: Code đơn giản thể hiện trình độ. Đừng viết những dòng code "pro vip" 1 dòng (One-liner) nhưng không ai hiểu nổi. Code là để con người đọc, sau đó máy mới chạy.
 
-## 5. Clean Code Etiquette
+## 5. Quy tắc đặt tên (Naming Convention)
 
-1.  **Tên biến có nghĩa:** `int d;` (Sai) -> `int elapsedDays;` (Đúng).
-2.  **Hàm ngắn:** Một hàm chỉ làm 1 việc. Tốt nhất < 20 dòng.
-3.  **Hạn chế tham số:** Hàm có > 3 tham số là dấu hiệu cần refactor (gom vào Object).
-4.  **Comment tại sao (Why), không phải cái gì (What):** Code đã nói lên "làm cái gì" rồi. Comment chỉ giải thích logic nghiệp vụ phức tạp hoặc lý do tại sao chọn giải pháp này.
+Lời khuyên từ cuốn sách "Clean Code" (Robert C. Martin):
+1.  **Tên biến**: Phải trả lời câu hỏi "Tại sao nó tồn tại?".
+    *   `int d;` (Sai - d là gì? Days? Dates? Distance?)
+    *   `int daysSinceCreation;` (Đúng).
+2.  **Tên hàm**: Phải là Động từ. `calculatePayment()`, `validateUser()`.
+3.  **Số lượng tham số**: Tối đa 3. Nếu nhiều hơn, hãy gom chúng vào một Object (`CreateUserRequest`).
+4.  **Comment**: Code tốt tự giải thích (**Self-documenting**). Comment dùng để giải thích "Why" (Tại sao làm vậy), không giải thích "What" (Code làm gì).
 
 ## Tổng kết
 
-Viết code Clean không làm cho chương trình chạy nhanh hơn (đôi khi còn chậm hơn xíu do wrap nhiều lớp), nhưng nó làm cho **tốc độ phát triển** (Development Speed) nhanh hơn về lâu dài. Code thối sẽ làm chậm team lại vì "sợ sửa", "sợ bug".
+Viết Clean Code lúc đầu sẽ tốn thời gian hơn 30%. Nhưng về sau, nó giúp bạn tiết kiệm 300% thời gian debug và bảo trì. Hãy biến việc viết code sạch thành thói quen, không phải nhiệm vụ.
 
-> "Hãy code như thể người bảo trì code sau này là một kẻ sát nhân điên cuồng và hắn biết địa chỉ nhà bạn."
+> *"Always code as if the guy who ends up maintaining your code will be a violent psychopath who knows where you live."*

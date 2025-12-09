@@ -1,6 +1,6 @@
 ---
-title: "Tối ưu Java Collections: Cuộc chiến giữa List, Set và Map"
-excerpt: "Phân tích chuyên sâu về hiệu năng của ArrayList vs LinkedList, cơ chế hoạt động của HashMap và cách lựa chọn cấu trúc dữ liệu tối ưu cho ứng dụng Java."
+title: "Tối ưu Java Collections: Cuộc chiến hiệu năng giữa List, Set và Map"
+excerpt: "Phân tích `ArrayList` vs `LinkedList` ở mức Memory Layout, bí mật `HashMap` hoạt động với Red-Black Tree, và cách chọn Collection đúng đắn để code chạy nhanh như gió."
 coverImage: "/assets/blog/preview/java-collections-hieu-nang.png"
 date: "2025-12-01"
 author:
@@ -8,125 +8,92 @@ author:
   picture: "/assets/blog/authors/tra.png"
 ogImage:
   url: "/assets/blog/preview/java-collections-hieu-nang.png"
-tags: ["java", "backend", "performance"]
+tags: ["java", "backend", "performance", "algorithms"]
 ---
 
-Trong phỏng vấn Java Backend, câu hỏi về **Java Collections Framework (JCF)** luôn là món "khai vị" kinh điển. Nhưng không chỉ dừng lại ở việc *kể tên* các Interface, điều phân biệt giữa một Senior và Junior nằm ở chỗ họ hiểu sâu sắc về **cơ chế hoạt động (internals)** và **độ phức tạp thuật toán (Big O)** của từng loại như thế nào.
+Trong các buổi phỏng vấn Java Backend, câu hỏi về **Java Collections Framework (JCF)** luôn là món "khai vị" kinh điển. Nhưng không chỉ dừng lại ở việc *kể tên* các Interface, điều phân biệt giữa một Senior và Junior nằm ở chỗ họ hiểu sâu sắc về **cơ chế hoạt động (internals)**, **quản lý bộ nhớ** và **độ phức tạp thuật toán (Big O)** của từng loại.
 
-Hôm nay, chúng ta sẽ "mổ xẻ" những class phổ biến nhất để xem điều gì thực sự diễn ra bên dưới.
+Hôm nay, chúng ta sẽ "mổ xẻ" những class phổ biến nhất để xem điều gì thực sự diễn ra bên dưới lớp vỏ bọc API tiện dụng đó.
 
-## 1. List Interface: ArrayList vs LinkedList - Huyền thoại và Sự thật
+## 1. List: ArrayList vs LinkedList - Huyền thoại và Sự thật
 
-Hầu hết sách giáo khoa đều dạy:
-> "Dùng `ArrayList` khi truy xuất nhiều, dùng `LinkedList` khi thêm/xóa nhiều."
+Hầu hết sách giáo khoa cũ đều dạy máy móc rằng:
+> "Dùng `ArrayList` khi truy xuất nhiều. Dùng `LinkedList` khi thêm/xóa nhiều."
 
-Thực tế năm 2025: **Hãy dùng `ArrayList` cho 99% trường hợp.** Tại sao?
+Thực tế năm 2025: **Hãy dùng `ArrayList` cho 99% trường hợp.** Tại sao lại phũ phàng với `LinkedList` như vậy?
 
-### Memory Locality (Tính cục bộ bộ nhớ)
-*   **ArrayList**: Lưu trữ dữ liệu trong một mảng liên tục (contiguous array). Khi CPU load một phần tử, nó sẽ load luôn các phần tử lân cận vào **CPU Cache Line**. Điều này giúp việc duyệt mảng cực nhanh.
-*   **LinkedList**: Các Node nằm rải rác trong Heap memory. Để duyệt, CPU phải nhảy cóc (pointer chasing) lung tung trong bộ nhớ, gây ra **Cache Miss** liên tục.
+### 1.1. Memory Locality (Tính cục bộ bộ nhớ) - Kẻ quyết định tốc độ
+CPU không đọc từng byte từ RAM. Nó đọc từng khối (Cache Line, thường là 64 bytes).
 
-### Benchmark Thêm/Xóa
-Dù lý thuyết nói `LinkedList` remove là O(1), nhưng trước đó bạn phải tốn O(n) để *tìm* ra node cần xóa. Trong khi đó, `ArrayList` dùng `System.arraycopy` (native code) để dịch chuyển phần tử cực nhanh. 
+*   **ArrayList**: Dữ liệu là một mảng liên tục (contiguous array) trong RAM. Khi CPU load phần tử `a[i]`, nó vô tình load luôn `a[i+1], a[i+2]...` vào L1/L2 Cache. Do đó, việc duyệt mảng (`for-loop`) cực nhanh nhờ **Cache Hit**.
+*   **LinkedList**: Các Node nằm rải rác khắp nơi trong Heap memory (phụ thuộc vào lúc `new Node()`). Để duyệt từ Node A sang Node B, CPU phải nhảy cóc (pointer chasing). Điều này gây ra **Cache Miss** liên tục, khiến CPU phải đợi dữ liệu từ RAM (chậm hơn Cache hàng trăm lần).
 
-**Cơ chế Grow của ArrayList:**
-Khi mảng đầy, ArrayList sẽ tạo mảng mới có kích thước **1.5 lần** mảng cũ (công thức `oldCapacity + (oldCapacity >> 1)`). Sau đó copy toàn bộ dữ liệu sang. Đây là thao tác tốn kém O(n), nhưng nhờ *amortized analysis* (phân tích khấu hao), trung bình nó vẫn là O(1).
+### 1.2. Overhead bộ nhớ
+*   **ArrayList**: Tốn bộ nhớ đúng bằng kích thước mảng chứa Object Reference. Khá tiết kiệm.
+*   **LinkedList**: Với mỗi phần tử, bạn phải "nuôi" thêm một object `Node` béo ú chứa:
+    1.  Object Header (12-16 bytes).
+    2.  Reference tới Data.
+    3.  Reference `Next` node.
+    4.  Reference `Prev` node.
+    => **Tốn gấp 4-5 lần bộ nhớ** so với ArrayList để chứa cùng một lượng dữ liệu.
 
-```java
-// Tip: Luôn khởi tạo ArrayList với capacity dự kiến để tránh resize mảng
-// Nếu bạn biết sẽ chứa 10.000 phần tử, hãy khai báo ngay từ đầu.
-List<String> users = new ArrayList<>(10000); 
-```
+### 1.3. Thêm/Xóa có thực sự O(1)?
+Lý thuyết nói `LinkedList` remove là O(1). Đúng, NHƯNG chỉ đúng **nếu bạn đã cầm sẵn cái Node đó trong tay**. 
+Thực tế: Để xóa phần tử thứ 5000, `LinkedList` phải duyệt từ đầu đến node 5000 (O(n)), sau đó mới link lại pointer (O(1)). Tổng cộng vẫn là O(n).
+Trong khi đó, `ArrayList` dùng `System.arraycopy` (native code cực nhanh được tối ưu bởi CPU vector instructions) để dịch chuyển phần tử. Thực tế benchmark thường cho thấy `ArrayList` vẫn thắng hoặc ngang ngửa `LinkedList` kể cả khi thêm/xóa giữa list.
 
-### Overhead của LinkedList
-Mỗi phần tử của `ArrayList` chỉ tốn bộ nhớ cho Object đó.
-Mỗi phần tử của `LinkedList` tốn thêm bộ nhớ cho: `Node Object Header` + `Previous Pointer` + `Next Pointer`.
-=> Với một danh sách Integer, `LinkedList` có thể tốn gấp 4-5 lần bộ nhớ so với `ArrayList`.
+## 2. HashMap: Kiệt tác thuật toán
 
-## 2. Map Interface: Bí mật của HashMap
+`HashMap` là cấu trúc dữ liệu quan trọng nhất. Hiểu nó là điều bắt buộc.
 
-`HashMap` là trái tim của rất nhiều hệ thống. Hiểu nó là điều bắt buộc.
+### 2.1. Cơ chế cơ bản (Hashing & Buckets)
+Bên trong `HashMap` là một mảng các "xô" (buckets).
+1.  **Hashing**: Tính `hashCode()` của Key. Java áp dụng thêm hàm `hash()` phụ trợ (`key.hashCode() ^ (h >>> 16)`) để đảo bit, giúp phân tán dữ liệu đều hơn.
+2.  **Indexing**: Vị trí `index = (n - 1) & hash`.
+3.  **Collision (Va chạm)**: Nếu 2 key khác nhau nhưng cùng rơi vào một bucket? Java dùng **Linked List** để xâu chuỗi chúng lại tại bucket đó.
 
-### Cơ chế Put/Get (Java 8+)
-1.  **Hashing**: Tính `hashCode()` của Key. Java dùng thêm một hàm `hash()` phụ trợ (`key.hashCode() ^ (h >>> 16)`) để đảo bit, giúp phân tán dữ liệu đều hơn (giảm va chạm).
-2.  **Indexing**: Dùng bit manipulation `(n - 1) & hash` để tìm bucket (ngăn chứa).
-3.  **Collision Handling**:
-    *   Nếu bucket trống: Thêm Node mới.
-    *   Nếu bucket đã có (Collision): Java dùng **Linked List** để nối đuôi.
-    *   **Đặc biệt**: Khi Linked List dài quá 8 phần tử (TREEIFY_THRESHOLD) và mảng có độ dài > 64, nó sẽ tự động chuyển thành **Red-Black Tree** (Cây đỏ đen) để giảm độ phức tạp tìm kiếm từ O(n) xuống **O(log n)**.
+### 2.2. Sự tiến hóa trong Java 8 (Red-Black Tree)
+Nếu Hacker cố tình tạo ra hàng triệu key có cùng hashCode (Hash Flooding Attack), bucket đó sẽ trở thành một Linked List dài vô tận. Tốc độ tìm kiếm tụt từ O(1) xuống **O(n)** -> Server bị treo (Denial of Service).
 
-```java
-/*
- * Vì sao String hay được dùng làm Key?
- * Vì String là Immutable và cache lại hash code (biến hash). 
- * Tính hash 1 lần, dùng mãi mãi -> Hiệu năng cực cao khi làm Key.
- */
-Map<String, User> userMap = new HashMap<>();
-```
+Để khắc phục, Java 8 đưa ra cơ chế **Treeify**:
+*   Khi độ dài Linked List trong 1 bucket > 8 (`TREEIFY_THRESHOLD`).
+*   VÀ tổng số phần tử trong Map > 64.
+*   -> Java tự động biến Linked List đó thành **Red-Black Tree (Cây đỏ đen)**.
 
-### Load Factor và Resize
-Mặc định `loadFactor` là 0.75. Nghĩa là khi Map đầy 75%, nó sẽ nhân đôi kích thước mảng bucket (Rehashing).
-Quá trình Rehashing cực kỳ tốn kém vì phải tính lại vị trí cho TẤT CẢ phần tử.
--> **Tip Performance**: Nếu biết trước số lượng, hãy set initial capacity: `new HashMap<>(expectedSize / 0.75 + 1)`.
-
-## 3. Set Interface: HashSet vs TreeSet vs LinkedHashSet
-
-*   **HashSet**: Thực chất bên dưới nó dùng... `HashMap`! Key là phần tử bạn thêm vào, Value là một dummy object (`PRESENT = new Object()`). Tốc độ O(1). Dùng khi cần lọc trùng và không quan tâm thứ tự.
-*   **TreeSet**: Implement `NavigableSet`, bên dưới dùng `TreeMap` (Red-Black Tree). Tốc độ O(log n). Dùng khi cần dữ liệu luôn được **sắp xếp** (ví dụ: Top leaderboards).
-*   **LinkedHashSet**: Kết hợp giữa Hash table và Linked list. Nó giữ nguyên **thứ tự thêm vào** (Insertion Order). Dùng khi bạn muốn deduplicate list mà không làm đảo lộn thứ tự.
-
-### Ví dụ thực tế: Lọc danh sách IP blacklisted
+Kết quả: Tốc độ tìm kiếm trong trường hợp xấu nhất được cải thiện từ O(n) về **O(log n)**. Một cải tiến tuyệt vời!
 
 ```java
-// Dùng HashSet cho tốc độ tra cứu cực nhanh O(1)
-Set<String> blacklistedIps = new HashSet<>();
-blacklistedIps.add("192.168.1.1");
-blacklistedIps.add("10.0.0.1");
-
-// Kiểm tra 1 triệu request xem có nằm trong blacklist không
-if (blacklistedIps.contains(incomingIp)) {
-    blockUser();
-}
+// Tip: String là Key tốt nhất cho HashMap (hoặc ConcurrentHashMap)
+// Vì String là Immutable và nó cache lại giá trị hash code ngay lần đầu tính toán.
+// Những lần get() sau không cần tính lại hash -> Cực nhanh.
 ```
 
-## 4. Immutable Collections (Java 9+)
+## 3. Set: Không chỉ là "Danh sách không trùng"
 
-Từ Java 9, chúng ta có `List.of()`, `Set.of()`, `Map.of()`.
-Đặc điểm:
-*   Bất biến (Immutable): Gọi `.add()`, `.remove()` sẽ ném `UnsupportedOperationException`.
-*   Không cho phép `null`.
-*   Hiệu năng cao hơn do không cần tính toán resize.
-*   Thread-safe (vì bất biến).
+*   **HashSet**: Thực chất bên dưới là... `HashMap`! Phần tử bạn add vào chính là Key, còn Value là một object rỗng (`private static final Object PRESENT = new Object()`). Tốc độ O(1).
+*   **TreeSet**: Implement `NavigableSet`, bên dưới dùng `TreeMap` (Red-Black Tree). Dữ liệu luôn được **sắp xếp** (theo Comparable hoặc Comparator). Tốc độ O(log n). Dùng khi cần hiển thị danh sách theo thứ tự alphabet hoặc điểm số.
+*   **LinkedHashSet**: Kết hợp Hash table và Linked list. Giữ nguyên **thứ tự thêm vào** (Insertion Order). Dùng khi bạn muốn deduplicate list input của user nhưng muốn tôn trọng thứ tự họ nhập.
 
-```java
-List<String> cities = List.of("Hanoi", "Saigon", "Danang");
-// cities.add("Hue"); // Bắn Exception ngay lập tức
-```
+## 4. Concurrent Collections: Đa luồng an toàn
 
-## 5. Concurrent Collections: An toàn trong đa luồng
+Trong môi trường Multi-thread (như Web Server), dùng `HashMap` hay `ArrayList` thường (không synchronized) sẽ dẫn đến sai lệch dữ liệu hoặc crash app.
 
-Đừng bao giờ dùng `HashMap` trong môi trường Multi-thread nếu không muốn bị race condition hoặc infinite loop (trong Java 7).
+*   ❌ **Vector / Hashtable / Collections.synchronizedMap**: Giải pháp cổ lỗ sĩ. Nó dùng `synchronized` trên toàn bộ method. Khi Thread A đang đọc, Thread B không được ghi và cũng không được đọc. -> **Nút thắt cổ chai (Bottleneck)**.
+*   ✅ **ConcurrentHashMap**: Ngôi sao sáng.
+    *   Nó không lock toàn bộ Map. Nó chỉ lock **từng bucket nhỏ** (Java 7 dùng Segment, Java 8+ dùng CAS và synchronized trên head node).
+    *   Cho phép nhiều thread đọc/ghi đồng thời cực nhanh mà vẫn an toàn.
+*   ✅ **CopyOnWriteArrayList**: Dùng cho trường hợp **Đọc nhiều - Ghi cực ít** (List cấu hình, List Listener). Mỗi lần thêm/xóa, nó... copy toàn bộ mảng cũ sang mảng mới. Rất an toàn nhưng tốn kém nếu ghi nhiều.
 
-*   **Vector / Hashtable**: Cổ lỗ sĩ, synchronize toàn bộ method -> Nút thắt cổ chai (Bottleneck). **Đừng dùng**.
-*   **Collections.synchronizedMap**: Tương tự như trên, lock trên `this`.
-*   **ConcurrentHashMap**: Ngôi sao sáng. 
-    *   **Java 7**: Dùng Segment Locking (chia map thành 16 mảnh nhỏ để lock riêng).
-    *   **Java 8+**: Dùng `CAS` (Compare-And-Swap) cho việc thêm node mới và `synchronized` block chỉ trên node đầu bucket (head node) khi có va chạm. Cực kỳ tối ưu.
-    *   Hỗ trợ `ConcurrentHashMap.KeySetView` để dùng như ConcurrentHashSet.
-*   **CopyOnWriteArrayList**: Dùng khi đọc cực nhiều nhưng ghi cực ít (ví dụ: List Listeners). Mỗi lần ghi (add/remove) nó sẽ copy toàn bộ mảng cũ sang mảng mới -> Rất tốn kém nếu ghi nhiều.
+## Tổng kết: Cheat Sheet
 
-## Tổng kết
-
-Bảng `cheat sheet` cho anh em lựa chọn:
-
-| Collection | Get | Add | Remove | Contains | Note |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| **ArrayList** | O(1) | O(1)* | O(n) | O(n) | Nhanh, cache-friendly. Mặc định nên dùng. *Amortized O(1). |
-| **LinkedList** | O(n) | O(1) | O(1) | O(n) | Tốn bộ nhớ, cache-miss nhiều. Chỉ dùng làm Queue/Deque. |
-| **HashSet** | O(1) | O(1) | O(1) | O(1) | Không thứ tự. Nhanh nhất để check tồn tại (Deduplicate). |
-| **TreeSet** | O(log n) | O(log n) | O(log n) | O(log n) | Luôn sắp xếp. Chậm hơn HashSet. |
-| **LinkedHashSet**| O(1) | O(1) | O(1) | O(1) | Giữ thứ tự insert. Tốn thêm bộ nhớ cho pointer. |
-| **HashMap** | O(1) | O(1) | O(1) | O(1) | Hiểu về hashCode & equals là bắt buộc. |
+| Collection | Get | Add | Contains | Nên dùng khi nào? |
+| :--- | :--- | :--- | :--- | :--- |
+| **ArrayList** | O(1) | O(1)* | O(n) | Mặc định. Nhanh, nhẹ, cache-friendly. |
+| **LinkedList** | O(n) | O(1) | O(n) | Hầu như không dùng. Trừ khi làm Queue/Deque. |
+| **HashSet** | O(1) | O(1) | O(1) | Cần tìm kiếm cực nhanh, loại bỏ trùng lặp. |
+| **TreeSet** | O(log n) | O(log n) | O(log n) | Cần danh sách luôn sắp xếp tự động. |
+| **HashMap** | O(1) | O(1) | O(1) | Key-Value mapping. |
+| **ConcurrentHashMap**| O(1) | O(1) | O(1) | Map trong môi trường đa luồng. |
 
 Hiểu công cụ mình dùng là bước đầu tiên để trở thành một Software Engineer chuyên nghiệp. Đừng chỉ code cho chạy, hãy code cho **hiệu năng** và **khả năng mở rộng**.
 
