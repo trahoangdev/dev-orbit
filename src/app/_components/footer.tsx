@@ -50,6 +50,16 @@ export function Footer() {
             </a>
 
             <a
+              href="https://www.linkedin.com/in/trahoangdev/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white transition-colors"
+              aria-label="LinkedIn"
+            >
+              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2zM4 2a2 2 0 1 1-2 2 2 2 0 0 1 2-2z" /></svg>
+            </a>
+
+            <a
               href="https://www.facebook.com/trahoangdev"
               target="_blank"
               rel="noopener noreferrer"

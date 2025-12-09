@@ -88,7 +88,7 @@ export function ProjectInfo() {
                                     className="object-cover"
                                 />
                             </span>
-                            DevOrbit Project
+                            DevOrbit - Blog Project
                         </h3>
                         <button
                             onClick={() => setIsOpen(false)}

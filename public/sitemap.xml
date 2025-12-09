@@ -11,57 +11,63 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://devorbit.dev/posts/java-core-oop</loc>
+    <loc>https://devorbit.dev/posts/vi-sao-minh-viet-blog</loc>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
-    <lastmod>2025-01-09</lastmod>
-  </url>
-  <url>
-    <loc>https://devorbit.dev/posts/java-collections-hieu-nang</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-    <lastmod>2025-01-08</lastmod>
-  </url>
-  <url>
-    <loc>https://devorbit.dev/posts/java-concurrency-co-ban</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-    <lastmod>2025-01-07</lastmod>
-  </url>
-  <url>
-    <loc>https://devorbit.dev/posts/spring-boot-rest-thuc-tien</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-    <lastmod>2025-01-06</lastmod>
+    <lastmod>2025-12-09</lastmod>
   </url>
   <url>
     <loc>https://devorbit.dev/posts/spring-security-jwt-basics</loc>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
-    <lastmod>2025-01-05</lastmod>
-  </url>
-  <url>
-    <loc>https://devorbit.dev/posts/javascript-es6-cho-nguoi-moi</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-    <lastmod>2025-01-04</lastmod>
-  </url>
-  <url>
-    <loc>https://devorbit.dev/posts/javascript-async-await</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-    <lastmod>2025-01-03</lastmod>
+    <lastmod>2025-12-08</lastmod>
   </url>
   <url>
     <loc>https://devorbit.dev/posts/typescript-cho-javascript-dev</loc>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
-    <lastmod>2025-01-02</lastmod>
+    <lastmod>2025-12-08</lastmod>
+  </url>
+  <url>
+    <loc>https://devorbit.dev/posts/spring-boot-rest-thuc-tien</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <lastmod>2025-12-07</lastmod>
   </url>
   <url>
     <loc>https://devorbit.dev/posts/nextjs-frontend-call-java-api</loc>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
-    <lastmod>2025-01-01</lastmod>
+    <lastmod>2025-12-06</lastmod>
+  </url>
+  <url>
+    <loc>https://devorbit.dev/posts/javascript-es6-cho-nguoi-moi</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <lastmod>2025-12-05</lastmod>
+  </url>
+  <url>
+    <loc>https://devorbit.dev/posts/javascript-async-await</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <lastmod>2025-12-04</lastmod>
+  </url>
+  <url>
+    <loc>https://devorbit.dev/posts/java-core-oop</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <lastmod>2025-12-03</lastmod>
+  </url>
+  <url>
+    <loc>https://devorbit.dev/posts/java-concurrency-co-ban</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <lastmod>2025-12-02</lastmod>
+  </url>
+  <url>
+    <loc>https://devorbit.dev/posts/java-collections-hieu-nang</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <lastmod>2025-12-01</lastmod>
   </url>
 </urlset>

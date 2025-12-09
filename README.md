@@ -1,54 +1,91 @@
-# DevOrbit — blog by trahoangdev
 
-DevOrbit là blog cá nhân của **trahoangdev**, dựng tĩnh với Next.js (App Router), Markdown và TailwindCSS. Nội dung được lưu trong Markdown để dễ soạn thảo và version control.
+# DevOrbit — Blog & Portfolio by trahoangdev
 
-## Công nghệ chính
-- Next.js 15 (App Router), React 19 RC, TypeScript.
-- TailwindCSS 3.4, PostCSS/Autoprefixer.
-- Markdown -> HTML qua remark/remark-html; front-matter đọc bằng gray-matter.
+**DevOrbit** là không gian cá nhân của **Hoàng Trọng Trà (trahoangdev)** - nơi chia sẻ kiến thức lập trình, lưu trữ các dự án cá nhân và hành trình phát triển sự nghiệp Fullstack Developer. Dự án được xây dựng dựa trên Next.js (App Router), Markdown và TailwindCSS với giao diện hiện đại, tối giản.
 
-## Cấu trúc thư mục
-- `src/app` – trang chủ, trang bài viết, layout và các component giao diện.
-- `src/lib` – hàm đọc bài (`api.ts`), chuyển Markdown (`markdownToHtml.ts`), hằng số (`constants.ts`).
-- `src/interfaces` – định nghĩa kiểu `Post`, `Author`.
-- `_posts` – nơi lưu các bài viết Markdown.
-- `public` – static assets, favicon/OG.
+## 🌟 Tính năng nổi bật
 
-## Chạy dự án
+- **Blog Engine mạnh mẽ**: Viết bài bằng Markdown, hỗ trợ syntax highlighting, tối ưu SEO.
+- **Giao diện hiện đại**: Thiết kế theo phong cách tối giản, chú trọng trải nghiệm đọc (Typography), responsive trên mọi thiết bị.
+- **Hệ thống bình luận**: Tích hợp **Giscus** (GitHub Discussions) cho phép độc giả thảo luận trực tiếp.
+- **Trang giới thiệu (About)**: Profile chi tiết với Tech Stack được trực quan hóa bằng icon sinh động (Java, Spring Boot, Next.js, v.v.).
+- **Chứng chỉ (Certificates)**: Khu vực trưng bày các chứng chỉ chuyên môn và thành tích học tập.
+- **Tiện ích**: Nút cuộn lên đầu trang (Scroll to Top), Modal thông tin dự án (Project Info), Dark Mode (sắp ra mắt).
+
+## 🛠 Công nghệ sử dụng
+
+- **Core**: Next.js 15 (App Router), React 19, TypeScript.
+- **Styling**: TailwindCSS 3.4.
+- **Content**: Markdown, remarks/html.
+- **Icons**: `tech-stack-icons` (cho Tech Stack), SVG icons.
+- **Deployment**: Vercel.
+- **Comments**: Giscus.
+
+## 📂 Cấu trúc thư mục
+
+- `src/app` – Chứa Source code chính:
+  - `_components`: Các UI component tái sử dụng (Header, Footer, Container, Comments...).
+  - `about`: Trang giới thiệu.
+  - `certificates`: Trang chứng chỉ.
+  - `posts`: Dynamic route cho bài viết chi tiết.
+- `src/lib` – Các hàm xử lý logic (đọc file bài viết, convert markdown).
+- `src/interfaces` – Định nghĩa TypeScript interfaces/types.
+- `_posts` – Kho lưu trữ bài viết (Markdown file).
+- `public` – Tài nguyên tĩnh (hình ảnh, logo, favicon).
+
+## 🚀 Chạy dự án
+
+Cài đặt dependencies:
 ```bash
 npm install
-npm run dev
-# mở http://localhost:3000
 ```
 
-Build & production:
+Chạy môi trường phát triển:
+```bash
+npm run dev
+# Truy cập http://localhost:3000
+```
+
+Build cho production:
 ```bash
 npm run build
 npm start
 ```
 
-## Viết bài mới
-1) Tạo file Markdown trong `_posts`, ví dụ `_posts/hello-world.md`.  
-2) Thêm front-matter tối thiểu:
-```
+## ✍️ Viết bài mới
+
+1. Tạo file Markdown trong thư mục `_posts`, ví dụ `_posts/new-post.md`.
+2. Thêm front-matter vào đầu file:
+```yaml
 ---
-title: Hello World
-date: "2025-01-01"
-coverImage: "/assets/blog/hello-world/cover.jpg"
-excerpt: Ngắn gọn nội dung bài.
-ogImage:
-  url: "/assets/blog/hello-world/cover.jpg"
+title: "Tiêu đề bài viết"
+excerpt: "Mô tả ngắn gọn về nội dung bài viết để hiển thị preview."
+coverImage: "/assets/blog/cover-image.jpg"
+date: "2025-12-10"
 author:
-  name: trahoangdev
-  picture: "/assets/authors/trahoangdev.jpg"
+  name: Hoàng Trọng Trà
+  picture: "/assets/blog/authors/tra.png"
+ogImage:
+  url: "/assets/blog/cover-image.jpg"
 ---
 
-Nội dung bài viết ở đây...
+Nội dung bài viết sử dụng cú pháp Markdown...
 ```
-3) Ảnh nên đặt dưới `public/assets/...` và tham chiếu bằng đường dẫn tuyệt đối bắt đầu `/`.
 
-## Triển khai
-- Có thể deploy lên Vercel hoặc bất kỳ nền tảng tĩnh nào (Next.js SSR disabled). Lệnh build: `npm run build`.
+## 🤝 Đóng góp (Contributing)
 
-## Ghi chú
-- Mã nguồn gốc dựa trên Next.js blog-starter, đã được tùy biến cho DevOrbit. Nếu phát hiện lỗi hoặc cần thêm tính năng, mở issue/PR trực tiếp. 
+Mọi sự đóng góp đều được hoan nghênh! Vui lòng xem chi tiết tại file [CONTRIBUTING.md](CONTRIBUTING.md).
+
+## � Giấy phép (License)
+
+Dự án này được cấp phép dưới [MIT License](LICENSE).
+
+## �🔗 Kết nối
+
+- **GitHub**: [trahoangdev](https://github.com/trahoangdev)
+- **Facebook**: [trahoangdev](https://www.facebook.com/trahoangdev)
+- **LinkedIn**: [Hoàng Trọng Trà](https://www.linkedin.com/in/trahoangdev/)
+- **Email**: [trahoangdev@gmail.com](mailto:trahoangdev@gmail.com)
+
+---
+© 2025 DevOrbit. Built with ❤️ by trahoangdev.

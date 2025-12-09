@@ -15,11 +15,10 @@ import { parseHeadings } from "@/lib/toc";
 
 import { Comments } from "@/app/_components/comments";
 
-export default async function Post({
-  params,
-}: {
-  params: { slug: string };
+export default async function Post(props: {
+  params: Promise<{ slug: string }>;
 }) {
+  const params = await props.params;
   const post = getPostBySlug(params.slug);
 
   if (!post) {
@@ -126,11 +125,10 @@ export default async function Post({
   );
 }
 
-export async function generateMetadata({
-  params,
-}: {
-  params: { slug: string };
+export async function generateMetadata(props: {
+  params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
+  const params = await props.params;
   const post = getPostBySlug(params.slug);
 
   if (!post) {

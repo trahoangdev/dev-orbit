@@ -7,17 +7,19 @@ import { notFound } from "next/navigation";
 import { Metadata } from "next";
 
 type Props = {
-    params: { tag: string };
+    params: Promise<{ tag: string }>;
 };
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
+export async function generateMetadata(props: Props): Promise<Metadata> {
+    const params = await props.params;
     return {
         title: `#${params.tag} | DevOrbit`,
         description: `Articles about ${params.tag}`,
     };
 }
 
-export default function TagPage({ params }: Props) {
+export default async function TagPage(props: Props) {
+    const params = await props.params;
     const posts = getAllPosts();
     const tag = params.tag;
     const filteredPosts = posts.filter((post) => post.tags?.includes(tag));
