@@ -1,72 +1,57 @@
-# A statically generated blog example using Next.js, Markdown, and TypeScript
+# DevOrbit — blog by trahoangdev
 
-This is the existing [blog-starter](https://github.com/vercel/next.js/tree/canary/examples/blog-starter) plus TypeScript.
+DevOrbit là blog cá nhân của **trahoangdev**, dựng tĩnh với Next.js (App Router), Markdown và TailwindCSS. Nội dung được lưu trong Markdown để dễ soạn thảo và version control.
 
-This example showcases Next.js's [Static Generation](https://nextjs.org/docs/app/building-your-application/routing/layouts-and-templates) feature using Markdown files as the data source.
+## Công nghệ chính
+- Next.js 15 (App Router), React 19 RC, TypeScript.
+- TailwindCSS 3.4, PostCSS/Autoprefixer.
+- Markdown -> HTML qua remark/remark-html; front-matter đọc bằng gray-matter.
 
-The blog posts are stored in `/_posts` as Markdown files with front matter support. Adding a new Markdown file in there will create a new blog post.
+## Cấu trúc thư mục
+- `src/app` – trang chủ, trang bài viết, layout và các component giao diện.
+- `src/lib` – hàm đọc bài (`api.ts`), chuyển Markdown (`markdownToHtml.ts`), hằng số (`constants.ts`).
+- `src/interfaces` – định nghĩa kiểu `Post`, `Author`.
+- `_posts` – nơi lưu các bài viết Markdown.
+- `public` – static assets, favicon/OG.
 
-To create the blog posts we use [`remark`](https://github.com/remarkjs/remark) and [`remark-html`](https://github.com/remarkjs/remark-html) to convert the Markdown files into an HTML string, and then send it down as a prop to the page. The metadata of every post is handled by [`gray-matter`](https://github.com/jonschlinkert/gray-matter) and also sent in props to the page.
-
-## Demo
-
-[https://next-blog-starter.vercel.app/](https://next-blog-starter.vercel.app/)
-
-## Deploy your own
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/vercel/next.js/tree/canary/examples/blog-starter&project-name=blog-starter&repository-name=blog-starter)
-
-### Related examples
-
-- [AgilityCMS](/examples/cms-agilitycms)
-- [Builder.io](/examples/cms-builder-io)
-- [ButterCMS](/examples/cms-buttercms)
-- [Contentful](/examples/cms-contentful)
-- [Cosmic](/examples/cms-cosmic)
-- [DatoCMS](/examples/cms-datocms)
-- [DotCMS](/examples/cms-dotcms)
-- [Drupal](/examples/cms-drupal)
-- [Enterspeed](/examples/cms-enterspeed)
-- [Ghost](/examples/cms-ghost)
-- [GraphCMS](/examples/cms-graphcms)
-- [Kontent.ai](/examples/cms-kontent-ai)
-- [MakeSwift](/examples/cms-makeswift)
-- [Payload](/examples/cms-payload)
-- [Plasmic](/examples/cms-plasmic)
-- [Prepr](/examples/cms-prepr)
-- [Prismic](/examples/cms-prismic)
-- [Sanity](/examples/cms-sanity)
-- [Sitecore XM Cloud](/examples/cms-sitecore-xmcloud)
-- [Sitefinity](/examples/cms-sitefinity)
-- [Storyblok](/examples/cms-storyblok)
-- [TakeShape](/examples/cms-takeshape)
-- [Tina](/examples/cms-tina)
-- [Umbraco](/examples/cms-umbraco)
-- [Umbraco heartcore](/examples/cms-umbraco-heartcore)
-- [Webiny](/examples/cms-webiny)
-- [WordPress](/examples/cms-wordpress)
-- [Blog Starter](/examples/blog-starter)
-
-## How to use
-
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init), [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/), or [pnpm](https://pnpm.io) to bootstrap the example:
-
+## Chạy dự án
 ```bash
-npx create-next-app --example blog-starter blog-starter-app
+npm install
+npm run dev
+# mở http://localhost:3000
 ```
 
+Build & production:
 ```bash
-yarn create next-app --example blog-starter blog-starter-app
+npm run build
+npm start
 ```
 
-```bash
-pnpm create next-app --example blog-starter blog-starter-app
+## Viết bài mới
+1) Tạo file Markdown trong `_posts`, ví dụ `_posts/hello-world.md`.  
+2) Thêm front-matter tối thiểu:
 ```
+---
+title: Hello World
+date: "2025-01-01"
+coverImage: "/assets/blog/hello-world/cover.jpg"
+excerpt: Ngắn gọn nội dung bài.
+ogImage:
+  url: "/assets/blog/hello-world/cover.jpg"
+author:
+  name: trahoangdev
+  picture: "/assets/authors/trahoangdev.jpg"
+---
 
-Your blog should be up and running on [http://localhost:3000](http://localhost:3000)! If it doesn't work, post on [GitHub discussions](https://github.com/vercel/next.js/discussions).
+Nội dung bài viết ở đây...
+```
+3) Ảnh nên đặt dưới `public/assets/...` và tham chiếu bằng đường dẫn tuyệt đối bắt đầu `/`.
 
-Deploy it to the cloud with [Vercel](https://vercel.com/new?utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
+## Theming
+- Hiện tại theme switcher đã ẩn khỏi layout. Có thể kích hoạt lại bằng cách render `ThemeSwitcher` trong `src/app/layout.tsx`.
 
-# Notes
+## Triển khai
+- Có thể deploy lên Vercel hoặc bất kỳ nền tảng tĩnh nào (Next.js SSR disabled). Lệnh build: `npm run build`.
 
-`blog-starter` uses [Tailwind CSS](https://tailwindcss.com) [(v3.0)](https://tailwindcss.com/blog/tailwindcss-v3).
+## Ghi chú
+- Mã nguồn gốc dựa trên Next.js blog-starter, đã được tùy biến cho DevOrbit. Nếu phát hiện lỗi hoặc cần thêm tính năng, mở issue/PR trực tiếp. 

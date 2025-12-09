@@ -68,9 +68,14 @@ const Switch = () => {
     // store global functions to local variables to avoid any interference
     updateDOM = window.updateDOM;
     /** Sync the tabs */
-    addEventListener("storage", (e: StorageEvent): void => {
+    const onStorage = (e: StorageEvent): void => {
       e.key === STORAGE_KEY && setMode(e.newValue as ColorSchemePreference);
-    });
+    };
+    addEventListener("storage", onStorage);
+
+    return () => {
+      removeEventListener("storage", onStorage);
+    };
   }, []);
 
   useEffect(() => {

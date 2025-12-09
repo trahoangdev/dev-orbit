@@ -7,9 +7,18 @@ import { getAllPosts } from "@/lib/api";
 export default function Index() {
   const allPosts = getAllPosts();
 
-  const heroPost = allPosts[0];
+  if (!allPosts.length) {
+    return (
+      <main>
+        <Container>
+          <Intro />
+          <p className="text-lg">No posts yet. Add a markdown file in `_posts`.</p>
+        </Container>
+      </main>
+    );
+  }
 
-  const morePosts = allPosts.slice(1);
+  const [heroPost, ...morePosts] = allPosts;
 
   return (
     <main>
