@@ -5,7 +5,7 @@ import Link from "next/link";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-    title: "Topics | DevOrbit",
+    title: "Topics",
     description: "Explore all topics and tags",
 };
 

@@ -11,7 +11,7 @@ ogImage:
 tags: ["story", "career", "blogging", "share"]
 ---
 
-Chào các bạn, lại là mình, **Trà Hoàng** đây. 👋
+Chào các bạn, lại là mình, **Hoàng Trọng Trà** đây. 👋
 
 Hôm nay dẹp qua một bên mấy cái `NullPointerException` hay `React Hydration Error` nhé. Mình muốn ngồi xuống, pha một ly cà phê (loại 15k ở căn tin HUTECH) và tâm sự một chút về lý do tại sao cái blog **DevOrbit** này lại tồn tại.
 
@@ -23,7 +23,7 @@ Thú thật, mình từng là một **"StackOverflow Consumer"** chính hiệu. 
 
 Cho đến một ngày đẹp trời năm 3, mình gặp một cái bug liên quan đến cấu hình Docker nát bét. Mình đã lục tung cả Internet, sang tận trang thứ 10 của Google (vùng đất chết mà không ai dám bén mảng tới) nhưng vẫn vô vọng.
 
-Sau 48h vật lộn và 3 ly cà phê đen đá không đường, mình fix được nó. Nguyên nhân? Mình quên... mở port trong `docker-compose.yml`. 🤦‍♂️
+Sau 48h vật lộn và 3 ly cà phê đen đá không đường, mình fix được nó. Nguyên nhân? Mình quên... mở port trong `docker-compose.yml`.
 
 Lúc đó mình nhận ra một sự thật phũ phàng: **"Bộ não cá vàng của mình chắc chắn sẽ quên cái lỗi ngu ngốc này trong vòng 2 tuần tới."**
 
@@ -70,4 +70,4 @@ Cuối cùng, cảm ơn bạn đã đọc đến tận đây (hoặc kéo chuộ
 
 ---
 *Ký tên đóng dấu,*
-**Trà Hoàng** - *Thanh niên code dạo trường HUTECH.*
+**Hoàng Trọng Trà** - *Thanh niên code dạo trường HUTECH.*
