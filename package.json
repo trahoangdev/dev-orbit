@@ -3,8 +3,10 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "next build",
-    "start": "next start"
+    "build": "node scripts/generate-static-files.mjs && next build",
+    "postbuild": "node scripts/generate-static-files.mjs",
+    "start": "next start",
+    "generate": "node scripts/generate-static-files.mjs"
   },
   "dependencies": {
     "classnames": "^2.5.1",
@@ -14,6 +16,7 @@
     "react": "19.0.0-rc-02c0e824-20241028",
     "react-dom": "19.0.0-rc-02c0e824-20241028",
     "remark": "^15.0.1",
+    "remark-gfm": "^4.0.1",
     "remark-html": "^16.0.1"
   },
   "devDependencies": {

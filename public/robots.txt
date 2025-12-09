@@ -1,0 +1,6 @@
+# DevOrbit robots.txt
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://devorbit.dev/sitemap.xml

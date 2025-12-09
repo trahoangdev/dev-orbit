@@ -47,9 +47,6 @@ Nội dung bài viết ở đây...
 ```
 3) Ảnh nên đặt dưới `public/assets/...` và tham chiếu bằng đường dẫn tuyệt đối bắt đầu `/`.
 
-## Theming
-- Hiện tại theme switcher đã ẩn khỏi layout. Có thể kích hoạt lại bằng cách render `ThemeSwitcher` trong `src/app/layout.tsx`.
-
 ## Triển khai
 - Có thể deploy lên Vercel hoặc bất kỳ nền tảng tĩnh nào (Next.js SSR disabled). Lệnh build: `npm run build`.
 

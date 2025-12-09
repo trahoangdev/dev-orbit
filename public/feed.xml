@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>DevOrbit</title>
+    <link>https://devorbit.dev</link>
+    <description>DevOrbit — Blog về lập trình Java, JavaScript, TypeScript và các công nghệ web hiện đại.</description>
+    <language>vi</language>
+    <lastBuildDate>Tue, 09 Dec 2025 13:44:28 GMT</lastBuildDate>
+    <atom:link href="https://devorbit.dev/feed.xml" rel="self" type="application/rss+xml"/>
+    
+    <item>
+      <title><![CDATA[Java Core: OOP và cú pháp nền tảng]]></title>
+      <link>https://devorbit.dev/posts/java-core-oop</link>
+      <guid isPermaLink="true">https://devorbit.dev/posts/java-core-oop</guid>
+      <description><![CDATA[Ôn lại class, object, kế thừa, đa hình và cách tổ chức mã sạch trong Java.]]></description>
+      <pubDate>Thu, 09 Jan 2025 00:00:00 GMT</pubDate>
+      <author>trahoangdev</author>
+    </item>
+    <item>
+      <title><![CDATA[Tối ưu Java Collections: chọn List, Set, Map nào?]]></title>
+      <link>https://devorbit.dev/posts/java-collections-hieu-nang</link>
+      <guid isPermaLink="true">https://devorbit.dev/posts/java-collections-hieu-nang</guid>
+      <description><![CDATA[So sánh ArrayList, LinkedList, HashSet, TreeSet, HashMap, ConcurrentHashMap theo trường hợp sử dụng.]]></description>
+      <pubDate>Wed, 08 Jan 2025 00:00:00 GMT</pubDate>
+      <author>trahoangdev</author>
+    </item>
+    <item>
+      <title><![CDATA[Java Concurrency cơ bản: Thread, Executor, Future]]></title>
+      <link>https://devorbit.dev/posts/java-concurrency-co-ban</link>
+      <guid isPermaLink="true">https://devorbit.dev/posts/java-concurrency-co-ban</guid>
+      <description><![CDATA[Hiểu luồng, pool và cách quản lý tác vụ bất đồng bộ an toàn với Java.]]></description>
+      <pubDate>Tue, 07 Jan 2025 00:00:00 GMT</pubDate>
+      <author>trahoangdev</author>
+    </item>
+    <item>
+      <title><![CDATA[Spring Boot REST: thực tiễn API sản xuất]]></title>
+      <link>https://devorbit.dev/posts/spring-boot-rest-thuc-tien</link>
+      <guid isPermaLink="true">https://devorbit.dev/posts/spring-boot-rest-thuc-tien</guid>
+      <description><![CDATA[Cấu trúc controller/service, trả lỗi chuẩn, và versioning API.]]></description>
+      <pubDate>Mon, 06 Jan 2025 00:00:00 GMT</pubDate>
+      <author>trahoangdev</author>
+    </item>
+    <item>
+      <title><![CDATA[Spring Security + JWT: bảo vệ API nhanh gọn]]></title>
+      <link>https://devorbit.dev/posts/spring-security-jwt-basics</link>
+      <guid isPermaLink="true">https://devorbit.dev/posts/spring-security-jwt-basics</guid>
+      <description><![CDATA[Thiết lập filter, tạo token, và lưu ý refresh/blacklist cho API bảo mật.]]></description>
+      <pubDate>Sun, 05 Jan 2025 00:00:00 GMT</pubDate>
+      <author>trahoangdev</author>
+    </item>
+    <item>
+      <title><![CDATA[JavaScript ES6: những tính năng cần dùng hàng ngày]]></title>
+      <link>https://devorbit.dev/posts/javascript-es6-cho-nguoi-moi</link>
+      <guid isPermaLink="true">https://devorbit.dev/posts/javascript-es6-cho-nguoi-moi</guid>
+      <description><![CDATA[Let/const, arrow function, destructuring, template literal và module.]]></description>
+      <pubDate>Sat, 04 Jan 2025 00:00:00 GMT</pubDate>
+      <author>trahoangdev</author>
+    </item>
+    <item>
+      <title><![CDATA[Hiểu rõ async/await trong JavaScript]]></title>
+      <link>https://devorbit.dev/posts/javascript-async-await</link>
+      <guid isPermaLink="true">https://devorbit.dev/posts/javascript-async-await</guid>
+      <description><![CDATA[Cách hoạt động của promise, async/await và những lỗi phổ biến khi bắt lỗi.]]></description>
+      <pubDate>Fri, 03 Jan 2025 00:00:00 GMT</pubDate>
+      <author>trahoangdev</author>
+    </item>
+    <item>
+      <title><![CDATA[TypeScript cho JavaScript dev: bắt đầu nhanh]]></title>
+      <link>https://devorbit.dev/posts/typescript-cho-javascript-dev</link>
+      <guid isPermaLink="true">https://devorbit.dev/posts/typescript-cho-javascript-dev</guid>
+      <description><![CDATA[Thiết lập tsconfig, định nghĩa type cơ bản và tận dụng generics để giảm bug.]]></description>
+      <pubDate>Thu, 02 Jan 2025 00:00:00 GMT</pubDate>
+      <author>trahoangdev</author>
+    </item>
+    <item>
+      <title><![CDATA[Kết nối Next.js frontend với Java API]]></title>
+      <link>https://devorbit.dev/posts/nextjs-frontend-call-java-api</link>
+      <guid isPermaLink="true">https://devorbit.dev/posts/nextjs-frontend-call-java-api</guid>
+      <description><![CDATA[Cách tổ chức fetch, quản lý lỗi và CORS khi Next.js gọi API Spring Boot.]]></description>
+      <pubDate>Wed, 01 Jan 2025 00:00:00 GMT</pubDate>
+      <author>trahoangdev</author>
+    </item>
+  </channel>
+</rss>
