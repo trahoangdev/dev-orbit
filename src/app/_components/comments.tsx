@@ -25,9 +25,9 @@ export function Comments() {
         script.setAttribute("data-repo", "trahoangdev/dev-orbit");
 
         // TODO: Thay thế 2 giá trị này bằng ID thật lấy từ giscus.app
-        script.setAttribute("data-repo-id", "R_kgDONLz6jA"); // Placeholder ID (cần update)
+        script.setAttribute("data-repo-id", "R_kgDOQlfd2g"); // Placeholder ID (cần update)
         script.setAttribute("data-category", "General");
-        script.setAttribute("data-category-id", "DIC_kwDONLz6jM4CkDJa"); // Placeholder ID (cần update)
+        script.setAttribute("data-category-id", "DIC_kwDOQlfd2s4CzlpO"); // Placeholder ID (cần update)
 
         script.setAttribute("data-mapping", "pathname");
         script.setAttribute("data-strict", "0");

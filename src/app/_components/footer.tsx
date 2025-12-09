@@ -50,6 +50,16 @@ export function Footer() {
             </a>
 
             <a
+              href="https://www.facebook.com/trahoangdev"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white transition-colors"
+              aria-label="Facebook"
+            >
+              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z" /></svg>
+            </a>
+
+            <a
               href="mailto:trahoangdev@gmail.com"
               className="text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white transition-colors"
               aria-label="Email"
@@ -59,7 +69,7 @@ export function Footer() {
           </div>
         </div>
         <div className="py-6 border-t border-slate-100 dark:border-slate-800 flex flex-col md:flex-row items-center justify-between text-xs text-slate-400 dark:text-slate-600">
-          <p>© {new Date().getFullYear()} Hoàng Trọng Trà. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} DevOrbit.  All rights reserved. trahoangdev</p>
           <p>Built with Next.js & Tailwind</p>
         </div>
       </Container>

@@ -4,6 +4,8 @@ import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import cn from "classnames";
 import { ThemeProvider } from "@/app/_components/theme-provider";
+import { ScrollToTop } from "@/app/_components/scroll-to-top";
+import { ProjectInfo } from "@/app/_components/project-info";
 
 import "./globals.css";
 
@@ -86,10 +88,12 @@ export default function RootLayout({
         className={cn(inter.className, "bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-400")}
         suppressHydrationWarning
       >
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <div className="min-h-screen flex flex-col justify-between">
+        <ThemeProvider attribute="class" forcedTheme="light" enableSystem={false}>
+          <div className="min-h-screen flex flex-col justify-between" suppressHydrationWarning>
             <main>{children}</main>
             <Footer />
+            <ScrollToTop />
+            <ProjectInfo />
           </div>
         </ThemeProvider>
       </body>

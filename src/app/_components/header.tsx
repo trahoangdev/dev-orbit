@@ -6,7 +6,7 @@ const Header = () => {
   return (
     <header className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between py-12 mb-10 border-b border-slate-100 dark:border-slate-800">
       <Link href="/" className="group block">
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-3" suppressHydrationWarning>
           <Image
             src="/assets/logo/logo.png"
             alt="DevOrbit Logo"
@@ -37,6 +37,12 @@ const Header = () => {
             Tags
           </Link>
           <Link
+            href="/certificates"
+            className="hover:text-slate-900 dark:hover:text-white transition-colors"
+          >
+            Certificates
+          </Link>
+          <Link
             href="/about"
             className="hover:text-slate-900 dark:hover:text-white transition-colors"
           >
@@ -46,9 +52,6 @@ const Header = () => {
 
         {/* Separator */}
         <div className="w-px h-5 bg-slate-200 dark:bg-slate-800 hidden md:block"></div>
-
-        {/* Placeholder for Theme toggle or specific Action if needed in future */}
-        {/* Currently keeping it clean with just links, but could add ThemeSwitcher here if available/requested */}
       </div>
     </header>
   );
