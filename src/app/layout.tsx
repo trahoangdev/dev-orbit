@@ -3,6 +3,7 @@ import { SITE_NAME, SITE_DESCRIPTION, HOME_OG_IMAGE_URL, SITE_URL } from "@/lib/
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import cn from "classnames";
+import { ThemeProvider } from "@/app/_components/theme-provider";
 
 import "./globals.css";
 
@@ -80,13 +81,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="vi">
+    <html lang="vi" suppressHydrationWarning>
       <body
-        className={cn(inter.className, "dark:bg-slate-900 dark:text-slate-400")}
+        className={cn(inter.className, "bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-400")}
         suppressHydrationWarning
       >
-        <div className="min-h-screen">{children}</div>
-        <Footer />
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          <div className="min-h-screen flex flex-col justify-between">
+            <main>{children}</main>
+            <Footer />
+          </div>
+        </ThemeProvider>
       </body>
     </html>
   );
