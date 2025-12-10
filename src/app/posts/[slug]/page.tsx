@@ -92,7 +92,7 @@ export default async function Post(props: {
               <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-8">
                 {prevPost && (
                   <Link href={`/posts/${prevPost.slug}`} className="group block p-6 border border-slate-200 dark:border-slate-800 rounded-xl hover:border-blue-500 transition-colors text-left">
-                    <span className="text-sm text-slate-500 dark:text-slate-400 block mb-2">← Previous Article</span>
+                    <span className="text-sm text-slate-500 dark:text-slate-400 block mb-2">← Bài trước</span>
                     <h4 className="font-bold text-lg text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors line-clamp-2">
                       {prevPost.title}
                     </h4>
@@ -101,7 +101,7 @@ export default async function Post(props: {
 
                 {nextPost && (
                   <Link href={`/posts/${nextPost.slug}`} className={`group block p-6 border border-slate-200 dark:border-slate-800 rounded-xl hover:border-blue-500 transition-colors text-right ${!prevPost ? 'md:col-start-2' : ''}`}>
-                    <span className="text-sm text-slate-500 dark:text-slate-400 block mb-2">Next Article →</span>
+                    <span className="text-sm text-slate-500 dark:text-slate-400 block mb-2">Bài tiếp theo →</span>
                     <h4 className="font-bold text-lg text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors line-clamp-2">
                       {nextPost.title}
                     </h4>
@@ -120,7 +120,7 @@ export default async function Post(props: {
         {/* Related Posts */}
         {relatedPosts.length > 0 && (
           <section className="mb-32 border-t border-slate-200 dark:border-slate-800 pt-16">
-            <h2 className="text-3xl font-bold mb-8 text-slate-900 dark:text-white">Related Posts</h2>
+            <h2 className="text-3xl font-bold mb-8 text-slate-900 dark:text-white">Bài viết liên quan</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {relatedPosts.map(post => (
                 <div key={post.slug} className="group">
@@ -135,7 +135,7 @@ export default async function Post(props: {
                     </Link>
                   </h3>
                   <div className="text-sm text-slate-500 dark:text-slate-400">
-                    {new Date(post.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+                    {new Date(post.date).toLocaleDateString('vi-VN', { year: 'numeric', month: 'long', day: 'numeric' })}
                   </div>
                 </div>
               ))}
