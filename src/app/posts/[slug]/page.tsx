@@ -8,12 +8,11 @@ import Header from "@/app/_components/header";
 import { PostBody } from "@/app/_components/post-body";
 import { PostHeader } from "@/app/_components/post-header";
 import Link from "next/link";
-import { PostPreview } from "@/app/_components/post-preview"; // Assuming PostPreview is exported or I'll use inline if simple
-
 import { TableOfContents } from "@/app/_components/table-of-contents";
 import { parseHeadings } from "@/lib/toc";
-
 import { Comments } from "@/app/_components/comments";
+import { Breadcrumbs } from "@/app/_components/breadcrumbs";
+import { SITE_URL } from "@/lib/constants";
 
 export default async function Post(props: {
   params: Promise<{ slug: string }>;
@@ -35,12 +34,35 @@ export default async function Post(props: {
       <Alert preview={post.preview} />
       <Container>
         <Header />
+
         <article className="mb-32">
+          <Breadcrumbs items={[{ label: post.title }]} />
+
           <PostHeader
             title={post.title}
             coverImage={post.coverImage}
             date={post.date}
             author={post.author}
+          />
+
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{
+              __html: JSON.stringify({
+                "@context": "https://schema.org",
+                "@type": "BlogPosting",
+                headline: post.title,
+                datePublished: post.date,
+                dateModified: post.date,
+                description: post.excerpt,
+                image: [post.ogImage.url],
+                author: {
+                  "@type": "Person",
+                  name: post.author.name,
+                  image: post.author.picture,
+                },
+              }),
+            }}
           />
 
           <div className="lg:grid lg:grid-cols-12 lg:gap-12 pt-8">
@@ -150,18 +172,33 @@ export async function generateMetadata(props: {
       tags: post.tags,
       images: [
         {
-          url: post.ogImage.url,
+          url: `${SITE_URL}/api/og?title=${encodeURIComponent(post.title)}&date=${encodeURIComponent(
+            new Date(post.date).toLocaleDateString('en-US', {
+              year: 'numeric',
+              month: 'long',
+              day: 'numeric',
+            })
+          )}&author=${encodeURIComponent(post.author.name)}`,
           width: 1200,
           height: 630,
           alt: post.title,
         },
       ],
+      url: `${SITE_URL}/posts/${params.slug}`,
     },
     twitter: {
       card: "summary_large_image",
       title,
       description,
-      images: [post.ogImage.url],
+      images: [
+        `${SITE_URL}/api/og?title=${encodeURIComponent(post.title)}&date=${encodeURIComponent(
+          new Date(post.date).toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+          })
+        )}&author=${encodeURIComponent(post.author.name)}`,
+      ],
     },
   };
 }

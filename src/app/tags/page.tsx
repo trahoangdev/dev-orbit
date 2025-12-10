@@ -5,8 +5,8 @@ import Link from "next/link";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-    title: "Topics",
-    description: "Explore all topics and tags",
+    title: "Chủ đề",
+    description: "Khám phá các chủ đề bài viết",
 };
 
 export default function TagsPage() {
@@ -26,7 +26,7 @@ export default function TagsPage() {
                 <Header />
                 <section className="flex-col md:flex-row flex items-center md:justify-between mt-16 mb-16 md:mb-12">
                     <h1 className="text-5xl md:text-8xl font-bold tracking-tighter leading-tight md:pr-8">
-                        Topics.
+                        Chủ đề.
                     </h1>
                 </section>
 
@@ -42,11 +42,11 @@ export default function TagsPage() {
                                     {tag}
                                 </h3>
                                 <p className="text-slate-500 dark:text-slate-400">
-                                    Explore posts about {tag}
+                                    Xem các bài viết về {tag}
                                 </p>
                             </div>
                             <div className="mt-8 flex items-center text-sm font-medium text-slate-900 dark:text-slate-200">
-                                <span>View {tagCounts[tag]} posts</span>
+                                <span>{tagCounts[tag]} bài viết</span>
                                 <svg className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                                 </svg>

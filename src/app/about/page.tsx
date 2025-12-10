@@ -1,13 +1,15 @@
 
+// ... (keeping imports)
 import Container from "@/app/_components/container";
 import Header from "@/app/_components/header";
 import Image from "next/image";
 import { Metadata } from "next";
-import StackIcon from "tech-stack-icons";
+// Removing external icon lib for simplicity and using text/svg if needed or just listing them
+// Actually, let's keep it simple.
 
 export const metadata: Metadata = {
-    title: "Về mình",
-    description: "Giới thiệu về Hoàng Trọng Trà - Sinh viên năm cuối HUTECH, Fullstack Developer tương lai và tác giả của DevOrbit Blog.",
+    title: "Về mình (About)",
+    description: "Hoàng Trọng Trà - Fullstack Developer & Tech Blogger",
 };
 
 export default function About() {
@@ -15,252 +17,192 @@ export default function About() {
         <Container>
             <Header />
 
-            {/* Hero Section */}
-            <section className="flex-col md:flex-row flex items-center md:items-start md:justify-between mt-16 mb-16 md:mb-12">
-                <div className="md:w-3/4">
-                    <div className="inline-flex items-center gap-2 px-3 py-1 mb-6 rounded-full bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm font-medium text-slate-600 dark:text-slate-300">
-                        <span className="relative flex h-2 w-2">
-                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-slate-400 opacity-75"></span>
-                            <span className="relative inline-flex rounded-full h-2 w-2 bg-slate-500"></span>
-                        </span>
-                        HUTECH Senior Student
-                    </div>
-                    <h1 className="text-4xl md:text-6xl lg:text-7xl font-extrabold tracking-tight text-slate-900 dark:text-white leading-tight mb-6">
-                        Chào bạn, mình là <span className="whitespace-nowrap text-slate-900 dark:text-white underline decoration-4 decoration-slate-300 dark:decoration-slate-700 underline-offset-4">Hoàng Trọng Trà</span>.
-                    </h1>
-                    <p className="text-xl text-slate-600 dark:text-slate-300 leading-relaxed max-w-2xl">
-                        Sinh viên năm cuối <strong className="font-semibold text-slate-900 dark:text-white">HUTECH</strong>.
-                        Đang trên hành trình chuyển hóa từ "Code chạy là được" sang "Code sạch, Kiến trúc bền vững".
-                    </p>
+            {/* Section 1: Introduction */}
+            <div className="flex flex-col items-center text-center max-w-3xl mx-auto my-20">
+                <div className="relative w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden border-4 border-slate-100 dark:border-slate-800 shadow-2xl mb-8">
+                    <Image
+                        src="/assets/blog/authors/tra.png"
+                        alt="Hoàng Trọng Trà"
+                        fill
+                        className="object-cover"
+                    />
                 </div>
-            </section>
+                <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white mb-4">
+                    Hoàng Trọng Trà
+                </h1>
+                <p className="text-xl text-slate-600 dark:text-slate-300 font-medium mb-6">
+                    Fullstack Developer | Tech Enthusiast | AI Lover | Blogger
+                </p>
+                <p className="text-lg text-slate-500 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed">
+                    Chào mừng bạn đến với <strong>DevOrbit</strong>. Đây là nơi mình lưu giữ những kiến thức, kinh nghiệm và góc nhìn cá nhân trên hành trình chinh phục công nghệ.
+                </p>
+            </div>
 
-            {/* Main Content Grid */}
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 mb-32">
+            <div className="w-full h-px bg-slate-200 dark:bg-slate-800 mb-20"></div>
 
-                {/* Sidebar Left - Quick Info */}
-                <aside className="lg:col-span-4 space-y-8 order-2 lg:order-1">
-                    <div className="sticky top-24 space-y-8">
-                        {/* Profile Card */}
-                        <div className="bg-white dark:bg-slate-900 rounded-3xl p-2 border border-slate-200 dark:border-slate-800 shadow-xl shadow-slate-200/50 dark:shadow-none">
-                            <div className="relative aspect-square rounded-full overflow-hidden mb-4 bg-slate-100 dark:bg-slate-800 border-4 border-white dark:border-slate-800 shadow-sm mx-auto w-48 h-48 mt-6">
-                                <Image
-                                    src="/assets/blog/authors/tra.png"
-                                    alt="Hoàng Trọng Trà"
-                                    fill
-                                    className="object-cover grayscale hover:grayscale-0 transition-all duration-500"
-                                />
+            {/* Section 1.5: Story & Philosophy */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-32">
+                <div>
+                    <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-6">
+                        Đôi nét về mình
+                    </h2>
+                    <div className="prose dark:prose-invert text-slate-600 dark:text-slate-300 leading-relaxed space-y-4">
+                        <p>
+                            Mình là một sinh viên năm cuối tại HUTECH, đang đứng ở giao lộ thú vị giữa "Học thuật" và "Thực chiến".
+                        </p>
+                        <p>
+                            Ngày xưa, mình từng nghĩ code chỉ là gõ phím cho máy chạy. Nhưng sau hàng ngàn bug và những đêm trắng với <code>NullPointerException</code>, mình nhận ra lập trình là một nghệ thuật của tư duy logic và sự kiên nhẫn.
+                        </p>
+                        <p>
+                            Ngoài những lúc "đắm đuối" với Java & Spring Boot, mình thường dành thời gian để đọc sách công nghệ, tìm hiểu Architecture mới, hoặc đơn giản là nhâm nhi cà phê và suy ngẫm về... tại sao code hôm qua chạy mà hôm nay lại không.
+                        </p>
+                    </div>
+                </div>
+                <div>
+                    <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-6">
+                        Tại sao là DevOrbit?
+                    </h2>
+                    <p className="text-slate-600 dark:text-slate-300 mb-6">
+                        Blog này được xây dựng dựa trên 3 nguyên tắc cốt lõi (The 3Cs) mà mình luôn theo đuổi:
+                    </p>
+                    <div className="space-y-6">
+                        <div className="flex gap-4 items-start">
+                            <div className="flex-none p-2 bg-slate-100 dark:bg-slate-800 rounded-lg text-slate-900 dark:text-white">
+                                <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19.428 15.428a2 2 0 00-1.022-.547l-2.384-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" /></svg>
                             </div>
-                            <div className="px-4 pb-4 text-center">
-                                <h3 className="font-bold text-xl text-slate-900 dark:text-white">Hoàng Trọng Trà</h3>
-                                <p className="text-slate-500 dark:text-slate-400 text-sm mb-1">Final Year Student</p>
-                                <p className="text-slate-900 dark:text-white text-xs font-bold uppercase tracking-wider">HUTECH University</p>
-
-                                <div className="flex justify-center gap-3 mt-4">
-                                    <a href="https://github.com/trahoangdev" target="_blank" rel="noreferrer" className="p-2 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-900 hover:text-white dark:hover:bg-white dark:hover:text-slate-900 transition-colors">
-                                        <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" /></svg>
-                                    </a>
-                                    <a href="https://www.linkedin.com/in/trahoangdev/" target="_blank" rel="noreferrer" className="p-2 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-900 hover:text-white dark:hover:bg-white dark:hover:text-slate-900 transition-colors">
-                                        <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2zM4 2a2 2 0 1 1-2 2 2 2 0 0 1 2-2z" /></svg>
-                                    </a>
-                                    <a href="https://www.facebook.com/trahoangdev" target="_blank" rel="noreferrer" className="p-2 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-900 hover:text-white dark:hover:bg-white dark:hover:text-slate-900 transition-colors">
-                                        <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z" /></svg>
-                                    </a>
-                                    <a href="mailto:trahoangdev@gmail.com" className="p-2 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-900 hover:text-white dark:hover:bg-white dark:hover:text-slate-900 transition-colors">
-                                        <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
-                                    </a>
-                                </div>
-
-                                <div className="mt-6">
-                                    <a
-                                        href="https://trahoangdev.vercel.app/"
-                                        target="_blank"
-                                        rel="noreferrer"
-                                        className="inline-flex items-center justify-center gap-2 w-full px-4 py-3 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-xl font-bold text-sm hover:bg-slate-800 dark:hover:bg-slate-100 transition-all transform hover:scale-[1.02] shadow-lg shadow-slate-200/50 dark:shadow-none"
-                                    >
-                                        Visit my Portfolio
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="opacity-70"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg>
-                                    </a>
-                                </div>
+                            <div>
+                                <h3 className="font-bold text-slate-900 dark:text-white">Cốt lõi (Core)</h3>
+                                <p className="text-sm text-slate-600 dark:text-slate-400 mt-1">Không chạy theo trend mù quáng. Tập trung vào kiến thức nền tảng vững chắc.</p>
                             </div>
                         </div>
-
-                        {/* Stats */}
-                        <div className="grid grid-cols-2 gap-4">
-                            <div className="bg-slate-50 dark:bg-slate-900/50 p-4 rounded-2xl text-center border border-slate-200 dark:border-slate-800">
-                                <div className="text-2xl font-bold text-slate-900 dark:text-white">#4</div>
-                                <div className="text-xs text-slate-500 font-medium uppercase tracking-wide">Năm Cuối</div>
+                        <div className="flex gap-4 items-start">
+                            <div className="flex-none p-2 bg-slate-100 dark:bg-slate-800 rounded-lg text-slate-900 dark:text-white">
+                                <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
                             </div>
-                            <div className="bg-slate-50 dark:bg-slate-900/50 p-4 rounded-2xl text-center border border-slate-200 dark:border-slate-800">
-                                <div className="text-2xl font-bold text-slate-900 dark:text-white">10+</div>
-                                <div className="text-xs text-slate-500 font-medium uppercase tracking-wide">Dự án</div>
+                            <div>
+                                <h3 className="font-bold text-slate-900 dark:text-white">Rõ ràng (Clear)</h3>
+                                <p className="text-sm text-slate-600 dark:text-slate-400 mt-1">Viết để chia sẻ, không phải để đánh đố. Đơn giản hóa những khái niệm phức tạp.</p>
+                            </div>
+                        </div>
+                        <div className="flex gap-4 items-start">
+                            <div className="flex-none p-2 bg-slate-100 dark:bg-slate-800 rounded-lg text-slate-900 dark:text-white">
+                                <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" /></svg>
+                            </div>
+                            <div>
+                                <h3 className="font-bold text-slate-900 dark:text-white">Thực chiến (Code-first)</h3>
+                                <p className="text-sm text-slate-600 dark:text-slate-400 mt-1">Lý thuyết đi đôi với thực hành. Luôn có demo hoặc code mẫu minh họa.</p>
                             </div>
                         </div>
                     </div>
-                </aside>
-
-                {/* Main Article Content */}
-                <article className="lg:col-span-8">
-
-                    {/* Section 1: Chuyện đời sinh viên */}
-                    <section className="mb-16">
-                        <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-8 border-b border-slate-200 dark:border-slate-800 pb-4">
-                            Chuyện đời sinh viên HUTECH
-                        </h2>
-                        <p className="text-lg text-slate-600 dark:text-slate-300 leading-relaxed mb-10">
-                            Là sinh viên năm cuối của Đại học Công nghệ TP.HCM (HUTECH), mình đang đứng ở ngưỡng cửa thú vị giữa "Học thuật" và "Thực chiến".
-                            Thay vì những dòng code Hello World ngây ngô ngày nào, giờ đây mình đang vật lộn (một cách vui vẻ) với Đồ án tốt nghiệp và những deadline thực tập.
-                        </p>
-
-                        <div className="space-y-10">
-                            <div>
-                                <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-3">
-                                    Năm Nhất: C++ và những nỗi đau
-                                </h3>
-                                <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
-                                    Thời kỳ khủng hoảng với con trỏ (pointer) trong C++. Mình từng nghĩ máy tính là phép thuật cho đến khi gặp lỗi <code className="bg-slate-100 dark:bg-slate-800 px-1.5 py-0.5 rounded text-sm font-mono text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-700">Segmentation Fault</code>.
-                                </p>
-                            </div>
-
-                            <div>
-                                <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-3">
-                                    Năm 2 & 3: "Thợ code" đồ án
-                                </h3>
-                                <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
-                                    Giai đoạn chạy show deadline. Google và StackOverflow là người thầy vĩ đại nhất. Code chạy ầm ầm nhưng nhìn lại thì như "nồi lẩu thập cẩm".
-                                </p>
-                            </div>
-
-                            <div>
-                                <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-3">
-                                    Năm Cuối: Giác ngộ
-                                </h3>
-                                <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
-                                    Hiện tại, mình bắt đầu trân trọng Clean Code và Architecture. Mục tiêu bây giờ là sản phẩm phải có tính thực tế và sẵn sàng cho môi trường doanh nghiệp (Career Ready).
-                                </p>
-                            </div>
-                        </div>
-                    </section>
-
-                    {/* Section 2: Tiêu chí Blog */}
-                    <section className="mb-16">
-                        <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-8 border-b border-slate-200 dark:border-slate-800 pb-4">
-                            Tiêu chí Blog & DevOrbit
-                        </h2>
-                        <p className="text-lg text-slate-600 dark:text-slate-300 leading-relaxed mb-10">
-                            <strong>DevOrbit</strong> là nơi mình lưu lại những kiến thức đã học được. Blog này tuân thủ 3 nguyên tắc (The 3Cs):
-                        </p>
-
-                        <div className="space-y-8">
-                            <div className="flex gap-4">
-                                <div className="flex-none w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center font-bold text-slate-900 dark:text-white border border-slate-200 dark:border-slate-700">1</div>
-                                <div>
-                                    <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-2">Core (Cốt lõi)</h3>
-                                    <p className="text-slate-600 dark:text-slate-300 leading-relaxed">Nắm chắc căn bản. Framework nào cũng được, miễn là hiểu rõ bản chất vấn đề.</p>
-                                </div>
-                            </div>
-
-                            <div className="flex gap-4">
-                                <div className="flex-none w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center font-bold text-slate-900 dark:text-white border border-slate-200 dark:border-slate-700">2</div>
-                                <div>
-                                    <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-2">Clear (Rõ ràng)</h3>
-                                    <p className="text-slate-600 dark:text-slate-300 leading-relaxed">Chia sẻ kiến thức chứ không khoe chữ. Viết sao cho sinh viên năm 1 cũng hiểu được.</p>
-                                </div>
-                            </div>
-
-                            <div className="flex gap-4">
-                                <div className="flex-none w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center font-bold text-slate-900 dark:text-white border border-slate-200 dark:border-slate-700">3</div>
-                                <div>
-                                    <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-2">Code-first (Thực chiến)</h3>
-                                    <p className="text-slate-600 dark:text-slate-300 leading-relaxed">Lý thuyết phải đi đôi với thực hành. Mọi bài viết đều có demo hoặc code mẫu.</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <blockquote className="mt-10 pl-6 border-l-4 border-slate-900 dark:border-white italic text-slate-600 dark:text-slate-400 text-lg">
-                            "Sinh viên IT không sợ bug, chỉ sợ đồ án không kịp chạy thử trước khi demo với giảng viên!"
-                        </blockquote>
-                    </section>
-
-                    {/* Section 3: Tech Stack */}
-                    <section>
-                        <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-8 border-b border-slate-200 dark:border-slate-800 pb-4">
-                            Vũ khí đồ án
-                        </h2>
-                        <p className="text-lg text-slate-600 dark:text-slate-300 leading-relaxed mb-6">
-                            Bộ công cụ mình thường xuyên sử dụng để chiến đấu với các đồ án môn học:
-                        </p>
-
-                        <div className="space-y-8">
-                            <TechGroup title="Backend System" items={backendTechs} />
-                            <TechGroup title="Modern Frontend" items={frontendTechs} />
-                            <TechGroup title="Tools & Platforms" items={toolTechs} />
-                        </div>
-                    </section>
-
-                </article>
-
+                </div>
             </div>
+
+            {/* Section 2: Story & Timeline */}
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-12 mb-32">
+                <div className="md:col-span-4">
+                    <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-8 sticky top-24">
+                        Hành trình
+                    </h2>
+                </div>
+                <div className="md:col-span-8 border-l border-slate-200 dark:border-slate-800 pl-8 space-y-12">
+                    <TimelineItem
+                        year="2026 (3 THÁNG)"
+                        title="Thực tập sinh Fullstack"
+                        description="Tham gia dự án thực tế tại doanh nghiệp. Làm quen với quy trình Agile/Scrum, CI/CD và tối ưu hóa truy vấn Database. Tự học và áp dụng các kiến thức đã học vào dự án thực tế."
+                    />
+                    <TimelineItem
+                        year="2025 (Hiện tại)"
+                        title="Xây dựng DevOrbit"
+                        description="Phát triển Blog cá nhân để chia sẻ kiến thức chuyên sâu về Backend và System Design. Tập trung vào chất lượng content và trải nghiệm người đọc."
+                    />
+                    <TimelineItem
+                        year="Th9.2025 - Th12.2025"
+                        title="Xây dựng Lux Wear AI"
+                        description="Phát triển một nền tảng tác nhân đa người dùng cho phép các thương hiệu thời trang đào tạo, triển khai và giám sát các nhà tạo mẫu AI."
+                    />
+                    <TimelineItem
+                        year="2023 - 2024"
+                        title="Lập trình viên Website"
+                        description="Hành trình học hỏi lập trình web từ cơ bản đến chuyên sâu."
+                    />
+                    <TimelineItem
+                        year="2022"
+                        title="Bắt đầu tại HUTECH"
+                        description="Chập chững những dòng code đầu tiên với C/C++. Niềm đam mê lập trình được thắp sáng từ những bài toán giải thuật."
+                    />
+                </div>
+            </div>
+
+            {/* Section 3: Tech Stack */}
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-12 mb-32">
+                <div className="md:col-span-4">
+                    <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-8 sticky top-24">
+                        Công nghệ
+                    </h2>
+                </div>
+                <div className="md:col-span-8">
+                    <div className="prose dark:prose-invert max-w-none">
+                        <p className="text-lg text-slate-600 dark:text-slate-300 mb-8">
+                            Mình không chạy theo mọi trend công nghệ, mà tập trung làm chủ những công cụ giải quyết tốt vấn đề.
+                        </p>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <SkillCard title="Backend" items={["Java Core", "Spring Boot", "Hibernate/JPA", "MySQL/PostgreSQL", "Redis", "MongoDB"]} />
+                        <SkillCard title="Frontend" items={["React.js", "Next.js 14", "TailwindCSS", "TypeScript"]} />
+                        <SkillCard title="AI Technologies" items={["Python", "LangChain", "OpenAI API", "Vercel AI SDK", "Prompt Engineering"]} />
+                        <SkillCard title="Công cụ & Dịch vụ" items={["Git/GitHub", "Docker", "Postman", "IntelliJ IDEA", "Linux", "Vercel"]} />
+                    </div>
+                </div>
+            </div>
+
+            {/* Section 4: Contact */}
+            <div className="bg-slate-50 dark:bg-slate-900 rounded-3xl p-12 text-center mb-20 border border-slate-100 dark:border-slate-800">
+                <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-6">Kết nối với mình</h2>
+                <p className="text-lg text-slate-600 dark:text-slate-300 mb-8 max-w-2xl mx-auto">
+                    Mình luôn sẵn sàng cho những cơ hội hợp tác mới, hoặc đơn giản là một buổi cà phê tech talk cuối tuần.
+                </p>
+                <div className="flex justify-center gap-6">
+                    <SocialLink href="https://github.com/trahoangdev" label="GitHub" />
+                    <SocialLink href="https://www.linkedin.com/in/trahoangdev/" label="LinkedIn" />
+                    <SocialLink href="mailto:trahoangdev@gmail.com" label="Email" />
+                    <SocialLink href="https://www.facebook.com/trahoangdev" label="Facebook" />
+                </div>
+            </div>
+
         </Container>
     );
 }
 
-// --- Data & Components ---
+// --- Components ---
 
-type TechItem = {
-    name: string;
-    icon: React.ReactNode;
-    color?: string;
-};
-
-const TechGroup = ({ title, items }: { title: string; items: TechItem[] }) => (
-    <div>
-        <h3 className="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wider mb-4 border-l-4 border-slate-900 dark:border-white pl-3">
-            {title}
-        </h3>
-        <div className="flex flex-wrap gap-3">
-            {items.map((tech) => (
-                <span
-                    key={tech.name}
-                    className="group inline-flex items-center gap-2 px-3 py-1.5 bg-slate-50 dark:bg-slate-900 text-slate-700 dark:text-slate-300 rounded-lg text-sm font-medium border border-slate-200 dark:border-slate-800 hover:bg-slate-900 hover:text-white dark:hover:bg-white dark:hover:text-slate-900 transition-colors cursor-default"
-                >
-                    <span className="grayscale group-hover:grayscale-0 transition-all duration-300">
-                        {tech.icon}
-                    </span>
-                    {tech.name}
-                </span>
-            ))}
-        </div>
+const TimelineItem = ({ year, title, description }: { year: string, title: string, description: string }) => (
+    <div className="relative">
+        <span className="absolute -left-[39px] top-1 flex h-5 w-5 items-center justify-center rounded-full bg-white dark:bg-slate-950 ring-4 ring-slate-100 dark:ring-slate-800">
+            <span className="h-2 w-2 rounded-full bg-slate-900 dark:bg-slate-100" />
+        </span>
+        <span className="text-sm font-bold text-slate-500 dark:text-slate-400 tracking-wider uppercase mb-1 block">{year}</span>
+        <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2">{title}</h3>
+        <p className="text-slate-600 dark:text-slate-300 leading-relaxed">{description}</p>
     </div>
 );
 
-const backendTechs: TechItem[] = [
-    { name: "Java Core", icon: <StackIcon name="java" className="w-5 h-5" /> },
-    { name: "Spring Boot", icon: <StackIcon name="spring" className="w-5 h-5" /> },
-    { name: "Node.js", icon: <StackIcon name="nodejs" className="w-5 h-5" /> },
-    { name: "PostgreSQL", icon: <StackIcon name="postgresql" className="w-5 h-5" /> },
-    { name: "MongoDB", icon: <StackIcon name="mongodb" className="w-5 h-5" /> },
-    { name: "Redis", icon: <StackIcon name="redis" className="w-5 h-5" /> },
-    { name: "Docker", icon: <StackIcon name="docker" className="w-5 h-5" /> },
-    //{ name: "Kafka", icon: <StackIcon name="kafka" className="w-5 h-5" /> },
-    //{ name: "Microservices", icon: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-5 h-5"><rect x="2" y="2" width="8" height="8" rx="2" /><rect x="14" y="2" width="8" height="8" rx="2" /><rect x="2" y="14" width="8" height="8" rx="2" /><rect x="14" y="14" width="8" height="8" rx="2" /></svg>, color: "text-purple-500" },
-    //{ name: "Elasticsearch", icon: <StackIcon name="elasticsearch" className="w-5 h-5" /> },
-];
+const SkillCard = ({ title, items }: { title: string, items: string[] }) => (
+    <div className="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md transition-shadow">
+        <h3 className="font-bold text-lg text-slate-900 dark:text-white mb-4 border-b border-slate-100 dark:border-slate-800 pb-2">{title}</h3>
+        <ul className="space-y-2">
+            {items.map(item => (
+                <li key={item} className="text-slate-600 dark:text-slate-400 text-sm font-medium flex items-center gap-2">
+                    <span className="w-1.5 h-1.5 bg-slate-400 rounded-full"></span>
+                    {item}
+                </li>
+            ))}
+        </ul>
+    </div>
+);
 
-const frontendTechs: TechItem[] = [
-    { name: "JavaScript", icon: <StackIcon name="js" className="w-5 h-5" /> },
-    { name: "TypeScript", icon: <StackIcon name="typescript" className="w-5 h-5" /> },
-    { name: "Next.js", icon: <StackIcon name="nextjs2" className="w-5 h-5" /> },
-    { name: "Tailwind CSS", icon: <StackIcon name="tailwindcss" className="w-5 h-5" /> },
-    { name: "React Query", icon: <StackIcon name="reactquery" className="w-5 h-5" /> },
-    //{ name: "Zustand", icon: <img src="https://github.com/pmndrs/zustand/raw/main/bear.png" alt="Zustand" className="w-5 h-5 object-contain" /> },
-    //{ name: "Framer Motion", icon: <StackIcon name="framermotion" className="w-5 h-5" /> },
-];
-
-const toolTechs: TechItem[] = [
-    { name: "VS Code", icon: <StackIcon name="vscode" className="w-5 h-5" /> },
-    { name: "Git", icon: <StackIcon name="git" className="w-5 h-5" /> },
-    { name: "GitHub", icon: <StackIcon name="github" className="w-5 h-5" /> },
-    { name: "GitLab", icon: <StackIcon name="gitlab" className="w-5 h-5" /> },
-    { name: "Vercel", icon: <StackIcon name="vercel" className="w-5 h-5" /> },
-];
+const SocialLink = ({ href, label }: { href: string, label: string }) => (
+    <a href={href} target="_blank" rel="noreferrer" className="text-slate-900 dark:text-white font-bold hover:text-blue-600 dark:hover:text-blue-400 underline decoration-2 decoration-slate-200 dark:decoration-slate-700 underline-offset-4 transition-all">
+        {label}
+    </a>
+);

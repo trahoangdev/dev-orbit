@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-//import ThemeSwitcher from "./theme-switcher";
+import Search from "./search";
 
 const Header = () => {
   return (
@@ -52,6 +52,10 @@ const Header = () => {
 
         {/* Separator */}
         <div className="w-px h-5 bg-slate-200 dark:bg-slate-800 hidden md:block"></div>
+
+        <div className="flex items-center gap-4">
+          <Search />
+        </div>
       </div>
     </header>
   );

@@ -3,4 +3,4 @@ User-agent: *
 Allow: /
 
 # Sitemap
-Sitemap: https://devorbit.dev/sitemap.xml
+Sitemap: devorbitblog.vercel.app/sitemap.xml

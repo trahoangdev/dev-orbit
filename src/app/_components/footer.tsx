@@ -1,10 +1,11 @@
 import Container from "@/app/_components/container";
-
+import { Newsletter } from "@/app/_components/newsletter";
 import Image from "next/image";
 
 export function Footer() {
   return (
     <footer className="bg-white dark:bg-slate-950 border-t border-slate-200 dark:border-slate-800">
+      <Newsletter />
       <Container>
         <div className="py-16 flex flex-col md:flex-row items-center justify-between gap-8">
           <div className="flex flex-col md:flex-row items-center gap-4 text-center md:text-left">

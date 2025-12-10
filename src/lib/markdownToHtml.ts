@@ -5,6 +5,7 @@ import rehypeStringify from "rehype-stringify";
 import remarkGfm from "remark-gfm";
 import rehypePrettyCode from "rehype-pretty-code";
 import { rehypeWindow } from "./rehype-window";
+import { rehypeImgLazy } from "./rehype-img-lazy";
 
 export default async function markdownToHtml(markdown: string) {
   const result = await remark()
@@ -15,6 +16,7 @@ export default async function markdownToHtml(markdown: string) {
       keepBackground: false, // We handle background in our wrapper
     })
     .use(rehypeWindow)
+    .use(rehypeImgLazy)
     .use(rehypeSlug)
     .use(rehypeStringify)
     .process(markdown);

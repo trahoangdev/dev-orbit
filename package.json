@@ -9,6 +9,8 @@
     "generate": "node scripts/generate-static-files.mjs"
   },
   "dependencies": {
+    "@vercel/analytics": "^1.6.1",
+    "@vercel/og": "^0.8.5",
     "classnames": "^2.5.1",
     "date-fns": "^3.6.0",
     "github-slugger": "^2.0.0",

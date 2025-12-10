@@ -3,7 +3,7 @@ import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
 
-const SITE_URL = "https://devorbit.dev";
+const SITE_URL = "devorbitblog.vercel.app";
 const SITE_NAME = "DevOrbit";
 const SITE_DESCRIPTION = "DevOrbit — Blog về lập trình Java, JavaScript, TypeScript và các công nghệ web hiện đại.";
 
@@ -41,16 +41,15 @@ function generateSitemap(posts) {
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${allUrls
-  .map(
-    (page) => `  <url>
+      .map(
+        (page) => `  <url>
     <loc>${SITE_URL}${page.url}</loc>
     <changefreq>${page.changefreq}</changefreq>
-    <priority>${page.priority}</priority>${
-      page.lastmod ? `\n    <lastmod>${page.lastmod}</lastmod>` : ""
-    }
+    <priority>${page.priority}</priority>${page.lastmod ? `\n    <lastmod>${page.lastmod}</lastmod>` : ""
+          }
   </url>`
-  )
-  .join("\n")}
+      )
+      .join("\n")}
 </urlset>`;
 
   fs.writeFileSync(path.join(publicDir, "sitemap.xml"), sitemap.trim());

@@ -1,13 +1,13 @@
 
 import { visit } from 'unist-util-visit';
-import { Element, Root } from 'hast';
+import { Element as HastElement, Root, Parent } from 'hast';
 
 export function rehypeWindow() {
     return (tree: Root) => {
-        visit(tree, 'element', (node: any, index: any, parent: any) => {
-            if (node.tagName === 'pre' && parent && index !== null) {
+        visit(tree, 'element', (node: HastElement, index: number | undefined, parent: Parent | undefined) => {
+            if (node.tagName === 'pre' && parent && typeof index === 'number') {
                 // Ensure we don't wrap twice if somehow visited multiple times
-                if (parent.properties?.className?.includes('mockup-code-window')) return;
+                if ((parent as HastElement).properties?.className && Array.isArray((parent as HastElement).properties.className) && ((parent as HastElement).properties.className as string[]).includes('mockup-code-window')) return;
 
                 const originalNode = { ...node };
 
@@ -18,7 +18,7 @@ export function rehypeWindow() {
                 const existingClasses = (originalNode.properties.className as string[]) || [];
                 originalNode.properties.className = [...existingClasses, '!p-5', 'overflow-x-auto', '!bg-transparent', '!m-0', 'text-sm'];
 
-                const wrapper = {
+                const wrapper: HastElement = {
                     type: 'element',
                     tagName: 'div',
                     properties: {
