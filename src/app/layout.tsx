@@ -1,5 +1,5 @@
 import Footer from "@/app/_components/footer";
-import { SITE_NAME, SITE_DESCRIPTION, HOME_OG_IMAGE_URL, SITE_URL } from "@/lib/constants";
+import { SITE_NAME, SITE_DESCRIPTION, HOME_OG_IMAGE_URL, SITE_URL, SITE_KEYWORDS, AUTHOR } from "@/lib/constants";
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import cn from "classnames";
@@ -9,27 +9,35 @@ import { ProjectInfo } from "@/app/_components/project-info";
 
 import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ subsets: ["latin"], display: "swap" });
 
 export const viewport: Viewport = {
-  themeColor: "#000000",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
+    { media: "(prefers-color-scheme: dark)", color: "#0f172a" },
+  ],
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
 };
 
 export const metadata: Metadata = {
   title: {
-    default: SITE_NAME,
+    default: `${SITE_NAME} - Blog Lập Trình & Công Nghệ`,
     template: `%s | ${SITE_NAME}`,
   },
   description: SITE_DESCRIPTION,
   metadataBase: new URL(SITE_URL),
   applicationName: SITE_NAME,
-  keywords: ["Next.js", "React", "JavaScript", "TypeScript", "Java", "Spring Boot", "Programming", "Blog", "HUTECH"],
-  authors: [{ name: "Hoàng Trọng Trà", url: "https://github.com/trahoangdev" }],
-  creator: "Hoàng Trọng Trà",
-  publisher: "Hoàng Trọng Trà",
+  keywords: SITE_KEYWORDS,
+  authors: [{ name: AUTHOR.name, url: AUTHOR.url }],
+  creator: AUTHOR.name,
+  publisher: AUTHOR.name,
+  category: "technology",
+  classification: "Blog",
   openGraph: {
     title: {
-      default: SITE_NAME,
+      default: `${SITE_NAME} - Blog Lập Trình & Công Nghệ`,
       template: `%s | ${SITE_NAME}`,
     },
     description: SITE_DESCRIPTION,
@@ -37,10 +45,11 @@ export const metadata: Metadata = {
     siteName: SITE_NAME,
     images: [
       {
-        url: HOME_OG_IMAGE_URL,
+        url: `${SITE_URL}/api/og?title=${encodeURIComponent(SITE_NAME)}&author=${encodeURIComponent(AUTHOR.name)}`,
         width: 1200,
         height: 630,
         alt: SITE_DESCRIPTION,
+        type: "image/png",
       },
     ],
     locale: "vi_VN",
@@ -49,37 +58,102 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: {
-      default: SITE_NAME,
+      default: `${SITE_NAME} - Blog Lập Trình & Công Nghệ`,
       template: `%s | ${SITE_NAME}`,
     },
     description: SITE_DESCRIPTION,
-    images: [HOME_OG_IMAGE_URL],
+    images: [`${SITE_URL}/api/og?title=${encodeURIComponent(SITE_NAME)}&author=${encodeURIComponent(AUTHOR.name)}`],
     creator: "@trahoangdev",
+    site: "@trahoangdev",
   },
   robots: {
     index: true,
     follow: true,
+    nocache: false,
     googleBot: {
       index: true,
       follow: true,
+      noimageindex: false,
       "max-video-preview": -1,
       "max-image-preview": "large",
       "max-snippet": -1,
     },
   },
   alternates: {
+    canonical: SITE_URL,
     types: {
-      "application/rss+xml": [{ url: "/feed.xml", title: "RSS Feed" }],
+      "application/rss+xml": [{ url: "/feed.xml", title: `${SITE_NAME} RSS Feed` }],
     },
   },
   icons: {
-    icon: "/favicon.ico",
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/favicon/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+      { url: "/favicon/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+    ],
+    apple: [
+      { url: "/favicon/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
+    ],
+  },
+  manifest: "/favicon/site.webmanifest",
+  verification: {
+    // Add your verification codes here
+    // google: "your-google-verification-code",
+    // yandex: "your-yandex-verification-code",
+  },
+  other: {
+    "msapplication-TileColor": "#0f172a",
   },
 };
 
 import { Analytics } from "@vercel/analytics/react";
 
-// ... imports
+// JSON-LD Structured Data for Website
+const websiteJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: SITE_NAME,
+  description: SITE_DESCRIPTION,
+  url: SITE_URL,
+  author: {
+    "@type": "Person",
+    name: AUTHOR.name,
+    url: AUTHOR.url,
+    image: `${SITE_URL}${AUTHOR.image}`,
+    jobTitle: AUTHOR.jobTitle,
+    sameAs: AUTHOR.sameAs,
+  },
+  publisher: {
+    "@type": "Person",
+    name: AUTHOR.name,
+    url: AUTHOR.url,
+  },
+  potentialAction: {
+    "@type": "SearchAction",
+    target: {
+      "@type": "EntryPoint",
+      urlTemplate: `${SITE_URL}/tags/{search_term_string}`,
+    },
+    "query-input": "required name=search_term_string",
+  },
+  inLanguage: "vi-VN",
+};
+
+// JSON-LD for Organization/Person
+const personJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: AUTHOR.name,
+  url: SITE_URL,
+  image: `${SITE_URL}${AUTHOR.image}`,
+  jobTitle: AUTHOR.jobTitle,
+  worksFor: {
+    "@type": "Organization",
+    name: "HUTECH",
+  },
+  sameAs: AUTHOR.sameAs,
+  knowsAbout: ["Java", "Spring Boot", "JavaScript", "TypeScript", "React", "Next.js", "Web Development"],
+};
 
 export default function RootLayout({
   children,
@@ -88,6 +162,18 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="vi" suppressHydrationWarning>
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
+        />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+      </head>
       <body
         className={cn(inter.className, "bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-400")}
         suppressHydrationWarning

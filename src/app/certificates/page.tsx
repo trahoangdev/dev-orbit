@@ -3,10 +3,29 @@ import Container from "@/app/_components/container";
 import Header from "@/app/_components/header";
 import { Metadata } from "next";
 import Image from "next/image";
+import { SITE_URL, SITE_NAME, AUTHOR } from "@/lib/constants";
 
 export const metadata: Metadata = {
-    title: "Certificates",
-    description: "Danh sách các chứng chỉ và thành tựu kỹ thuật của tôi.",
+    title: "Chứng chỉ & Thành tựu - Certificates",
+    description: `Danh sách các chứng chỉ chuyên môn và thành tựu kỹ thuật của ${AUTHOR.name}. Bao gồm AWS, Cisco và các chứng chỉ công nghệ khác.`,
+    keywords: ["certificates", "chứng chỉ", "AWS", "Cisco", "thành tựu", AUTHOR.name],
+    openGraph: {
+        title: `Chứng chỉ & Thành tựu | ${SITE_NAME}`,
+        description: `Danh sách các chứng chỉ chuyên môn và thành tựu kỹ thuật của ${AUTHOR.name}.`,
+        url: `${SITE_URL}/certificates`,
+        type: "website",
+        images: [
+            {
+                url: `${SITE_URL}/api/og?title=${encodeURIComponent("Certificates & Achievements")}&author=${encodeURIComponent(AUTHOR.name)}`,
+                width: 1200,
+                height: 630,
+                alt: "Certificates",
+            },
+        ],
+    },
+    alternates: {
+        canonical: `${SITE_URL}/certificates`,
+    },
 };
 
 type Certificate = {

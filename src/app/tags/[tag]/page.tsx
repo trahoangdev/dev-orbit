@@ -6,15 +6,48 @@ import { MoreStories } from "@/app/_components/more-stories";
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
 
+import { SITE_URL, SITE_NAME } from "@/lib/constants";
+
 type Props = {
     params: Promise<{ tag: string }>;
 };
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
     const params = await props.params;
+    const tag = params.tag;
+    const posts = getAllPosts();
+    const filteredPosts = posts.filter((post) => post.tags?.includes(tag));
+    const postCount = filteredPosts.length;
+
+    const title = `${tag.charAt(0).toUpperCase() + tag.slice(1)} - ${postCount} bài viết`;
+    const description = `Tổng hợp ${postCount} bài viết về ${tag} tại DevOrbit. Khám phá kiến thức, hướng dẫn và best practices về ${tag}.`;
+
     return {
-        title: `#${params.tag} | DevOrbit`,
-        description: `Articles about ${params.tag}`,
+        title,
+        description,
+        keywords: [tag, `học ${tag}`, `hướng dẫn ${tag}`, "lập trình", "DevOrbit"],
+        openGraph: {
+            title: `#${tag} | ${SITE_NAME}`,
+            description,
+            url: `${SITE_URL}/tags/${tag}`,
+            type: "website",
+            images: [
+                {
+                    url: `${SITE_URL}/api/og?title=${encodeURIComponent(`#${tag}`)}&date=${encodeURIComponent(`${postCount} bài viết`)}&author=DevOrbit`,
+                    width: 1200,
+                    height: 630,
+                    alt: `Bài viết về ${tag}`,
+                },
+            ],
+        },
+        twitter: {
+            card: "summary_large_image",
+            title: `#${tag} | ${SITE_NAME}`,
+            description,
+        },
+        alternates: {
+            canonical: `${SITE_URL}/tags/${tag}`,
+        },
     };
 }
 

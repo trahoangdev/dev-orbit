@@ -3,10 +3,21 @@ import Container from "@/app/_components/container";
 import Header from "@/app/_components/header";
 import Link from "next/link";
 import { Metadata } from "next";
+import { SITE_URL, SITE_NAME } from "@/lib/constants";
 
 export const metadata: Metadata = {
-    title: "Chủ đề",
-    description: "Khám phá các chủ đề bài viết",
+    title: "Chủ đề bài viết - Tags",
+    description: "Khám phá các chủ đề bài viết về Java, Spring Boot, JavaScript, TypeScript, React, Next.js và nhiều công nghệ web hiện đại khác tại DevOrbit.",
+    keywords: ["tags", "chủ đề", "Java", "Spring Boot", "JavaScript", "TypeScript", "React", "Next.js"],
+    openGraph: {
+        title: `Chủ đề bài viết | ${SITE_NAME}`,
+        description: "Khám phá các chủ đề bài viết về lập trình và công nghệ web hiện đại.",
+        url: `${SITE_URL}/tags`,
+        type: "website",
+    },
+    alternates: {
+        canonical: `${SITE_URL}/tags`,
+    },
 };
 
 export default function TagsPage() {

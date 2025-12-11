@@ -1,15 +1,36 @@
-
-// ... (keeping imports)
 import Container from "@/app/_components/container";
 import Header from "@/app/_components/header";
 import Image from "next/image";
 import { Metadata } from "next";
-// Removing external icon lib for simplicity and using text/svg if needed or just listing them
-// Actually, let's keep it simple.
+import { SITE_URL, SITE_NAME, AUTHOR } from "@/lib/constants";
 
 export const metadata: Metadata = {
-    title: "Về mình (About)",
-    description: "Hoàng Trọng Trà - Fullstack Developer & Tech Blogger",
+    title: "Về mình - About Me",
+    description: `${AUTHOR.name} - Fullstack Developer, Tech Enthusiast & Blogger. Sinh viên HUTECH đam mê Java, Spring Boot, React và Next.js. Chia sẻ kiến thức lập trình tại DevOrbit.`,
+    keywords: [AUTHOR.name, "Fullstack Developer", "Java Developer", "HUTECH", "trahoangdev", "DevOrbit", "Tech Blogger"],
+    openGraph: {
+        title: `Về mình - ${AUTHOR.name} | ${SITE_NAME}`,
+        description: `${AUTHOR.name} - Fullstack Developer, Tech Enthusiast & Blogger tại DevOrbit.`,
+        url: `${SITE_URL}/about`,
+        type: "profile",
+        images: [
+            {
+                url: `${SITE_URL}/api/og?title=${encodeURIComponent("About Me")}&author=${encodeURIComponent(AUTHOR.name)}`,
+                width: 1200,
+                height: 630,
+                alt: AUTHOR.name,
+            },
+        ],
+    },
+    twitter: {
+        card: "summary_large_image",
+        title: `Về mình - ${AUTHOR.name} | ${SITE_NAME}`,
+        description: `${AUTHOR.name} - Fullstack Developer & Tech Blogger.`,
+        creator: "@trahoangdev",
+    },
+    alternates: {
+        canonical: `${SITE_URL}/about`,
+    },
 };
 
 export default function About() {
@@ -117,8 +138,8 @@ export default function About() {
                     />
                     <TimelineItem
                         year="Th9.2025 - Th12.2025"
-                        title="Xây dựng Lux Wear AI"
-                        description="Phát triển một nền tảng tác nhân đa người dùng cho phép các thương hiệu thời trang đào tạo, triển khai và giám sát các nhà tạo mẫu AI."
+                        title="Xây dựng Luxe Wear AI"
+                        description="Nền tảng SaaS cho phép doanh nghiệp xây dựng, triển khai và quản lý các tác nhân AI (AI Agents). Hệ thống hỗ trợ tích hợp dữ liệu thời gian thực, thực hiện hành động trên các hệ thống bên thứ ba và cung cấp báo cáo phân tích chi tiết."
                     />
                     <TimelineItem
                         year="2023 - 2024"

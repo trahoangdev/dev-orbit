@@ -43,6 +43,8 @@ export default async function Post(props: {
             coverImage={post.coverImage}
             date={post.date}
             author={post.author}
+            readingTime={post.readingTime?.text}
+            wordCount={post.wordCount}
           />
 
           <script
@@ -55,12 +57,29 @@ export default async function Post(props: {
                 datePublished: post.date,
                 dateModified: post.date,
                 description: post.excerpt,
-                image: [post.ogImage.url],
+                image: [`${SITE_URL}${post.ogImage.url}`],
+                mainEntityOfPage: {
+                  "@type": "WebPage",
+                  "@id": `${SITE_URL}/posts/${post.slug}`,
+                },
                 author: {
                   "@type": "Person",
                   name: post.author.name,
-                  image: post.author.picture,
+                  image: `${SITE_URL}${post.author.picture}`,
+                  url: "https://github.com/trahoangdev",
                 },
+                publisher: {
+                  "@type": "Person",
+                  name: post.author.name,
+                  logo: {
+                    "@type": "ImageObject",
+                    url: `${SITE_URL}/assets/logo/logo.png`,
+                  },
+                },
+                wordCount: post.wordCount,
+                keywords: post.tags?.join(", "),
+                articleSection: post.tags?.[0] || "Technology",
+                inLanguage: "vi-VN",
               }),
             }}
           />

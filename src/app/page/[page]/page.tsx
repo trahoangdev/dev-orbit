@@ -4,10 +4,35 @@ import { MoreStories } from "@/app/_components/more-stories";
 import Pagination from "@/app/_components/pagination";
 import { getAllPosts } from "@/lib/api";
 import { notFound } from "next/navigation";
+import { Metadata } from "next";
+import { SITE_URL, SITE_NAME } from "@/lib/constants";
 
 const POSTS_PER_PAGE = 6;
 
 type Params = Promise<{ page: string }>;
+
+export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
+    const { page } = await params;
+    const pageNumber = parseInt(page);
+    
+    return {
+        title: `Trang ${pageNumber} - Danh sách bài viết`,
+        description: `Khám phá các bài viết về lập trình tại DevOrbit - Trang ${pageNumber}. Java, Spring Boot, JavaScript, TypeScript, React và Next.js.`,
+        openGraph: {
+            title: `Trang ${pageNumber} | ${SITE_NAME}`,
+            description: `Danh sách bài viết - Trang ${pageNumber}`,
+            url: `${SITE_URL}/page/${pageNumber}`,
+            type: "website",
+        },
+        alternates: {
+            canonical: `${SITE_URL}/page/${pageNumber}`,
+        },
+        robots: {
+            index: pageNumber <= 5, // Only index first 5 pages
+            follow: true,
+        },
+    };
+}
 
 export default async function Page({ params }: { params: Params }) {
     const { page } = await params;

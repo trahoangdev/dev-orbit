@@ -2,6 +2,7 @@ import { Post } from "@/interfaces/post";
 import fs from "fs";
 import matter from "gray-matter";
 import { join } from "path";
+import { calculateReadingTime, getWordCount } from "./reading-time";
 
 const postsDirectory = join(process.cwd(), "_posts");
 
@@ -55,7 +56,18 @@ export function getPostBySlug(slug: string): Post | null {
     const fileContents = fs.readFileSync(fullPath, "utf8");
     const { data, content } = matter(fileContents);
     validateFrontMatter(data, realSlug);
-    return { ...data, slug: realSlug, content } as Post;
+    
+    // Calculate reading time and word count
+    const readingTime = calculateReadingTime(content);
+    const wordCount = getWordCount(content);
+    
+    return { 
+      ...data, 
+      slug: realSlug, 
+      content,
+      readingTime,
+      wordCount,
+    } as Post;
   } catch (error) {
     console.error(`Error reading post "${realSlug}":`, error);
     return null;

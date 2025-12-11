@@ -1,19 +1,27 @@
 {
-  "name": "Next.js",
-  "short_name": "Next.js",
+  "name": "DevOrbit - Blog Lập Trình & Công Nghệ",
+  "short_name": "DevOrbit",
+  "description": "Blog về lập trình Java, JavaScript, TypeScript và các công nghệ web hiện đại.",
+  "start_url": "/",
+  "scope": "/",
   "icons": [
     {
-      "src": "/favicons/android-chrome-192x192.png",
+      "src": "/favicon/android-chrome-192x192.png",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
     },
     {
-      "src": "/favicons/android-chrome-512x512.png",
+      "src": "/favicon/android-chrome-512x512.png",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
     }
   ],
-  "theme_color": "#000000",
-  "background_color": "#000000",
-  "display": "standalone"
+  "theme_color": "#0f172a",
+  "background_color": "#ffffff",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "lang": "vi",
+  "categories": ["education", "technology", "blog"]
 }
