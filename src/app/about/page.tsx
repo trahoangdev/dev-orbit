@@ -33,22 +33,64 @@ export const metadata: Metadata = {
     },
 };
 
+// JSON-LD Structured Data for About Page
+const aboutJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "ProfilePage",
+    mainEntity: {
+        "@type": "Person",
+        name: AUTHOR.name,
+        alternateName: "trahoangdev",
+        description: "Fullstack Developer, Tech Enthusiast & Blogger",
+        image: `${SITE_URL}${AUTHOR.image}`,
+        url: `${SITE_URL}/about`,
+        jobTitle: AUTHOR.jobTitle,
+        worksFor: {
+            "@type": "EducationalOrganization",
+            name: "HUTECH - Ho Chi Minh City University of Technology",
+        },
+        alumniOf: {
+            "@type": "EducationalOrganization",
+            name: "HUTECH",
+        },
+        knowsAbout: [
+            "Java",
+            "Spring Boot",
+            "JavaScript",
+            "TypeScript",
+            "React",
+            "Next.js",
+            "Web Development",
+            "REST API",
+            "Microservices",
+        ],
+        sameAs: AUTHOR.sameAs,
+    },
+};
+
 export default function About() {
     return (
         <Container>
             <Header />
 
+            {/* JSON-LD Structured Data */}
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(aboutJsonLd) }}
+            />
+
             {/* Section 1: Introduction */}
-            <div className="flex flex-col items-center text-center max-w-3xl mx-auto my-20">
+            <section aria-labelledby="intro-heading" className="flex flex-col items-center text-center max-w-3xl mx-auto my-20">
                 <div className="relative w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden border-4 border-slate-100 dark:border-slate-800 shadow-2xl mb-8">
                     <Image
                         src="/assets/blog/authors/tra.png"
-                        alt="Hoàng Trọng Trà"
+                        alt="Ảnh đại diện của Hoàng Trọng Trà - Fullstack Developer"
                         fill
                         className="object-cover"
+                        priority
                     />
                 </div>
-                <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white mb-4">
+                <h1 id="intro-heading" className="text-4xl md:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white mb-4">
                     Hoàng Trọng Trà
                 </h1>
                 <p className="text-xl text-slate-600 dark:text-slate-300 font-medium mb-6">
@@ -57,24 +99,24 @@ export default function About() {
                 <p className="text-lg text-slate-500 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed">
                     Chào mừng bạn đến với <strong>DevOrbit</strong>. Đây là nơi mình lưu giữ những kiến thức, kinh nghiệm và góc nhìn cá nhân trên hành trình chinh phục công nghệ.
                 </p>
-            </div>
+            </section>
 
             <div className="w-full h-px bg-slate-200 dark:bg-slate-800 mb-20"></div>
 
             {/* Section 1.5: Story & Philosophy */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-32">
+            <section aria-labelledby="story-heading" className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-32">
                 <div>
-                    <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-6">
+                    <h2 id="story-heading" className="text-3xl font-bold text-slate-900 dark:text-white mb-6">
                         Đôi nét về mình
                     </h2>
-                    <div className="prose dark:prose-invert text-slate-600 dark:text-slate-300 leading-relaxed space-y-4">
-                        <p>
+                    <div className="prose prose-lg dark:prose-invert text-slate-600 dark:text-slate-300 leading-relaxed space-y-4">
+                        <p className="text-base md:text-lg">
                             Mình là một sinh viên năm cuối tại HUTECH, đang đứng ở giao lộ thú vị giữa "Học thuật" và "Thực chiến".
                         </p>
-                        <p>
+                        <p className="text-base md:text-lg">
                             Ngày xưa, mình từng nghĩ code chỉ là gõ phím cho máy chạy. Nhưng sau hàng ngàn bug và những đêm trắng với <code>NullPointerException</code>, mình nhận ra lập trình là một nghệ thuật của tư duy logic và sự kiên nhẫn.
                         </p>
-                        <p>
+                        <p className="text-base md:text-lg">
                             Ngoài những lúc "đắm đuối" với Java & Spring Boot, mình thường dành thời gian để đọc sách công nghệ, tìm hiểu Architecture mới, hoặc đơn giản là nhâm nhi cà phê và suy ngẫm về... tại sao code hôm qua chạy mà hôm nay lại không.
                         </p>
                     </div>
@@ -83,6 +125,19 @@ export default function About() {
                     <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-6">
                         Tại sao là DevOrbit?
                     </h2>
+                    
+                    {/* Giải thích ý nghĩa tên */}
+                    <div className="bg-slate-50 dark:bg-slate-800/50 rounded-xl p-6 mb-6 border border-slate-200 dark:border-slate-700">
+                        <p className="text-lg text-slate-700 dark:text-slate-300 leading-relaxed">
+                            <strong className="text-slate-900 dark:text-white">Dev</strong> = Developer (Lập trình viên) + 
+                            <strong className="text-slate-900 dark:text-white"> Orbit</strong> = Quỹ đạo
+                        </p>
+                        <p className="text-slate-500 dark:text-slate-400 mt-3 italic border-l-2 border-slate-300 dark:border-slate-600 pl-3">
+                            "Code is a universe. I share my orbit." — Thế giới code là một vũ trụ rộng lớn, 
+                            và đây là quỹ đạo riêng của mình, nơi mình xoay quanh những kiến thức, dự án và đam mê công nghệ.
+                        </p>
+                    </div>
+
                     <p className="text-slate-600 dark:text-slate-300 mb-6">
                         Blog này được xây dựng dựa trên 3 nguyên tắc cốt lõi (The 3Cs) mà mình luôn theo đuổi:
                     </p>
@@ -116,18 +171,18 @@ export default function About() {
                         </div>
                     </div>
                 </div>
-            </div>
+            </section>
 
             {/* Section 2: Story & Timeline */}
-            <div className="grid grid-cols-1 md:grid-cols-12 gap-12 mb-32">
+            <section aria-labelledby="timeline-heading" className="grid grid-cols-1 md:grid-cols-12 gap-12 mb-32">
                 <div className="md:col-span-4">
-                    <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-8 sticky top-24">
+                    <h2 id="timeline-heading" className="text-3xl font-bold text-slate-900 dark:text-white mb-8 sticky top-24">
                         Hành trình
                     </h2>
                 </div>
                 <div className="md:col-span-8 border-l border-slate-200 dark:border-slate-800 pl-8 space-y-12">
                     <TimelineItem
-                        year="2026 (3 THÁNG)"
+                        year="2026 (3 - 5 THÁNG)"
                         title="Thực tập sinh Fullstack"
                         description="Tham gia dự án thực tế tại doanh nghiệp. Làm quen với quy trình Agile/Scrum, CI/CD và tối ưu hóa truy vấn Database. Tự học và áp dụng các kiến thức đã học vào dự án thực tế."
                     />
@@ -152,12 +207,12 @@ export default function About() {
                         description="Chập chững những dòng code đầu tiên với C/C++. Niềm đam mê lập trình được thắp sáng từ những bài toán giải thuật."
                     />
                 </div>
-            </div>
+            </section>
 
             {/* Section 3: Tech Stack */}
-            <div className="grid grid-cols-1 md:grid-cols-12 gap-12 mb-32">
+            <section aria-labelledby="tech-heading" className="grid grid-cols-1 md:grid-cols-12 gap-12 mb-32">
                 <div className="md:col-span-4">
-                    <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-8 sticky top-24">
+                    <h2 id="tech-heading" className="text-3xl font-bold text-slate-900 dark:text-white mb-8 sticky top-24">
                         Công nghệ
                     </h2>
                 </div>
@@ -175,21 +230,21 @@ export default function About() {
                         <SkillCard title="Công cụ & Dịch vụ" items={["Git/GitHub", "Docker", "Postman", "IntelliJ IDEA", "Linux", "Vercel"]} />
                     </div>
                 </div>
-            </div>
+            </section>
 
             {/* Section 4: Contact */}
-            <div className="bg-slate-50 dark:bg-slate-900 rounded-3xl p-12 text-center mb-20 border border-slate-100 dark:border-slate-800">
-                <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-6">Kết nối với mình</h2>
+            <section aria-labelledby="contact-heading" className="bg-slate-50 dark:bg-slate-900 rounded-3xl p-12 text-center mb-20 border border-slate-100 dark:border-slate-800">
+                <h2 id="contact-heading" className="text-3xl font-bold text-slate-900 dark:text-white mb-6">Kết nối với mình</h2>
                 <p className="text-lg text-slate-600 dark:text-slate-300 mb-8 max-w-2xl mx-auto">
                     Mình luôn sẵn sàng cho những cơ hội hợp tác mới, hoặc đơn giản là một buổi cà phê tech talk cuối tuần.
                 </p>
-                <div className="flex justify-center gap-6">
+                <nav aria-label="Social media links" className="flex justify-center gap-6">
                     <SocialLink href="https://github.com/trahoangdev" label="GitHub" />
                     <SocialLink href="https://www.linkedin.com/in/trahoangdev/" label="LinkedIn" />
                     <SocialLink href="mailto:trahoangdev@gmail.com" label="Email" />
                     <SocialLink href="https://www.facebook.com/trahoangdev" label="Facebook" />
-                </div>
-            </div>
+                </nav>
+            </section>
 
         </Container>
     );
@@ -222,8 +277,14 @@ const SkillCard = ({ title, items }: { title: string, items: string[] }) => (
     </div>
 );
 
-const SocialLink = ({ href, label }: { href: string, label: string }) => (
-    <a href={href} target="_blank" rel="noreferrer" className="text-slate-900 dark:text-white font-bold hover:text-blue-600 dark:hover:text-blue-400 underline decoration-2 decoration-slate-200 dark:decoration-slate-700 underline-offset-4 transition-all">
+const SocialLink = ({ href, label }: { href: string; label: string }) => (
+    <a
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label={`Kết nối qua ${label}`}
+        className="text-slate-900 dark:text-white font-bold hover:text-blue-600 dark:hover:text-blue-400 underline decoration-2 decoration-slate-200 dark:decoration-slate-700 underline-offset-4 transition-all"
+    >
         {label}
     </a>
 );

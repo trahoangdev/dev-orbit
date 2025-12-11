@@ -1,5 +1,5 @@
 import Footer from "@/app/_components/footer";
-import { SITE_NAME, SITE_DESCRIPTION, HOME_OG_IMAGE_URL, SITE_URL, SITE_KEYWORDS, AUTHOR } from "@/lib/constants";
+import { SITE_NAME, SITE_DESCRIPTION, SITE_URL, SITE_KEYWORDS, AUTHOR } from "@/lib/constants";
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import cn from "classnames";
@@ -94,6 +94,7 @@ export const metadata: Metadata = {
     apple: [
       { url: "/favicon/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
     ],
+    shortcut: "/favicon.ico",
   },
   manifest: "/favicon/site.webmanifest",
   verification: {
