@@ -1,5 +1,5 @@
 import Footer from "@/app/_components/footer";
-import { SITE_NAME, SITE_DESCRIPTION, SITE_URL, SITE_KEYWORDS, AUTHOR } from "@/lib/constants";
+import { SITE_NAME, SITE_DESCRIPTION, HOME_OG_IMAGE_URL, SITE_URL, SITE_KEYWORDS, AUTHOR } from "@/lib/constants";
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import cn from "classnames";
@@ -86,17 +86,8 @@ export const metadata: Metadata = {
     },
   },
   icons: {
-    icon: [
-      { url: "/favicon.ico", sizes: "any" },
-      { url: "/favicon/favicon-16x16.png", sizes: "16x16", type: "image/png" },
-      { url: "/favicon/favicon-32x32.png", sizes: "32x32", type: "image/png" },
-    ],
-    apple: [
-      { url: "/favicon/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
-    ],
-    shortcut: "/favicon.ico",
+    icon: "/favicon.ico",
   },
-  manifest: "/favicon/site.webmanifest",
   verification: {
     // Add your verification codes here
     // google: "your-google-verification-code",

@@ -44,7 +44,7 @@ const certificates: Certificate[] = [
         issuer: "Amazon Web Services Training and Certification",
         date: "2025",
         imageUrl: "/assets/certificates/aws-academy-graduate-cloud-security-foundations.png",
-        credentialUrl: "https://www.credly.com/earner/earned/badge/7847003f-5dda-43ff-9de2-7f5e92f65339",
+        credentialUrl: "https://www.credly.com/badges/7847003f-5dda-43ff-9de2-7f5e92f65339/public_url",
     },
     {
         id: "2",
@@ -52,7 +52,7 @@ const certificates: Certificate[] = [
         issuer: "Cisco",
         date: "2025",
         imageUrl: "/assets/certificates/cisco-js-1.png",
-        credentialUrl: "https://www.credly.com/earner/earned/badge/6ee97492-ca75-42e1-a339-769555eccdc7",
+        credentialUrl: "https://www.credly.com/badges/6ee97492-ca75-42e1-a339-769555eccdc7/public_url",
     },
     {
         id: "3",
@@ -60,7 +60,7 @@ const certificates: Certificate[] = [
         issuer: "Cisco",
         date: "2025",
         imageUrl: "/assets/certificates/cisco-js-2.png",
-        credentialUrl: "https://www.credly.com/earner/earned/badge/f5c59681-9898-4590-9393-7010bf8df381",
+        credentialUrl: "https://www.credly.com/badges/f5c59681-9898-4590-9393-7010bf8df381/public_url",
     },
     {
         id: "4",
@@ -68,7 +68,7 @@ const certificates: Certificate[] = [
         issuer: "Cisco",
         date: "2025",
         imageUrl: "/assets/certificates/cisco-networking.png",
-        credentialUrl: "https://www.credly.com/earner/earned/badge/33f3b395-12cd-42aa-a6f3-4d03ff4c8300",
+        credentialUrl: "https://www.credly.com/badges/33f3b395-12cd-42aa-a6f3-4d03ff4c8300/public_url",
     },
     {
         id: "5",
@@ -76,7 +76,7 @@ const certificates: Certificate[] = [
         issuer: "Cisco",
         date: "2024",
         imageUrl: "/assets/certificates/cisco-cybersecurity.png",
-        credentialUrl: "https://www.credly.com/badges/83c572f4-cbda-4f77-96df-3111494de211",
+        credentialUrl: "https://www.credly.com/badges/83c572f4-cbda-4f77-96df-3111494de211/public_url",
     },
 ];
 

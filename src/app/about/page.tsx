@@ -109,14 +109,14 @@ export default function About() {
                     <h2 id="story-heading" className="text-3xl font-bold text-slate-900 dark:text-white mb-6">
                         Đôi nét về mình
                     </h2>
-                    <div className="prose prose-lg dark:prose-invert text-slate-600 dark:text-slate-300 leading-relaxed space-y-4">
-                        <p className="text-base md:text-lg">
+                    <div className="prose dark:prose-invert text-lg text-slate-600 dark:text-slate-300 leading-relaxed space-y-4">
+                        <p>
                             Mình là một sinh viên năm cuối tại HUTECH, đang đứng ở giao lộ thú vị giữa "Học thuật" và "Thực chiến".
                         </p>
-                        <p className="text-base md:text-lg">
+                        <p>
                             Ngày xưa, mình từng nghĩ code chỉ là gõ phím cho máy chạy. Nhưng sau hàng ngàn bug và những đêm trắng với <code>NullPointerException</code>, mình nhận ra lập trình là một nghệ thuật của tư duy logic và sự kiên nhẫn.
                         </p>
-                        <p className="text-base md:text-lg">
+                        <p>
                             Ngoài những lúc "đắm đuối" với Java & Spring Boot, mình thường dành thời gian để đọc sách công nghệ, tìm hiểu Architecture mới, hoặc đơn giản là nhâm nhi cà phê và suy ngẫm về... tại sao code hôm qua chạy mà hôm nay lại không.
                         </p>
                     </div>
@@ -125,20 +125,20 @@ export default function About() {
                     <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-6">
                         Tại sao là DevOrbit?
                     </h2>
-                    
+
                     {/* Giải thích ý nghĩa tên */}
                     <div className="bg-slate-50 dark:bg-slate-800/50 rounded-xl p-6 mb-6 border border-slate-200 dark:border-slate-700">
                         <p className="text-lg text-slate-700 dark:text-slate-300 leading-relaxed">
-                            <strong className="text-slate-900 dark:text-white">Dev</strong> = Developer (Lập trình viên) + 
+                            <strong className="text-slate-900 dark:text-white">Dev</strong> = Developer (Lập trình viên) +
                             <strong className="text-slate-900 dark:text-white"> Orbit</strong> = Quỹ đạo
                         </p>
-                        <p className="text-slate-500 dark:text-slate-400 mt-3 italic border-l-2 border-slate-300 dark:border-slate-600 pl-3">
-                            "Code is a universe. I share my orbit." — Thế giới code là một vũ trụ rộng lớn, 
+                        <p className="text-lg text-slate-500 dark:text-slate-400 mt-3 italic border-l-2 border-slate-300 dark:border-slate-600 pl-3">
+                            "Code is a universe. I share my orbit." — Thế giới code là một vũ trụ rộng lớn,
                             và đây là quỹ đạo riêng của mình, nơi mình xoay quanh những kiến thức, dự án và đam mê công nghệ.
                         </p>
                     </div>
 
-                    <p className="text-slate-600 dark:text-slate-300 mb-6">
+                    <p className="text-lg text-slate-600 dark:text-slate-300 mb-6">
                         Blog này được xây dựng dựa trên 3 nguyên tắc cốt lõi (The 3Cs) mà mình luôn theo đuổi:
                     </p>
                     <div className="space-y-6">
@@ -148,7 +148,7 @@ export default function About() {
                             </div>
                             <div>
                                 <h3 className="font-bold text-slate-900 dark:text-white">Cốt lõi (Core)</h3>
-                                <p className="text-sm text-slate-600 dark:text-slate-400 mt-1">Không chạy theo trend mù quáng. Tập trung vào kiến thức nền tảng vững chắc.</p>
+                                <p className="text-base text-slate-600 dark:text-slate-400 mt-1">Không chạy theo trend mù quáng. Tập trung vào kiến thức nền tảng vững chắc.</p>
                             </div>
                         </div>
                         <div className="flex gap-4 items-start">
@@ -157,7 +157,7 @@ export default function About() {
                             </div>
                             <div>
                                 <h3 className="font-bold text-slate-900 dark:text-white">Rõ ràng (Clear)</h3>
-                                <p className="text-sm text-slate-600 dark:text-slate-400 mt-1">Viết để chia sẻ, không phải để đánh đố. Đơn giản hóa những khái niệm phức tạp.</p>
+                                <p className="text-base text-slate-600 dark:text-slate-400 mt-1">Viết để chia sẻ, không phải để đánh đố. Đơn giản hóa những khái niệm phức tạp.</p>
                             </div>
                         </div>
                         <div className="flex gap-4 items-start">
@@ -166,7 +166,7 @@ export default function About() {
                             </div>
                             <div>
                                 <h3 className="font-bold text-slate-900 dark:text-white">Thực chiến (Code-first)</h3>
-                                <p className="text-sm text-slate-600 dark:text-slate-400 mt-1">Lý thuyết đi đôi với thực hành. Luôn có demo hoặc code mẫu minh họa.</p>
+                                <p className="text-base text-slate-600 dark:text-slate-400 mt-1">Lý thuyết đi đôi với thực hành. Luôn có demo hoặc code mẫu minh họa.</p>
                             </div>
                         </div>
                     </div>
@@ -257,9 +257,9 @@ const TimelineItem = ({ year, title, description }: { year: string, title: strin
         <span className="absolute -left-[39px] top-1 flex h-5 w-5 items-center justify-center rounded-full bg-white dark:bg-slate-950 ring-4 ring-slate-100 dark:ring-slate-800">
             <span className="h-2 w-2 rounded-full bg-slate-900 dark:bg-slate-100" />
         </span>
-        <span className="text-sm font-bold text-slate-500 dark:text-slate-400 tracking-wider uppercase mb-1 block">{year}</span>
+        <span className="text-base font-bold text-slate-500 dark:text-slate-400 tracking-wider uppercase mb-1 block">{year}</span>
         <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2">{title}</h3>
-        <p className="text-slate-600 dark:text-slate-300 leading-relaxed">{description}</p>
+        <p className="text-lg text-slate-600 dark:text-slate-300 leading-relaxed">{description}</p>
     </div>
 );
 
@@ -268,7 +268,7 @@ const SkillCard = ({ title, items }: { title: string, items: string[] }) => (
         <h3 className="font-bold text-lg text-slate-900 dark:text-white mb-4 border-b border-slate-100 dark:border-slate-800 pb-2">{title}</h3>
         <ul className="space-y-2">
             {items.map(item => (
-                <li key={item} className="text-slate-600 dark:text-slate-400 text-sm font-medium flex items-center gap-2">
+                <li key={item} className="text-slate-600 dark:text-slate-400 text-base font-medium flex items-center gap-2">
                     <span className="w-1.5 h-1.5 bg-slate-400 rounded-full"></span>
                     {item}
                 </li>
