@@ -11,6 +11,10 @@ type Props = {
   excerpt: string;
   author: Author;
   slug: string;
+  tags?: string[];
+  readingTime?: {
+    text: string;
+  };
 };
 
 export function PostPreview({
@@ -20,22 +24,49 @@ export function PostPreview({
   excerpt,
   author,
   slug,
+  tags,
+  readingTime,
 }: Props) {
   return (
-    <div>
-      <div className="mb-5">
+    <div className="group flex flex-col h-full">
+      <div className="mb-5 overflow-hidden rounded-2xl shadow-sm group-hover:shadow-md transition-shadow duration-300">
         <CoverImage slug={slug} title={title} src={coverImage} />
       </div>
-      <h3 className="text-3xl mb-3 leading-snug">
-        <Link href={`/posts/${slug}`} className="hover:underline">
+
+      <div className="flex items-center justify-between gap-4 mb-3">
+        {tags && tags.length > 0 && (
+          <div className="flex flex-wrap gap-2">
+            {tags.slice(0, 2).map(tag => (
+              <span key={tag} className="text-xs font-semibold px-2 py-1 bg-slate-100 dark:bg-slate-800 rounded-full text-slate-600 dark:text-slate-300">
+                #{tag}
+              </span>
+            ))}
+          </div>
+        )}
+        <div className="text-xs font-medium text-slate-400 dark:text-slate-500 flex items-center gap-2 ml-auto">
+          <DateFormatter dateString={date} />
+          {readingTime?.text && (
+            <>
+              <span>•</span>
+              <span>{readingTime.text}</span>
+            </>
+          )}
+        </div>
+      </div>
+
+      <h3 className="text-3xl mb-3 leading-tight font-bold group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+        <Link href={`/posts/${slug}`} className="">
           {title}
         </Link>
       </h3>
-      <div className="text-lg mb-4">
-        <DateFormatter dateString={date} />
+
+      <p className="text-lg leading-relaxed mb-4 text-slate-600 dark:text-slate-400 line-clamp-3">
+        {excerpt}
+      </p>
+
+      <div className="mt-auto pt-4 border-t border-slate-100 dark:border-slate-800">
+        <Avatar name={author.name} picture={author.picture} />
       </div>
-      <p className="text-lg leading-relaxed mb-4">{excerpt}</p>
-      <Avatar name={author.name} picture={author.picture} />
     </div>
   );
 }

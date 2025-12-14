@@ -91,4 +91,4 @@ Nếu bạn đọc xong bài này, làm **Ghost Reader** (đọc chùa) mà khô
 ---
 *Ký tên đóng dấu,*
 **Hoàng Trọng Trà**
-*Thanh niên code dạo trường HUTECH, tác giả của những dòng code đầy bug này.*
+*Thanh niên code dạo, tác giả của những dòng code đầy bug này.*

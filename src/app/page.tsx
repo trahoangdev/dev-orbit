@@ -55,6 +55,8 @@ export default function Index() {
           author={heroPost.author}
           slug={heroPost.slug}
           excerpt={heroPost.excerpt}
+          tags={heroPost.tags}
+          readingTime={heroPost.readingTime}
         />
         {morePosts.length > 0 && <MoreStories posts={morePosts} />}
 
