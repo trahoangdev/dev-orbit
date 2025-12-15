@@ -94,7 +94,7 @@ export default function About() {
                     Hoàng Trọng Trà
                 </h1>
                 <p className="text-xl text-slate-600 dark:text-slate-300 font-medium mb-6">
-                    Fullstack Developer | Software Engineer | AI Engineer | Blogger
+                    Software Engineer | Blogger
                 </p>
                 <p className="text-lg text-slate-500 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed">
                     Chào mừng bạn đến với <strong>DevOrbit</strong>. Đây là nơi mình lưu giữ những kiến thức, kinh nghiệm và góc nhìn cá nhân trên hành trình chinh phục công nghệ.
