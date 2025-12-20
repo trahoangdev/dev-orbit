@@ -5,8 +5,7 @@ import { Intro } from "@/app/_components/intro";
 import { MoreStories } from "@/app/_components/more-stories";
 import { getAllPosts } from "@/lib/api";
 import Pagination from "@/app/_components/pagination";
-
-const POSTS_PER_PAGE = 6; // Config: Number of posts per page
+import { POSTS_PER_PAGE } from "@/lib/constants";
 
 export default function Index() {
   const allPosts = getAllPosts();

@@ -27,3 +27,6 @@ export const AUTHOR = {
 
 // Reading time calculation
 export const WORDS_PER_MINUTE = 200;
+
+// Pagination config
+export const POSTS_PER_PAGE = 6;

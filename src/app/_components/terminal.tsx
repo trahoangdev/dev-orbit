@@ -102,9 +102,9 @@ export const Terminal = () => {
                     <div className="w-3 h-3 rounded-full bg-[#ff5f56]"></div>
                     <div className="w-3 h-3 rounded-full bg-[#ffbd2e]"></div>
                     <div className="w-3 h-3 rounded-full bg-[#27c93f]"></div>
-                    <div className="ml-auto text-xs text-slate-500 font-mono">trahoangdev@orbit ~</div>
+                    <div className="ml-auto text-xs text-slate-400 font-mono">trahoangdev@orbit ~</div>
                 </div>
-                <div className="p-6 font-mono text-sm md:text-base h-64 text-slate-300 overflow-y-auto flex flex-col gap-2">
+                <div className="p-6 font-mono text-sm md:text-base h-64 text-slate-200 overflow-y-auto flex flex-col gap-2">
                     {lines.map((line, index) => (
                         <div key={index} className="break-words">
                             <span className="text-blue-400 mr-2">$</span>

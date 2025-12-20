@@ -4,6 +4,8 @@ import Search from "./search";
 
 import { MobileMenu } from "./mobile-menu";
 
+import { ThemeSwitcher } from "./theme-switcher";
+
 const Header = () => {
   return (
     <header className="flex flex-row items-center justify-between py-6 md:py-12 mb-10 border-b border-slate-100 dark:border-slate-800 relative z-50">
@@ -29,7 +31,7 @@ const Header = () => {
 
       <div className="flex items-center gap-4 md:gap-8">
         {/* Desktop Nav */}
-        <nav className="hidden md:flex items-center gap-6 text-base font-medium text-slate-500 dark:text-slate-400">
+        <nav className="hidden md:flex items-center gap-6 text-base font-medium text-slate-500 dark:text-slate-300">
           <Link href="/" className="hover:text-slate-900 dark:hover:text-white transition-colors">
             Home
           </Link>
@@ -64,6 +66,7 @@ const Header = () => {
         <div className="w-px h-5 bg-slate-200 dark:bg-slate-800 hidden md:block"></div>
 
         <div className="flex items-center gap-2 md:gap-4">
+          <ThemeSwitcher />
           <Search />
           <MobileMenu />
         </div>

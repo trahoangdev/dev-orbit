@@ -1,118 +1,72 @@
 "use client";
 
-import styles from "./switch.module.css";
-import { memo, useEffect, useState } from "react";
+import { useTheme } from "next-themes";
+import { useEffect, useState } from "react";
 
-declare global {
-  var updateDOM: () => void;
-}
-
-type ColorSchemePreference = "system" | "dark" | "light";
-
-const STORAGE_KEY = "nextjs-blog-starter-theme";
-const modes: ColorSchemePreference[] = ["system", "dark", "light"];
-
-/** to reuse updateDOM function defined inside injected script */
-
-/** function to be injected in script tag for avoiding FOUC (Flash of Unstyled Content) */
-export const NoFOUCScript = (storageKey: string) => {
-  /* can not use outside constants or function as this script will be injected in a different context */
-  const [SYSTEM, DARK, LIGHT] = ["system", "dark", "light"];
-
-  /** Modify transition globally to avoid patched transitions */
-  const modifyTransition = () => {
-    const css = document.createElement("style");
-    css.textContent = "*,*:after,*:before{transition:none !important;}";
-    document.head.appendChild(css);
-
-    return () => {
-      /* Force restyle */
-      getComputedStyle(document.body);
-      /* Wait for next tick before removing */
-      setTimeout(() => document.head.removeChild(css), 1);
-    };
-  };
-
-  const media = matchMedia(`(prefers-color-scheme: ${DARK})`);
-
-  /** function to add remove dark class */
-  window.updateDOM = () => {
-    const restoreTransitions = modifyTransition();
-    const mode = localStorage.getItem(storageKey) ?? SYSTEM;
-    const systemMode = media.matches ? DARK : LIGHT;
-    const resolvedMode = mode === SYSTEM ? systemMode : mode;
-    const classList = document.documentElement.classList;
-    if (resolvedMode === DARK) classList.add(DARK);
-    else classList.remove(DARK);
-    document.documentElement.setAttribute("data-mode", mode);
-    restoreTransitions();
-  };
-  window.updateDOM();
-  media.addEventListener("change", window.updateDOM);
-};
-
-let updateDOM: () => void;
-
-/**
- * Switch button to quickly toggle user preference.
- */
-const Switch = () => {
-  const [mode, setMode] = useState<ColorSchemePreference>(
-    () =>
-      ((typeof localStorage !== "undefined" &&
-        localStorage.getItem(STORAGE_KEY)) ??
-        "system") as ColorSchemePreference,
-  );
+export const ThemeSwitcher = () => {
+  const { theme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    // store global functions to local variables to avoid any interference
-    updateDOM = window.updateDOM;
-    /** Sync the tabs */
-    const onStorage = (e: StorageEvent): void => {
-      e.key === STORAGE_KEY && setMode(e.newValue as ColorSchemePreference);
-    };
-    addEventListener("storage", onStorage);
-
-    return () => {
-      removeEventListener("storage", onStorage);
-    };
+    setMounted(true);
   }, []);
 
-  useEffect(() => {
-    localStorage.setItem(STORAGE_KEY, mode);
-    updateDOM();
-  }, [mode]);
+  if (!mounted) {
+    return (
+      <div className="w-9 h-9 md:w-10 md:h-10 rounded-lg bg-slate-100 dark:bg-slate-800 animate-pulse" />
+    );
+  }
 
-  /** toggle mode */
-  const handleModeSwitch = () => {
-    const index = modes.indexOf(mode);
-    setMode(modes[(index + 1) % modes.length]);
-  };
+  const isDark = theme === "dark";
+
   return (
     <button
-      suppressHydrationWarning
-      className={styles.switch}
-      onClick={handleModeSwitch}
-    />
-  );
-};
-
-const Script = memo(() => (
-  <script
-    dangerouslySetInnerHTML={{
-      __html: `(${NoFOUCScript.toString()})('${STORAGE_KEY}')`,
-    }}
-  />
-));
-
-/**
- * This component applies classes and transitions.
- */
-export const ThemeSwitcher = () => {
-  return (
-    <>
-      <Script />
-      <Switch />
-    </>
+      onClick={() => setTheme(isDark ? "light" : "dark")}
+      className="group flex items-center justify-center w-9 h-9 md:w-10 md:h-10 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-all focus:outline-none focus:ring-2 focus:ring-slate-400"
+      aria-label="Toggle Theme"
+      title={isDark ? "Chuyển sang chế độ sáng" : "Chuyển sang chế độ tối"}
+    >
+      {isDark ? (
+        // Moon Icon (Dark Mode) -> Click to switch to Light
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          className="text-slate-400 group-hover:text-yellow-500 transition-colors"
+        >
+          <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
+        </svg>
+      ) : (
+        // Sun Icon (Light Mode) -> Click to switch to Dark
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          className="text-slate-500 group-hover:text-orange-500 transition-colors"
+        >
+          <circle cx="12" cy="12" r="4" />
+          <path d="M12 2v2" />
+          <path d="M12 20v2" />
+          <path d="m4.93 4.93 1.41 1.41" />
+          <path d="m17.66 17.66 1.41 1.41" />
+          <path d="M2 12h2" />
+          <path d="M20 12h2" />
+          <path d="m6.34 17.66-1.41 1.41" />
+          <path d="m19.07 4.93-1.41 1.41" />
+        </svg>
+      )}
+    </button>
   );
 };

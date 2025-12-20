@@ -1,13 +1,13 @@
 ---
 title: "Vì sao mình viết Blog? Hành trình từ 'StackOverflow Copy-Paster' đến người chia sẻ"
 excerpt: "Tâm sự mỏng của một sinh viên năm cuối về lý do bắt đầu con đường 'viết lách' đầy chông gai. Không phải để nổi tiếng, mà để trưởng thành và kết nối."
-coverImage: "/assets/blog/preview/cover.jpg"
+coverImage: "/assets/blog/preview/anonymous-5k.jpg"
 date: "2025-12-09"
 author:
   name: "trahoangdev"
   picture: "/assets/blog/authors/tra.png"
 ogImage:
-  url: "/assets/blog/preview/cover.jpg"
+  url: "/assets/blog/preview/anonymous-5k.jpg"
 tags: ["story", "career", "blogging", "share", "life"]
 ---
 

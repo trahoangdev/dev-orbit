@@ -1,14 +1,17 @@
 "use client";
 
+import { useTheme } from "next-themes";
 import { useEffect, useRef } from "react";
 
-
 export function Comments() {
+    const { resolvedTheme } = useTheme();
     const ref = useRef<HTMLDivElement>(null);
-
+    const mounted = useRef(false);
 
     useEffect(() => {
-        if (!ref.current || ref.current.hasChildNodes()) return;
+        if (!ref.current || mounted.current) return;
+
+        mounted.current = true; // Prevent double injection in Strict Mode
 
         const script = document.createElement("script");
         script.src = "https://giscus.app/client.js";
@@ -16,29 +19,38 @@ export function Comments() {
         script.crossOrigin = "anonymous";
 
         // CẤU HÌNH GISCUS
-        // 1. Truy cập https://giscus.app
-        // 2. Nhập repo: trahoangdev/dev-orbit
-        // 3. Cấp quyền cho Giscus App và kích hoạt Discussions
-        // 4. Chọn Category "General"
-        // 5. Copy data-repo-id và data-category-id vào bên dưới:
-
         script.setAttribute("data-repo", "trahoangdev/dev-orbit");
-
-        // TODO: Thay thế 2 giá trị này bằng ID thật lấy từ giscus.app
         script.setAttribute("data-repo-id", "R_kgDOQlfd2g");
         script.setAttribute("data-category", "General");
         script.setAttribute("data-category-id", "DIC_kwDOQlfd2s4CzlpO");
-
         script.setAttribute("data-mapping", "pathname");
         script.setAttribute("data-strict", "0");
         script.setAttribute("data-reactions-enabled", "1");
         script.setAttribute("data-emit-metadata", "0");
         script.setAttribute("data-input-position", "top");
-        script.setAttribute("data-theme", "light");
+
+        // Set initial theme based on resolvedTheme
+        // Default to 'light' if undefined during SSR/Hydration, but useEffect runs on client so it should be fine.
+        const theme = resolvedTheme === "dark" ? "transparent_dark" : "light";
+        script.setAttribute("data-theme", theme);
+
         script.setAttribute("data-lang", "vi");
 
         ref.current.appendChild(script);
     }, []);
+
+    // Update theme dynamically
+    useEffect(() => {
+        const iframe = document.querySelector<HTMLIFrameElement>("iframe.giscus-frame");
+        if (!iframe) return;
+
+        const newTheme = resolvedTheme === "dark" ? "transparent_dark" : "light";
+
+        iframe.contentWindow?.postMessage(
+            { giscus: { setConfig: { theme: newTheme } } },
+            "https://giscus.app"
+        );
+    }, [resolvedTheme]);
 
     return (
         <div className="mt-16">

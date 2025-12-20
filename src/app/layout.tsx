@@ -167,10 +167,10 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       </head>
       <body
-        className={cn(inter.className, "bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-400")}
+        className={cn(inter.className, "bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-200")}
         suppressHydrationWarning
       >
-        <ThemeProvider attribute="class" forcedTheme="light" enableSystem={false}>
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <div className="min-h-screen flex flex-col justify-between" suppressHydrationWarning>
             <main>{children}</main>
             <Footer />

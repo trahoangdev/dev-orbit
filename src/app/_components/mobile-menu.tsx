@@ -69,7 +69,7 @@ export const MobileMenu = () => {
             {/* Menu Drawer */}
             <div
                 className={cn(
-                    "fixed top-0 right-0 w-3/4 max-w-xs h-full bg-white dark:bg-slate-900 shadow-2xl z-40 transform transition-transform duration-300 ease-in-out pt-24 px-6 border-l border-slate-100 dark:border-slate-800 flex flex-col",
+                    "fixed top-0 right-0 w-3/4 max-w-xs h-full bg-white dark:bg-slate-950 shadow-2xl z-40 transform transition-transform duration-300 ease-in-out pt-24 px-6 border-l border-slate-100 dark:border-slate-800 flex flex-col",
                     isOpen ? "translate-x-0" : "translate-x-full"
                 )}
             >
@@ -79,7 +79,7 @@ export const MobileMenu = () => {
                             key={link.href}
                             href={link.href}
                             target={link.external ? "_blank" : undefined}
-                            className="text-lg font-medium text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-colors pb-4 border-b border-slate-100 dark:border-slate-800 last:border-0"
+                            className="text-lg font-medium text-slate-600 dark:text-slate-200 hover:text-slate-900 dark:hover:text-white transition-colors pb-4 border-b border-slate-100 dark:border-slate-800 last:border-0"
                             onClick={() => setIsOpen(false)}
                         >
                             {link.label}

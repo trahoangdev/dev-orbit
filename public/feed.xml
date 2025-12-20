@@ -1,92 +1,121 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dc="http://purl.org/dc/elements/1.1/">
   <channel>
     <title>DevOrbit</title>
-    <link>devorbitblog.vercel.app</link>
-    <description>DevOrbit — Blog về lập trình Java, JavaScript, TypeScript và các công nghệ web hiện đại.</description>
-    <language>vi</language>
-    <lastBuildDate>Wed, 10 Dec 2025 09:00:17 GMT</lastBuildDate>
-    <atom:link href="devorbitblog.vercel.app/feed.xml" rel="self" type="application/rss+xml"/>
+    <link>https://devorbitblog.vercel.app</link>
+    <description>DevOrbit — Blog về lập trình Java, JavaScript, TypeScript và các công nghệ web hiện đại. Chia sẻ kiến thức Spring Boot, React, Next.js từ một Fullstack Developer.</description>
+    <language>vi-VN</language>
+    <copyright>Copyright 2025 Hoàng Trọng Trà</copyright>
+    <managingEditor>trahoangdev@gmail.com (Hoàng Trọng Trà)</managingEditor>
+    <webMaster>trahoangdev@gmail.com (Hoàng Trọng Trà)</webMaster>
+    <lastBuildDate>Sat, 20 Dec 2025 20:02:02 GMT</lastBuildDate>
+    <ttl>60</ttl>
+    <image>
+      <url>https://devorbitblog.vercel.app/assets/logo/logo.png</url>
+      <title>DevOrbit</title>
+      <link>https://devorbitblog.vercel.app</link>
+    </image>
+    <atom:link href="https://devorbitblog.vercel.app/feed.xml" rel="self" type="application/rss+xml"/>
     
     <item>
       <title><![CDATA[Vì sao mình viết Blog? Hành trình từ 'StackOverflow Copy-Paster' đến người chia sẻ]]></title>
-      <link>devorbitblog.vercel.app/posts/vi-sao-minh-viet-blog</link>
-      <guid isPermaLink="true">devorbitblog.vercel.app/posts/vi-sao-minh-viet-blog</guid>
+      <link>https://devorbitblog.vercel.app/posts/vi-sao-minh-viet-blog</link>
+      <guid isPermaLink="true">https://devorbitblog.vercel.app/posts/vi-sao-minh-viet-blog</guid>
       <description><![CDATA[Tâm sự mỏng của một sinh viên năm cuối về lý do bắt đầu con đường 'viết lách' đầy chông gai. Không phải để nổi tiếng, mà để trưởng thành và kết nối.]]></description>
       <pubDate>Tue, 09 Dec 2025 00:00:00 GMT</pubDate>
-      <author>trahoangdev</author>
+      <author>trahoangdev@gmail.com (trahoangdev)</author>
+      <category>story, career, blogging, share, life</category>
+      <enclosure url="https://devorbitblog.vercel.app/assets/blog/preview/anonymous-5k.jpg" type="image/jpeg" />
     </item>
     <item>
       <title><![CDATA[Spring Security & JWT: Cơ chế Authentication hiện đại cho Microservices]]></title>
-      <link>devorbitblog.vercel.app/posts/spring-security-jwt-basics</link>
-      <guid isPermaLink="true">devorbitblog.vercel.app/posts/spring-security-jwt-basics</guid>
+      <link>https://devorbitblog.vercel.app/posts/spring-security-jwt-basics</link>
+      <guid isPermaLink="true">https://devorbitblog.vercel.app/posts/spring-security-jwt-basics</guid>
       <description><![CDATA[Giải mã kiến trúc stateless của JWT, đi sâu vào Security Filter Chain, triển khai Refresh Token rotation và bảo mật ứng dụng Spring Boot chuẩn Enterprise.]]></description>
       <pubDate>Mon, 08 Dec 2025 00:00:00 GMT</pubDate>
-      <author>trahoangdev</author>
+      <author>trahoangdev@gmail.com (trahoangdev)</author>
+      <category>java, spring-security, security, jwt, backend</category>
+      <enclosure url="https://devorbitblog.vercel.app/assets/blog/preview/spring-security-jwt-basics.png" type="image/jpeg" />
     </item>
     <item>
       <title><![CDATA[TypeScript cho JS Dev: Từ 'AnyScript' đến 'Type Hero']]></title>
-      <link>devorbitblog.vercel.app/posts/typescript-cho-javascript-dev</link>
-      <guid isPermaLink="true">devorbitblog.vercel.app/posts/typescript-cho-javascript-dev</guid>
+      <link>https://devorbitblog.vercel.app/posts/typescript-cho-javascript-dev</link>
+      <guid isPermaLink="true">https://devorbitblog.vercel.app/posts/typescript-cho-javascript-dev</guid>
       <description><![CDATA[Đừng biến TypeScript thành 'AnyScript'. Hướng dẫn toàn diện về Generics, Utility Types (Pick, Omit), kỹ thuật Type Narrowing và tại sao bạn cần bỏ ngay thói quen dùng 'as'.]]></description>
       <pubDate>Mon, 08 Dec 2025 00:00:00 GMT</pubDate>
-      <author>trahoangdev</author>
+      <author>trahoangdev@gmail.com (trahoangdev)</author>
+      <category>typescript, javascript, frontend, tips</category>
+      <enclosure url="https://devorbitblog.vercel.app/assets/blog/preview/js-to-ts.png" type="image/jpeg" />
     </item>
     <item>
       <title><![CDATA[Spring Boot REST API: Những sai lầm 'kém sang' cần loại bỏ ngay]]></title>
-      <link>devorbitblog.vercel.app/posts/spring-boot-rest-thuc-tien</link>
-      <guid isPermaLink="true">devorbitblog.vercel.app/posts/spring-boot-rest-thuc-tien</guid>
+      <link>https://devorbitblog.vercel.app/posts/spring-boot-rest-thuc-tien</link>
+      <guid isPermaLink="true">https://devorbitblog.vercel.app/posts/spring-boot-rest-thuc-tien</guid>
       <description><![CDATA[Đừng chỉ trả về 200 OK cho mọi thứ. Học cách thiết kế REST API chuẩn mực với DTO, Global Exception Handler, N+1 Prevention và Response Wrapper.]]></description>
       <pubDate>Sun, 07 Dec 2025 00:00:00 GMT</pubDate>
-      <author>trahoangdev</author>
+      <author>trahoangdev@gmail.com (trahoangdev)</author>
+      <category>java, spring-boot, backend, api, best-practices</category>
+      <enclosure url="https://devorbitblog.vercel.app/assets/blog/preview/spring-boot-rest-thuc-tien.png" type="image/jpeg" />
     </item>
     <item>
       <title><![CDATA[Next.js & Spring Boot: Kiến trúc tích hợp Frontend - Backend chuẩn Enterprise]]></title>
-      <link>devorbitblog.vercel.app/posts/nextjs-frontend-call-java-api</link>
-      <guid isPermaLink="true">devorbitblog.vercel.app/posts/nextjs-frontend-call-java-api</guid>
+      <link>https://devorbitblog.vercel.app/posts/nextjs-frontend-call-java-api</link>
+      <guid isPermaLink="true">https://devorbitblog.vercel.app/posts/nextjs-frontend-call-java-api</guid>
       <description><![CDATA[Xử lý triệt để vấn đề CORS, bảo mật API Key với Server Component, mô hình BFF (Backend for Frontend) và xây dựng Type-safe Http Client.]]></description>
       <pubDate>Sat, 06 Dec 2025 00:00:00 GMT</pubDate>
-      <author>trahoangdev</author>
+      <author>trahoangdev@gmail.com (trahoangdev)</author>
+      <category>nextjs, java, fullstack, spring-boot, architecture</category>
+      <enclosure url="https://devorbitblog.vercel.app/assets/blog/preview/nextjs-frontend-call-java-api.png" type="image/jpeg" />
     </item>
     <item>
       <title><![CDATA[JavaScript ES6+: Những tính năng 'phải biết' năm 2025]]></title>
-      <link>devorbitblog.vercel.app/posts/javascript-es6-cho-nguoi-moi</link>
-      <guid isPermaLink="true">devorbitblog.vercel.app/posts/javascript-es6-cho-nguoi-moi</guid>
+      <link>https://devorbitblog.vercel.app/posts/javascript-es6-cho-nguoi-moi</link>
+      <guid isPermaLink="true">https://devorbitblog.vercel.app/posts/javascript-es6-cho-nguoi-moi</guid>
       <description><![CDATA[Tổng hợp các tính năng Modern JavaScript (ES6 đến ES15) định hình cách chúng ta code ngày nay: Arrow Functions, Destructuring, Optional Chaining, Nullish Coalescing...]]></description>
       <pubDate>Fri, 05 Dec 2025 00:00:00 GMT</pubDate>
-      <author>trahoangdev</author>
+      <author>trahoangdev@gmail.com (trahoangdev)</author>
+      <category>javascript, frontend, es6, tips</category>
+      <enclosure url="https://devorbitblog.vercel.app/assets/blog/preview/javascript-es6.png" type="image/jpeg" />
     </item>
     <item>
       <title><![CDATA[JavaScript Asynchronous: Giải mã Event Loop & Async Await]]></title>
-      <link>devorbitblog.vercel.app/posts/javascript-async-await</link>
-      <guid isPermaLink="true">devorbitblog.vercel.app/posts/javascript-async-await</guid>
+      <link>https://devorbitblog.vercel.app/posts/javascript-async-await</link>
+      <guid isPermaLink="true">https://devorbitblog.vercel.app/posts/javascript-async-await</guid>
       <description><![CDATA[Hiểu sâu về cơ chế đơn luồng của JS: Call Stack, Web APIs, Microtask Queue và cách làm chủ Async/Await để tránh những lỗi Waterfall chết người.]]></description>
       <pubDate>Thu, 04 Dec 2025 00:00:00 GMT</pubDate>
-      <author>trahoangdev</author>
+      <author>trahoangdev@gmail.com (trahoangdev)</author>
+      <category>javascript, frontend, async, event-loop</category>
+      <enclosure url="https://devorbitblog.vercel.app/assets/blog/preview/javascript-async-await.png" type="image/jpeg" />
     </item>
     <item>
       <title><![CDATA[Java Core: Clean Code & SOLID Principles - Code có Tâm và Tầm]]></title>
-      <link>devorbitblog.vercel.app/posts/java-core-oop</link>
-      <guid isPermaLink="true">devorbitblog.vercel.app/posts/java-core-oop</guid>
+      <link>https://devorbitblog.vercel.app/posts/java-core-oop</link>
+      <guid isPermaLink="true">https://devorbitblog.vercel.app/posts/java-core-oop</guid>
       <description><![CDATA[Viết code chạy được là chưa đủ. Học cách áp dụng SOLID, DRY, KISS và Strategy Pattern để biến mớ code 'Spaghetti' thành kiến trúc nghệ thuật.]]></description>
       <pubDate>Wed, 03 Dec 2025 00:00:00 GMT</pubDate>
-      <author>trahoangdev</author>
+      <author>trahoangdev@gmail.com (trahoangdev)</author>
+      <category>java, oop, clean-code, architecture</category>
+      <enclosure url="https://devorbitblog.vercel.app/assets/blog/preview/java-core-oop.png" type="image/jpeg" />
     </item>
     <item>
       <title><![CDATA[Java Concurrency: Đừng đùa với Đa luồng]]></title>
-      <link>devorbitblog.vercel.app/posts/java-concurrency-co-ban</link>
-      <guid isPermaLink="true">devorbitblog.vercel.app/posts/java-concurrency-co-ban</guid>
+      <link>https://devorbitblog.vercel.app/posts/java-concurrency-co-ban</link>
+      <guid isPermaLink="true">https://devorbitblog.vercel.app/posts/java-concurrency-co-ban</guid>
       <description><![CDATA[Đa luồng (Multi-threading) là con dao hai lưỡi. Tìm hiểu sâu về Race Condition, Memory Visibility, Deadlock và tại sao Virtual Threads (Java 21) là cuộc cách mạng.]]></description>
       <pubDate>Tue, 02 Dec 2025 00:00:00 GMT</pubDate>
-      <author>trahoangdev</author>
+      <author>trahoangdev@gmail.com (trahoangdev)</author>
+      <category>java, concurrency, backend, performance</category>
+      <enclosure url="https://devorbitblog.vercel.app/assets/blog/preview/java-concurrency-co-ban.png" type="image/jpeg" />
     </item>
     <item>
       <title><![CDATA[Tối ưu Java Collections: Cuộc chiến hiệu năng giữa List, Set và Map]]></title>
-      <link>devorbitblog.vercel.app/posts/java-collections-hieu-nang</link>
-      <guid isPermaLink="true">devorbitblog.vercel.app/posts/java-collections-hieu-nang</guid>
+      <link>https://devorbitblog.vercel.app/posts/java-collections-hieu-nang</link>
+      <guid isPermaLink="true">https://devorbitblog.vercel.app/posts/java-collections-hieu-nang</guid>
       <description><![CDATA[Phân tích `ArrayList` vs `LinkedList` ở mức Memory Layout, bí mật `HashMap` hoạt động với Red-Black Tree, và cách chọn Collection đúng đắn để code chạy nhanh như gió.]]></description>
       <pubDate>Mon, 01 Dec 2025 00:00:00 GMT</pubDate>
-      <author>trahoangdev</author>
+      <author>trahoangdev@gmail.com (trahoangdev)</author>
+      <category>java, backend, performance, algorithms</category>
+      <enclosure url="https://devorbitblog.vercel.app/assets/blog/preview/java-collections-hieu-nang.png" type="image/jpeg" />
     </item>
   </channel>
 </rss>
