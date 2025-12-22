@@ -10,6 +10,7 @@ import { PostHeader } from "@/app/_components/post-header";
 import Link from "next/link";
 import { TableOfContents } from "@/app/_components/table-of-contents";
 import { parseHeadings } from "@/lib/toc";
+import { SocialShare } from "@/app/_components/social-share";
 import { Comments } from "@/app/_components/comments";
 import { Breadcrumbs } from "@/app/_components/breadcrumbs";
 import { SITE_URL } from "@/lib/constants";
@@ -88,6 +89,7 @@ export default async function Post(props: {
             {/* Main Content */}
             <div className="lg:col-span-8">
               <PostBody content={content} />
+              <SocialShare slug={post.slug} title={post.title} />
               <Comments />
 
               {/* Tags */}

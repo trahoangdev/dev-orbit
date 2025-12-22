@@ -25,6 +25,19 @@ export function Footer() {
           </div>
 
           <div className="flex items-center gap-6">
+            {/* Sponsor Button */}
+            <a
+              href="https://www.buymeacoffee.com/trahoangdev"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hidden md:flex items-center gap-2 px-4 py-2 bg-yellow-400 hover:bg-yellow-500 text-slate-900 rounded-full text-sm font-bold transition-all shadow-sm hover:shadow-md"
+            >
+              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M20.216 6.415l-.132-.666c-.119-.596-.388-1.163-1.001-1.379-.197-.069-.42-.098-.57-.099-4.152-.032-8.305-.032-12.457 0-.309.006-.635.059-.933.164-.784.305-1.071 1.054-1.205 1.706l-.15 1.256c-.571.167-1.309.805-1.504 1.795-.087 1.488.665 2.855 2.073 2.855h1.96c.74 3.193 2.924 5.239 5.867 5.688.199 1.144-.648 2.05-2.022 2.213-.674.075-1.391.077-2.049.009-.436-.058-.692-.47-.568-.891.109-.371.498-.588.887-.492a2.33 2.33 0 0 1 .491.164c.269.117.502.296.671.512.427.564.291 1.373-.326 1.792-.614.417-1.405.474-2.115.399-2.029-.214-3.527-1.89-3.239-3.953.253-1.808 1.666-3.221 3.447-3.55 3.518-.65 6.007-3.662 6.137-7.234h1.996c1.399 0 2.222-1.306 2.146-2.716-.08-1.536-1.554-1.745-2.094-1.688zM4.686 9.408c-.027-.852.274-1.161.439-1.201l.169-.909c.052-.284.159-.537.369-.691 6.848.068 13.697 0 13.697 0l.138.697c.058.293.003.528-.184.697l.155 1.407h-14.783zm.167 1.838h14.453l-.048.243c-.15 1.815-1.956 3.018-3.673 3.018H8.399c-1.669 0-3.512-1.139-3.695-2.909l-.051-.352z" /></svg>
+              Buy me a coffee
+            </a>
+
+            <div className="w-px h-4 bg-slate-200 dark:bg-slate-800 hidden md:block"></div>
+
             <a
               href="/feed.xml"
               className="text-sm font-medium text-slate-500 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white transition-colors"
@@ -80,7 +93,7 @@ export function Footer() {
           </div>
         </div>
         <div className="py-6 border-t border-slate-100 dark:border-slate-800 flex flex-col md:flex-row items-center justify-between text-xs text-slate-400 dark:text-slate-600">
-          <p>© {new Date().getFullYear()} DevOrbit.  All rights reserved. trahoangdev</p>
+          <p>© {new Date().getFullYear()} DevOrbit. All rights reserved. trahoangdev</p>
           <p>Built with Next.js & Tailwind</p>
         </div>
       </Container>

@@ -25,6 +25,11 @@ export const AUTHOR = {
   ]
 };
 
+export const SPONSOR = {
+  buyMeACoffee: "https://www.buymeacoffee.com/trahoangdev", // Placeholder, user can update
+  github: "https://github.com/sponsors/trahoangdev"
+};
+
 // Reading time calculation
 export const WORDS_PER_MINUTE = 200;
 

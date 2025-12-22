@@ -114,6 +114,6 @@ function generateRssFeed(posts) {
 
 // Main
 const posts = getAllPosts();
-generateSitemap(posts);
+// generateSitemap(posts); // Use App Router sitemap.ts instead
 generateRssFeed(posts);
 console.log(`📝 Processed ${posts.length} posts`);

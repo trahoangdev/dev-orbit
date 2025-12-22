@@ -20,6 +20,8 @@
 - **Icons**: `tech-stack-icons` (cho Tech Stack), SVG icons.
 - **Deployment**: Vercel.
 - **Comments**: Giscus.
+- **PWA**: Hỗ trợ cài đặt ứng dụng trên desktop/mobile.
+- **Social Share**: Chia sẻ bài viết lên Facebook, Twitter, LinkedIn.
 
 ## 📂 Cấu trúc thư mục
 
@@ -76,11 +78,17 @@ Nội dung bài viết sử dụng cú pháp Markdown...
 
 Mọi sự đóng góp đều được hoan nghênh! Vui lòng xem chi tiết tại file [CONTRIBUTING.md](CONTRIBUTING.md).
 
-## � Giấy phép (License)
+##  Giấy phép (License)
 
 Dự án này được cấp phép dưới [MIT License](LICENSE).
 
-## �🔗 Kết nối
+## ☕ Donate/Sponsor
+
+Nếu bạn thấy dự án này hữu ích, hãy cân nhắc mời mình một ly cà phê nhé! Sự ủng hộ của bạn là động lực để mình duy trì và phát triển thêm nhiều nội dung chất lượng.
+
+<a href="https://www.buymeacoffee.com/trahoangdev" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>
+
+## 🌐 Kết nối
 
 - **GitHub**: [trahoangdev](https://github.com/trahoangdev)
 - **Facebook**: [trahoangdev](https://www.facebook.com/trahoangdev)

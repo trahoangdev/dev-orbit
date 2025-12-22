@@ -170,7 +170,7 @@ export default function RootLayout({
         className={cn(inter.className, "bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-200")}
         suppressHydrationWarning
       >
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+        <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false}>
           <div className="min-h-screen flex flex-col justify-between" suppressHydrationWarning>
             <main>{children}</main>
             <Footer />

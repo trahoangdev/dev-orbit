@@ -1,6 +1,0 @@
-# DevOrbit robots.txt
-User-agent: *
-Allow: /
-
-# Sitemap
-Sitemap: devorbitblog.vercel.app/sitemap.xml
