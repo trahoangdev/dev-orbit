@@ -5,7 +5,7 @@ coverImage: "/assets/blog/preview/javascript-es6.png"
 date: "2025-12-05"
 author:
   name: "trahoangdev"
-  picture: "/assets/blog/authors/tra.png"
+  picture: "/assets/blog/authors/tra2.png"
 ogImage:
   url: "/assets/blog/preview/javascript-es6.png"
 tags: ["javascript", "frontend", "es6", "tips"]

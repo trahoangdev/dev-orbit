@@ -5,7 +5,7 @@ coverImage: "/assets/blog/preview/anonymous-5k.jpg"
 date: "2025-12-09"
 author:
   name: "trahoangdev"
-  picture: "/assets/blog/authors/tra.png"
+  picture: "/assets/blog/authors/tra2.png"
 ogImage:
   url: "/assets/blog/preview/anonymous-5k.jpg"
 tags: ["story", "career", "blogging", "share", "life"]

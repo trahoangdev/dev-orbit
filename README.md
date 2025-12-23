@@ -66,7 +66,7 @@ coverImage: "/assets/blog/cover-image.jpg"
 date: "2025-12-10"
 author:
   name: Hoàng Trọng Trà
-  picture: "/assets/blog/authors/tra.png"
+  picture: "/assets/blog/authors/tra2.png"
 ogImage:
   url: "/assets/blog/cover-image.jpg"
 ---

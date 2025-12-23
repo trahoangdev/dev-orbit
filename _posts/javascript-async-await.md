@@ -5,7 +5,7 @@ coverImage: "/assets/blog/preview/javascript-async-await.png"
 date: "2025-12-04"
 author:
   name: "trahoangdev"
-  picture: "/assets/blog/authors/tra.png"
+  picture: "/assets/blog/authors/tra2.png"
 ogImage:
   url: "/assets/blog/preview/javascript-async-await.png"
 tags: ["javascript", "frontend", "async", "event-loop"]

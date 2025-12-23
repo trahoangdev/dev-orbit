@@ -5,7 +5,7 @@ coverImage: "/assets/blog/preview/spring-boot-rest-thuc-tien.png"
 date: "2025-12-07"
 author:
   name: "trahoangdev"
-  picture: "/assets/blog/authors/tra.png"
+  picture: "/assets/blog/authors/tra2.png"
 ogImage:
   url: "/assets/blog/preview/spring-boot-rest-thuc-tien.png"
 tags: ["java", "spring-boot", "backend", "api", "best-practices"]

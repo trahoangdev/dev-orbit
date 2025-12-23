@@ -5,7 +5,7 @@ coverImage: "/assets/blog/preview/js-to-ts.png"
 date: "2025-12-08"
 author:
   name: "trahoangdev"
-  picture: "/assets/blog/authors/tra.png"
+  picture: "/assets/blog/authors/tra2.png"
 ogImage:
   url: "/assets/blog/preview/js-to-ts.png"
 tags: ["typescript", "javascript", "frontend", "tips"]

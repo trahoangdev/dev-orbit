@@ -5,7 +5,7 @@ coverImage: "/assets/blog/preview/nextjs-frontend-call-java-api.png"
 date: "2025-12-06"
 author:
   name: "trahoangdev"
-  picture: "/assets/blog/authors/tra.png"
+  picture: "/assets/blog/authors/tra2.png"
 ogImage:
   url: "/assets/blog/preview/nextjs-frontend-call-java-api.png"
 tags: ["nextjs", "java", "fullstack", "spring-boot", "architecture"]

@@ -5,7 +5,7 @@ coverImage: "/assets/blog/preview/java-core-oop.png"
 date: "2025-12-03"
 author:
   name: "trahoangdev"
-  picture: "/assets/blog/authors/tra.png"
+  picture: "/assets/blog/authors/tra2.png"
 ogImage:
   url: "/assets/blog/preview/java-core-oop.png"
 tags: ["java", "oop", "clean-code", "architecture"]
