@@ -83,7 +83,7 @@ export default function About() {
             <section aria-labelledby="intro-heading" className="flex flex-col items-center text-center max-w-3xl mx-auto my-20">
                 <div className="relative w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden border-4 border-slate-100 dark:border-slate-800 shadow-2xl mb-8">
                     <Image
-                        src="/assets/blog/authors/tra.png"
+                        src="/assets/blog/authors/tra2.png"
                         alt="Ảnh đại diện của Hoàng Trọng Trà - Fullstack Developer"
                         fill
                         className="object-cover"
