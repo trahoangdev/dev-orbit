@@ -16,7 +16,7 @@ export const SITE_KEYWORDS = [
 export const AUTHOR = {
   name: "Hoàng Trọng Trà",
   url: "https://github.com/trahoangdev",
-  image: "/assets/blog/authors/tra.png",
+  image: "/assets/blog/authors/tra2.png",
   jobTitle: "Fullstack Developer",
   sameAs: [
     "https://github.com/trahoangdev",
