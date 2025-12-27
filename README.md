@@ -1,4 +1,3 @@
-
 # DevOrbit — Blog & Portfolio by trahoangdev
 
 **DevOrbit** là không gian cá nhân của mình - nơi chia sẻ kiến thức lập trình, lưu trữ các dự án cá nhân và hành trình phát triển sự nghiệp Fullstack Developer. Dự án được xây dựng dựa trên Next.js (App Router), Markdown và TailwindCSS với giao diện hiện đại, tối giản.
@@ -12,7 +11,7 @@
 - **Chứng chỉ (Certificates)**: Khu vực trưng bày các chứng chỉ chuyên môn và thành tích học tập.
 - **Tiện ích**: Nút cuộn lên đầu trang (Scroll to Top), Modal thông tin dự án (Project Info), Dark Mode.
 - **Chất lượng Code (Engineering)**:
-  - Tự động Format & Lint code với **Prettier** & **ESLint**.
+  - Tự động Format code với **Prettier**.
   - **Husky** & **Lint-staged** ngăn chặn bad commit.
   - **Vitest** cho Unit Testing nhanh chóng.
   - **GitHub Actions** tự động hóa quy trình CI/CD.
@@ -27,7 +26,7 @@
 - **Comments**: Giscus.
 - **PWA**: Hỗ trợ cài đặt ứng dụng trên desktop/mobile.
 - **Social Share**: Chia sẻ bài viết lên Facebook, Twitter, LinkedIn.
-- **Code Quality**: ESLint, Prettier, Husky, Lint-staged.
+- **Code Quality**: Prettier, Husky, Lint-staged.
 - **Testing**: Vitest, React Testing Library.
 - **CI/CD**: GitHub Actions.
 
@@ -46,17 +45,20 @@
 ## 🚀 Chạy dự án
 
 Cài đặt dependencies:
+
 ```bash
 npm install
 ```
 
 Chạy môi trường phát triển:
+
 ```bash
 npm run dev
 # Truy cập http://localhost:3000
 ```
 
 Build cho production:
+
 ```bash
 npm run build
 npm run build
@@ -64,10 +66,8 @@ npm start
 ```
 
 Kiểm tra chất lượng code:
-```bash
-# Chạy Linter
-npm run lint
 
+```bash
 # Format code
 npm run format
 
@@ -82,6 +82,7 @@ npm run analyze
 
 1. Tạo file Markdown trong thư mục `_posts`, ví dụ `_posts/new-post.md`.
 2. Thêm front-matter vào đầu file:
+
 ```yaml
 ---
 title: "Tiêu đề bài viết"
@@ -94,7 +95,6 @@ author:
 ogImage:
   url: "/assets/blog/cover-image.jpg"
 ---
-
 Nội dung bài viết sử dụng cú pháp Markdown...
 ```
 
@@ -102,7 +102,7 @@ Nội dung bài viết sử dụng cú pháp Markdown...
 
 Mọi sự đóng góp đều được hoan nghênh! Vui lòng xem chi tiết tại file [CONTRIBUTING.md](CONTRIBUTING.md).
 
-##  Giấy phép (License)
+## Giấy phép (License)
 
 Dự án này được cấp phép dưới [MIT License](LICENSE).
 
@@ -120,4 +120,5 @@ Nếu bạn thấy dự án này hữu ích, hãy cân nhắc mời mình một 
 - **Email**: [trahoangdev@gmail.com](mailto:trahoangdev@gmail.com)
 
 ---
+
 © 2025 DevOrbit. Built with ❤️ by trahoangdev.

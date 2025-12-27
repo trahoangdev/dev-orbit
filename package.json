@@ -9,7 +9,6 @@
     "analyze": "cross-env ANALYZE=true next build",
     "test": "vitest",
     "generate": "node scripts/generate-static-files.mjs",
-    "lint": "next lint",
     "format": "prettier --write .",
     "prepare": "husky"
   },
@@ -39,7 +38,6 @@
     "unist-util-visit": "^5.0.0"
   },
   "devDependencies": {
-    "@eslint/eslintrc": "^3.3.3",
     "@next/bundle-analyzer": "^16.1.1",
     "@tailwindcss/typography": "^0.5.19",
     "@testing-library/dom": "^10.4.1",
@@ -51,8 +49,6 @@
     "@vitejs/plugin-react": "^5.1.2",
     "autoprefixer": "^10.4.19",
     "cross-env": "^10.1.0",
-    "eslint": "^8.57.1",
-    "eslint-config-next": "^16.1.1",
     "husky": "^9.1.7",
     "jsdom": "^27.4.0",
     "lint-staged": "^16.2.7",
@@ -64,11 +60,7 @@
     "vitest": "^4.0.16"
   },
   "lint-staged": {
-    "*.{js,jsx,ts,tsx}": [
-      "eslint --fix",
-      "prettier --write"
-    ],
-    "*.{json,md}": [
+    "*.{js,jsx,ts,tsx,json,md}": [
       "prettier --write"
     ]
   }
