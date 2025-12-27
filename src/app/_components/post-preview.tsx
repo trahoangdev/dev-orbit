@@ -1,8 +1,11 @@
+"use client";
+
 import { type Author } from "@/interfaces/author";
 import Link from "next/link";
 import Avatar from "./avatar";
 import CoverImage from "./cover-image";
 import DateFormatter from "./date-formatter";
+import { motion } from "framer-motion";
 
 type Props = {
   title: string;
@@ -28,7 +31,14 @@ export function PostPreview({
   readingTime,
 }: Props) {
   return (
-    <div className="group flex flex-col h-full">
+    <motion.div
+      className="group flex flex-col h-full"
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-50px" }}
+      transition={{ duration: 0.5 }}
+      whileHover={{ y: -5 }}
+    >
       <div className="mb-5 overflow-hidden rounded-2xl shadow-sm group-hover:shadow-md transition-shadow duration-300">
         <CoverImage slug={slug} title={title} src={coverImage} />
       </div>
@@ -67,6 +77,6 @@ export function PostPreview({
       <div className="mt-auto pt-4 border-t border-slate-100 dark:border-slate-800">
         <Avatar name={author.name} picture={author.picture} />
       </div>
-    </div>
+    </motion.div>
   );
 }

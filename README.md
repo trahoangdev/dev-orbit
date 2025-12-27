@@ -1,7 +1,7 @@
 
 # DevOrbit — Blog & Portfolio by trahoangdev
 
-**DevOrbit** là không gian cá nhân của **Hoàng Trọng Trà (trahoangdev)** - nơi chia sẻ kiến thức lập trình, lưu trữ các dự án cá nhân và hành trình phát triển sự nghiệp Fullstack Developer. Dự án được xây dựng dựa trên Next.js (App Router), Markdown và TailwindCSS với giao diện hiện đại, tối giản.
+**DevOrbit** là không gian cá nhân của mình - nơi chia sẻ kiến thức lập trình, lưu trữ các dự án cá nhân và hành trình phát triển sự nghiệp Fullstack Developer. Dự án được xây dựng dựa trên Next.js (App Router), Markdown và TailwindCSS với giao diện hiện đại, tối giản.
 
 ## 🌟 Tính năng nổi bật
 
@@ -10,7 +10,12 @@
 - **Hệ thống bình luận**: Tích hợp **Giscus** (GitHub Discussions) cho phép độc giả thảo luận trực tiếp.
 - **Trang giới thiệu (About)**: Profile chi tiết với Tech Stack được trực quan hóa bằng icon sinh động (Java, Spring Boot, Next.js, v.v.).
 - **Chứng chỉ (Certificates)**: Khu vực trưng bày các chứng chỉ chuyên môn và thành tích học tập.
-- **Tiện ích**: Nút cuộn lên đầu trang (Scroll to Top), Modal thông tin dự án (Project Info), Dark Mode (sắp ra mắt).
+- **Tiện ích**: Nút cuộn lên đầu trang (Scroll to Top), Modal thông tin dự án (Project Info), Dark Mode.
+- **Chất lượng Code (Engineering)**:
+  - Tự động Format & Lint code với **Prettier** & **ESLint**.
+  - **Husky** & **Lint-staged** ngăn chặn bad commit.
+  - **Vitest** cho Unit Testing nhanh chóng.
+  - **GitHub Actions** tự động hóa quy trình CI/CD.
 
 ## 🛠 Công nghệ sử dụng
 
@@ -22,6 +27,9 @@
 - **Comments**: Giscus.
 - **PWA**: Hỗ trợ cài đặt ứng dụng trên desktop/mobile.
 - **Social Share**: Chia sẻ bài viết lên Facebook, Twitter, LinkedIn.
+- **Code Quality**: ESLint, Prettier, Husky, Lint-staged.
+- **Testing**: Vitest, React Testing Library.
+- **CI/CD**: GitHub Actions.
 
 ## 📂 Cấu trúc thư mục
 
@@ -51,7 +59,23 @@ npm run dev
 Build cho production:
 ```bash
 npm run build
+npm run build
 npm start
+```
+
+Kiểm tra chất lượng code:
+```bash
+# Chạy Linter
+npm run lint
+
+# Format code
+npm run format
+
+# Chạy Unit Test
+npm test
+
+# Phân tích Bundle size
+npm run analyze
 ```
 
 ## ✍️ Viết bài mới

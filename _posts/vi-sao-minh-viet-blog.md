@@ -76,17 +76,17 @@ Nghe tiêu đề hơi "đa cấp" một tí nhưng thực sự đó là kim ch�
 *   **Cái Tâm**: Mình viết bằng sự chân thành (và đôi khi là sự ức chế tột cùng với bug). Mình muốn chia sẻ những gì thực tế nhất, những "cú lừa", những "cạm bẫy" mình đã dính phải để các bạn đi sau né được. Blog này hoàn toàn phi lợi nhuận, không quảng cáo rác, không clickbait.
 *   **Cái Tầm**: Mình hy vọng **DevOrbit** sẽ là cuốn nhật ký sống động ghi lại hành trình trưởng thành của mình. Từ một cậu sinh viên code dạo đến một Fullstack Developer chuyên nghiệp. Để sau này, 5 năm hay 10 năm nữa nhìn lại: *"À, hóa ra ngày xưa mình cũng từng ngây ngô và nhiệt huyết đến thế."*
 
-## 5. Lời nhắn gửi cuối cùng 🔪
+## 5. Lời nhắn gửi
 
 Cảm ơn bạn đã kiên nhẫn đọc đến tận đây (hoặc scroll chuột xuống đây). Sự hiện diện của bạn là động lực rất lớn cho mình.
 
 *   Nếu bạn thấy bài viết hay/vui/có ích: Hãy **Share** nó cho bạn bè.
-*   Nếu bạn thấy sai/dở/ngu ngơ: Hãy **Comment** chửi nhiệt tình (nhớ nhẹ tay và kèm solution fix giúp mình nhé 🥺).
+*   Nếu bạn thấy sai/dở/ngu ngơ: Hãy **Comment** chửi nhiệt tình (nhớ nhẹ tay và kèm solution fix giúp mình nhé).
 
 ⚠️ **Cảnh báo vui**: 
 Nếu bạn đọc xong bài này, làm **Ghost Reader** (đọc chùa) mà không để lại bất kỳ tương tác một chiếc reaction nào... hãy cẩn thận. Có thể tối nay, ngay trước khi bạn định đi ngủ, **Production sẽ bị sập**, **Server sẽ Time Out**, hoặc **Deadline sẽ bị Boss dời lên sớm 3 ngày** đấy!
 
-*Just kidding (or not).* 😉
+*Just kidding (or not).*
 
 ---
 *Ký tên đóng dấu,*
