@@ -1,6 +1,11 @@
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { getAllPosts, getPostBySlug, getMorePosts, getRelatedPosts } from "@/lib/api";
+import {
+  getAllPosts,
+  getPostBySlug,
+  getMorePosts,
+  getRelatedPosts,
+} from "@/lib/api";
 import markdownToHtml from "@/lib/markdownToHtml";
 import Alert from "@/app/_components/alert";
 import Container from "@/app/_components/container";
@@ -8,6 +13,7 @@ import Header from "@/app/_components/header";
 import { PostBody } from "@/app/_components/post-body";
 import { PostHeader } from "@/app/_components/post-header";
 import Link from "next/link";
+import Image from "next/image";
 import { TableOfContents } from "@/app/_components/table-of-contents";
 import { parseHeadings } from "@/lib/toc";
 import { SocialShare } from "@/app/_components/social-share";
@@ -31,7 +37,7 @@ export default async function Post(props: {
   const relatedPosts = getRelatedPosts(params.slug);
 
   return (
-    <main className="bg-white dark:bg-slate-950 min-h-screen">
+    <main className="min-h-screen bg-white dark:bg-slate-950">
       <Alert preview={post.preview} />
       <Container>
         <Header />
@@ -85,7 +91,7 @@ export default async function Post(props: {
             }}
           />
 
-          <div className="lg:grid lg:grid-cols-12 lg:gap-12 pt-8">
+          <div className="pt-8 lg:grid lg:grid-cols-12 lg:gap-12">
             {/* Main Content */}
             <div className="lg:col-span-8">
               <PostBody content={content} />
@@ -94,13 +100,13 @@ export default async function Post(props: {
 
               {/* Tags */}
               {post.tags && post.tags.length > 0 && (
-                <div className="mt-12 pt-8 border-t border-slate-200 dark:border-slate-800">
+                <div className="mt-12 border-t border-slate-200 pt-8 dark:border-slate-800">
                   <div className="flex flex-wrap gap-2">
-                    {post.tags.map(tag => (
+                    {post.tags.map((tag) => (
                       <Link
                         key={tag}
                         href={`/tags/${tag}`}
-                        className="bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-blue-100 dark:hover:bg-blue-900 hover:text-blue-700 dark:hover:text-blue-300 px-3 py-1 rounded-full text-sm font-medium transition-colors"
+                        className="rounded-full bg-slate-100 px-3 py-1 text-sm font-medium text-slate-700 transition-colors hover:bg-blue-100 hover:text-blue-700 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-blue-900 dark:hover:text-blue-300"
                       >
                         #{tag}
                       </Link>
@@ -110,20 +116,30 @@ export default async function Post(props: {
               )}
 
               {/* Next / Prev Navigation */}
-              <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div className="mt-12 grid grid-cols-1 gap-8 md:grid-cols-2">
                 {prevPost && (
-                  <Link href={`/posts/${prevPost.slug}`} className="group block p-6 border border-slate-200 dark:border-slate-800 rounded-xl hover:border-blue-500 transition-colors text-left">
-                    <span className="text-sm text-slate-500 dark:text-slate-400 block mb-2">← Bài trước</span>
-                    <h4 className="font-bold text-lg text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors line-clamp-2">
+                  <Link
+                    href={`/posts/${prevPost.slug}`}
+                    className="group block rounded-xl border border-slate-200 p-6 text-left transition-colors hover:border-blue-500 dark:border-slate-800"
+                  >
+                    <span className="mb-2 block text-sm text-slate-500 dark:text-slate-400">
+                      ← Bài trước
+                    </span>
+                    <h4 className="line-clamp-2 text-lg font-bold text-slate-900 transition-colors group-hover:text-blue-600 dark:text-white dark:group-hover:text-blue-400">
                       {prevPost.title}
                     </h4>
                   </Link>
                 )}
 
                 {nextPost && (
-                  <Link href={`/posts/${nextPost.slug}`} className={`group block p-6 border border-slate-200 dark:border-slate-800 rounded-xl hover:border-blue-500 transition-colors text-right ${!prevPost ? 'md:col-start-2' : ''}`}>
-                    <span className="text-sm text-slate-500 dark:text-slate-400 block mb-2">Bài tiếp theo →</span>
-                    <h4 className="font-bold text-lg text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors line-clamp-2">
+                  <Link
+                    href={`/posts/${nextPost.slug}`}
+                    className={`group block rounded-xl border border-slate-200 p-6 text-right transition-colors hover:border-blue-500 dark:border-slate-800 ${!prevPost ? "md:col-start-2" : ""}`}
+                  >
+                    <span className="mb-2 block text-sm text-slate-500 dark:text-slate-400">
+                      Bài tiếp theo →
+                    </span>
+                    <h4 className="line-clamp-2 text-lg font-bold text-slate-900 transition-colors group-hover:text-blue-600 dark:text-white dark:group-hover:text-blue-400">
                       {nextPost.title}
                     </h4>
                   </Link>
@@ -132,7 +148,7 @@ export default async function Post(props: {
             </div>
 
             {/* Sidebar TOC */}
-            <div className="hidden lg:block lg:col-span-4 relative">
+            <div className="relative hidden lg:col-span-4 lg:block">
               <TableOfContents items={toc} />
             </div>
           </div>
@@ -140,23 +156,39 @@ export default async function Post(props: {
 
         {/* Related Posts */}
         {relatedPosts.length > 0 && (
-          <section className="mb-32 border-t border-slate-200 dark:border-slate-800 pt-16">
-            <h2 className="text-3xl font-bold mb-8 text-slate-900 dark:text-white">Bài viết liên quan</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {relatedPosts.map(post => (
+          <section className="mb-32 border-t border-slate-200 pt-16 dark:border-slate-800">
+            <h2 className="mb-8 text-3xl font-bold text-slate-900 dark:text-white">
+              Bài viết liên quan
+            </h2>
+            <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+              {relatedPosts.map((post) => (
                 <div key={post.slug} className="group">
-                  <div className="bg-slate-100 dark:bg-slate-800 aspect-[16/9] mb-4 rounded-lg overflow-hidden">
+                  <div className="mb-4 aspect-[16/9] overflow-hidden rounded-lg bg-slate-100 dark:bg-slate-800">
                     <Link href={`/posts/${post.slug}`}>
-                      <img src={post.coverImage} alt={post.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                      <Image
+                        src={post.coverImage}
+                        alt={post.title}
+                        width={800}
+                        height={450}
+                        className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      />
                     </Link>
                   </div>
-                  <h3 className="font-bold text-xl mb-2 leading-snug">
-                    <Link href={`/posts/${post.slug}`} className="text-slate-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+                  <h3 className="mb-2 text-xl font-bold leading-snug">
+                    <Link
+                      href={`/posts/${post.slug}`}
+                      className="text-slate-900 transition-colors hover:text-blue-600 dark:text-white dark:hover:text-blue-400"
+                    >
                       {post.title}
                     </Link>
                   </h3>
                   <div className="text-sm text-slate-500 dark:text-slate-400">
-                    {new Date(post.date).toLocaleDateString('vi-VN', { year: 'numeric', month: 'long', day: 'numeric' })}
+                    {new Date(post.date).toLocaleDateString("vi-VN", {
+                      year: "numeric",
+                      month: "long",
+                      day: "numeric",
+                    })}
                   </div>
                 </div>
               ))}
@@ -194,10 +226,10 @@ export async function generateMetadata(props: {
       images: [
         {
           url: `${SITE_URL}/api/og?title=${encodeURIComponent(post.title)}&date=${encodeURIComponent(
-            new Date(post.date).toLocaleDateString('en-US', {
-              year: 'numeric',
-              month: 'long',
-              day: 'numeric',
+            new Date(post.date).toLocaleDateString("en-US", {
+              year: "numeric",
+              month: "long",
+              day: "numeric",
             })
           )}&author=${encodeURIComponent(post.author.name)}`,
           width: 1200,
@@ -213,10 +245,10 @@ export async function generateMetadata(props: {
       description,
       images: [
         `${SITE_URL}/api/og?title=${encodeURIComponent(post.title)}&date=${encodeURIComponent(
-          new Date(post.date).toLocaleDateString('en-US', {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric',
+          new Date(post.date).toLocaleDateString("en-US", {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
           })
         )}&author=${encodeURIComponent(post.author.name)}`,
       ],

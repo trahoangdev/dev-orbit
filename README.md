@@ -18,7 +18,7 @@
 
 ## 🛠 Công nghệ sử dụng
 
-- **Core**: Next.js 15 (App Router), React 19, TypeScript.
+- **Core**: Next.js 16 (App Router), React 19, TypeScript.
 - **Styling**: TailwindCSS 3.4.
 - **Content**: Markdown, remarks/html.
 - **Icons**: `tech-stack-icons` (cho Tech Stack), SVG icons.
@@ -60,7 +60,6 @@ npm run dev
 Build cho production:
 
 ```bash
-npm run build
 npm run build
 npm start
 ```

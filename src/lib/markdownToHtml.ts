@@ -4,6 +4,7 @@ import rehypeSlug from "rehype-slug";
 import rehypeStringify from "rehype-stringify";
 import remarkGfm from "remark-gfm";
 import rehypePrettyCode from "rehype-pretty-code";
+import rehypeSanitize, { defaultSchema } from "rehype-sanitize";
 import { rehypeWindow } from "./rehype-window";
 import { rehypeImgLazy } from "./rehype-img-lazy";
 
@@ -11,6 +12,14 @@ export default async function markdownToHtml(markdown: string) {
   const result = await remark()
     .use(remarkGfm)
     .use(remarkRehype)
+    // Sanitize markdown-generated HTML tree before additional rendering transforms.
+    .use(rehypeSanitize, {
+      ...defaultSchema,
+      attributes: {
+        ...defaultSchema.attributes,
+        code: [...(defaultSchema.attributes?.code || []), ["className"]],
+      },
+    })
     .use(rehypePrettyCode, {
       theme: "github-dark",
       keepBackground: false, // We handle background in our wrapper
